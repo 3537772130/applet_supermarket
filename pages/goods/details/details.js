@@ -18,11 +18,11 @@ Page({
     visible1: false,
     actions1: [{
         name: '分享到好物圈',
-        icon: 'share',
-        openType: 'share'
+        icon: 'share'
       },
       {
-        name: '发送给朋友'
+        name: '发送给朋友',
+        openType: 'share'
       }
     ]
   },
@@ -54,7 +54,7 @@ Page({
             fileList: res.data.data.fileList,
             specsList: res.data.data.specsList,
             specs: res.data.data.specsList[0],
-            countPrice: res.data.data.specsList[0].actualPrice
+            countPrice: res.data.data.specsList[0].sellPrice
           })
           wx.setNavigationBarTitle({
             title: res.data.data.info.goodsName //页面标题为路由参数
@@ -86,6 +86,12 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
+    var that = this
+    setInterval(function() {
+      that.setData({
+        timestamp: app.getTimestamp()
+      })
+    }, 180 * 1000)
   },
 
   /**
@@ -120,7 +126,63 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    var that = this;
+    var shareObj = {
+      title: this.data.info.goodsName,
+      path: '/pages/goods/details/details?id=' + this.data.info.id,
+      imgUrl: this.data.path + this.data.info.coverSrc,
+      success: function(res) {
+        if (res.errMsg == 'shareAppMessage:ok') {
+          wx.showToast({
+            title: '分享成功',
+            icon: 'success'
+          });
+        }
+      },
+      fail: function(res) {
+        if (res.errMsg == 'shareAppMessage:fail cancel') {
+          console.info("用户取消分享...")
+        } else if (res.errMsg == 'shareAppMessage:fail') {
+          console.info("用户分享失败...", res)
+        }
+      }
+    }
+    return shareObj;
+  },
+  shareHWQ: function() {
+    if (wx.openBusinessView) {
+      var fileList = this.data.fileList
+      var srcList = []
+      for (var i = 0; i < fileList.length; i++) {
+        var file = fileList[i]
+        if (file.fileType == 1 && file.fileSrc != null) {
+          srcList.push(file.fileSrc)
+        }
+      }
+      wx.openBusinessView({
+        businessType: 'friendGoodsRecommend',
+        extraData: {
+          product: {
+            item_code: this.data.info.id, //物品id 唯一
+            title: this.data.info.goodsName, // 物品名称
+            image_list: srcList
+          }
+        },
+        success: function(res) {
+          if (res.errCode === 1) {
+            wx.showToast({
+              title: '推荐成功'
+            });
+          }
+        },
+        fail: function(res) {
+          wx.showToast({
+            title: '推荐失败',
+            icon: 'none'
+          });
+        }
+      })
+    }
   },
   carouselChage: function(e) {
     this.setData({
@@ -189,7 +251,7 @@ Page({
     specsNumber = specsNumber > 99 ? 99 : specsNumber
     this.setData({
       specsNumber: specsNumber,
-      countPrice: this.data.specs.actualPrice * specsNumber
+      countPrice: this.data.specs.sellPrice * specsNumber
     })
   },
   reduceSpecsNumber: function() {
@@ -197,10 +259,10 @@ Page({
     specsNumber = specsNumber < 1 ? 1 : specsNumber
     this.setData({
       specsNumber: specsNumber,
-      countPrice: this.data.specs.actualPrice * specsNumber
+      countPrice: this.data.specs.sellPrice * specsNumber
     })
   },
-  inputRemark: function(event){
+  inputRemark: function(event) {
     this.setData({
       remark: event.detail.value
     })
@@ -233,65 +295,6 @@ Page({
         break;
     }
   },
-  shareHWQ: function() {
-    if (wx.openBusinessView) {
-      var fileList = this.data.fileList
-      var srcList = []
-      for (var i = 0; i < fileList.length; i++) {
-        var file = fileList[i]
-        if (file.fileType == 1 && file.fileSrc != null) {
-          srcList.push(file.fileSrc)
-        }
-      }
-      wx.openBusinessView({
-        businessType: 'friendGoodsRecommend',
-        extraData: {
-          product: {
-            item_code: this.data.info.id, //物品id 唯一
-            title: this.data.info.goodsName, // 物品名称
-            image_list: srcList
-          }
-        },
-        success: function(res) {
-          if (res.errCode === 1) {
-            wx.showToast({
-              title: '推荐成功'
-            });
-          }
-        },
-        fail: function(res) {
-          wx.showToast({
-            title: '推荐失败',
-            icon: 'none'
-          });
-        }
-      })
-    }
-  },
-  onShareAppMessage: function(options) {　　
-    var that = this;
-    var shareObj = {　　　　
-      title: this.data.info.goodsName,
-      path: '/pages/goods/details/details?id=' + this.data.info.id,
-      imgUrl: this.data.path + this.data.info.coverSrc,
-      success: function(res) {
-        if (res.errMsg == 'shareAppMessage:ok') {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'success'
-          });
-        }　　　　
-      },
-      fail: function(res) {
-        if (res.errMsg == 'shareAppMessage:fail cancel') {　　　　　
-          console.info("用户取消分享...")　
-        } else if (res.errMsg == 'shareAppMessage:fail') {
-          console.info("用户分享失败...", res)
-        }　　　　
-      }
-    }
-    return shareObj;
-  },
   addCart: function() {
     var goods = {
       id: this.data.info.id,
@@ -303,27 +306,27 @@ Page({
         id: this.data.specs.id,
         specsText: this.data.specs.specsText,
         specsSrc: this.data.specs.specsSrc,
-        actualPrice: this.data.specs.actualPrice
+        actualPrice: this.data.specs.sellPrice
       }
     }
     var bool = true
     var list = []
     var goodsList = app.globalData.cartGoodsList
     for (var i = 0; i < goodsList.length; i++) {
-      if (goodsList[i].id == goods.id){
+      if (goodsList[i].id == goods.id) {
         bool = false
         list.push(goods)
       } else {
         list.push(goodsList[i])
       }
     }
-    if (bool){
+    if (bool) {
       list.push(goods)
     }
     app.globalData.cartGoodsList = list
     this.setData({
       specs: this.data.specsList[0],
-      countPrice: this.data.specsList[0].actualPrice,
+      countPrice: this.data.specsList[0].sellPrice,
       specsNumber: 1,
       chooseSpecsIndex: 0,
       remark: ''

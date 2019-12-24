@@ -21,6 +21,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     this.setData({
       mobile: app.globalData.userInfo.mobile,
       current: 'tab1'

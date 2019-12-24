@@ -19,6 +19,7 @@ Page({
    */
   onLoad: function() {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     this.setData({
       path: app.globalData.path,
       height: app.globalData.height

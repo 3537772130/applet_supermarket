@@ -17,7 +17,10 @@
     <view class="img-carousel-number">{{carouselIndex + "/" + fileList.length}}</view>
   </view>
   <view class="info-details">
-    <!-- <view>活动图</view> -->
+    <view class="name-details">
+      <view class="name-icon">精选</view>
+      {{info.goodsName}}
+    </view>
     <view class="price-details">￥
       <text class="price">{{filters.toFix(info.minPrice)}}</text>
       <text class="price" wx:if="{{info.maxPrice > info.minPrice}}"> - {{filters.toFix(info.maxPrice)}}</text>
@@ -27,10 +30,7 @@
       </view>
       <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
     </view>
-    <view class="name-details">
-      <view class="name-icon">精选</view>
-      {{info.goodsName}}
-    </view>
+    <view class="describe-str">{{info.describeStr}}</view>
   </view>
   <view class="specs-info">
     <view class="shop-preferential">优惠</view>
@@ -51,7 +51,7 @@
         <view class="drawer_content">
           <view class="specs-img">
             <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;"></image>
-            <view class="specs-price">￥{{filters.toFix(specs.actualPrice)}}</view>
+            <view class="specs-price">￥{{filters.toFix(specs.sellPrice)}}</view>
             <view class="specs-divider"></view>
           </view>
           <view class="specs-datas">

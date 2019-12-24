@@ -44,8 +44,6 @@
 
 .info-details > .price-details > .share {
   float: right;
-  position: relative;
-  right: -10px;
 }
 
 .info-details > .price-details > .share > image {
@@ -62,7 +60,7 @@
 .info-details > .name-details {
   font-size: 16px;
   font-weight: bold;
-  margin: 0px 10px;
+  padding: 10px 20px 0px 20px;
 }
 
 .info-details > .name-details > .name-icon {
@@ -75,6 +73,13 @@
   font-size: 12px;
   position: relative;
   top: -3px;
+}
+
+.info-details > .describe-str{
+  padding: 0px 20px;
+  font-size: 14px;
+  color: #cdcdcd;
+  text-indent: 20px;
 }
 
 .specs-info {

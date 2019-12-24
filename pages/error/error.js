@@ -16,6 +16,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     this.setData({
       code: options.code,
       msg: options.msg

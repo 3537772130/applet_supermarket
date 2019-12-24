@@ -21,6 +21,7 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     wx.showLoading({
       title: '加载中',
     })

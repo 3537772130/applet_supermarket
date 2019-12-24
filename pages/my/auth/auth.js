@@ -15,6 +15,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     wx.setNavigationBarTitle({
       title: '授权' //页面标题为路由参数
     })

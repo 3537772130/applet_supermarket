@@ -15,6 +15,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     var info = JSON.parse(options.info)
     this.setData({
       info: info

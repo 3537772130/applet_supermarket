@@ -14,6 +14,8 @@ Page({
       mobile: '17601301913',
       region: '上海市上海市松江区',
       address: '虬泾路899弄象屿都城48栋702室',
+      lon: 0.0000,
+      lat: 0.0000,
       label: 1,
       isDefault: true
     }
@@ -24,6 +26,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     var json = options.json
     this.setData({
       list: JSON.parse(json)

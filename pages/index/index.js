@@ -7,6 +7,7 @@ Page({
 
   },
   onLoad: function () {
+    wx.hideShareMenu()
     wx.showLoading({
       title: '正在跳转页面',
       mask: true

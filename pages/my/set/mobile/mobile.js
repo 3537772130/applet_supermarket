@@ -16,6 +16,7 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     var ifBind = false
     var userInfo = app.globalData.userInfo
     if (userInfo.mobile) {

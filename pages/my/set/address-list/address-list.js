@@ -23,6 +23,8 @@ Page({
         mobile: '17601301913',
         region: '上海市上海市松江区',
         address: '虬泾路899弄象屿都城48栋702室',
+        lon: 0.0000,
+        lat: 0.0000,
         label: 1,
         isDefault: true
       },
@@ -32,6 +34,8 @@ Page({
         mobile: '18374254725',
         region: '江苏省无锡市滨湖区',
         address: '经贸路天竺花苑(A区)85栋1903室',
+        lon: 0.0000,
+        lat: 0.0000,
         label: 2,
         isDefault: false
       }
@@ -43,6 +47,7 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     var that = this
     var id = setTimeout(function () {
       that.setData({
