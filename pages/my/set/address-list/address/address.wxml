@@ -1,0 +1,49 @@
+<!--pages/my/set/address-list/address/address.wxml-->
+<view class="form-container">
+  <form bindsubmit="formSubmitInfo">
+    <view class="form-item">
+      <view class="item-label">收 货 人</view>
+      <view class="item-input">
+        <input name="nickName" maxlength="5" placeholder="请输入收货人" value="{{info.name}}"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">联系号码</view>
+      <view class="item-input">
+        <input name="nickName" type="number" maxlength="11" placeholder="请输入联系号码" value="{{info.mobile}}"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">所在地区</view>
+      <view class="item-input">
+        <input name="nickName" type="number" placeholder="请选择所在地区" value="{{info.region}}" bindtap="loadLocation"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">详细地址</view>
+      <view class="item-input">
+        <input name="email" maxlength="50" placeholder="请输入详细地址" value="{{info.address}}"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">地址标签</view>
+      <view class="item-input">
+        <view class="label-text" style="{{info.label == 1 ? ('background-color: ' + color + ';border: 1px ' + color + ' solid;color: #FFFFFF;'):''}}" bindtap="chooseLabel" data-label="1">家</view>
+        <view class="label-text" style="{{info.label == 2 ? ('background-color: ' + color + ';border: 1px ' + color + ' solid;color: #FFFFFF;'):''}}" bindtap="chooseLabel" data-label="2">公司</view>
+        <view class="label-text" style="{{info.label == 3 ? ('background-color: ' + color + ';border: 1px ' + color + ' solid;color: #FFFFFF;'):''}}" bindtap="chooseLabel" data-label="3">学校</view>
+        <view class="label-text" style="{{info.label == 4 ? ('background-color: ' + color + ';border: 1px ' + color + ' solid;color: #FFFFFF;'):''}}" bindtap="chooseLabel" data-label="4">其他</view>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">设置默认</view>
+      <view class="item-input">
+        <switch color="{{color}}" checked="{{info.isDefault}}" bindchange="switch1Change"/>
+      </view>
+    </view>
+    <view class="form-item form-item-none">
+      <view class="item-submit">
+        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+      </view>
+    </view>
+  </form>
+</view>

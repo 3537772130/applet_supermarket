@@ -1,0 +1,30 @@
+<!--pages/my/set/address/address.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
+<view class="del-tip" wx:if="{{showTip}}">← 滑动删除</view>
+<view class="i-swipeout-demo">
+  <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for='{{list}}' wx:for-index='index' wx:key='address' bindchange='deleteAddress' data-id='{{item.id}}' data-name='{{item.name}}'>
+  <view class="list-item" slot="content">
+    <view class="item-content">
+      <view class="c-user">
+        <view class="u-text">{{item.name}}</view>
+        <view class="u-text">{{filters.sub(item.mobile, 0, 3) + '****' + filters.sub(item.mobile, 7, 11)}}</view>
+        <view class="u-text u-def" wx:if="{{item.isDefault}}">默认</view>
+        <view class="u-text u-label" wx:if="{{item.label == 1}}">家</view>
+        <view class="u-text u-label" wx:if="{{item.label == 2}}">公司</view>
+        <view class="u-text u-label" wx:if="{{item.label == 3}}">学校</view>
+        <view class="u-text u-label" wx:if="{{item.label == 4}}">其他</view>
+      </view>
+      <view class="c-address">{{item.region + " " + item.address}}</view>
+    </view>
+    <view class="item-icon">
+      <!-- <image src="/images/my/update.png" bindtap="loadAddress" data-index="{{index}}"></image> -->
+      <i-icon type="editor" size="22" color="#000000" bindtap="loadAddress" data-index="{{index}}" />
+    </view>
+  </view>
+  </i-swipeout>
+</view>
+<view class="form-item form-item-none">
+  <view class="item-submit">
+    <button style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="loadAddress" data-index="-1">新建收货地址</button>
+  </view>
+</view>

@@ -1,0 +1,28 @@
+/* pages/my/set/info/info.wxss */
+@import "/pages/style.wxss";
+
+page {
+  background-color: #fff;
+}
+
+.info-heard {
+  width: 100%;
+  height: 150px;
+}
+
+.info-heard > .heard-img {
+  width: 100%;
+  height: 150px;
+  border-radius: 0px 0px 30% 30%;
+  text-align: center;
+}
+
+.info-heard > .heard-img > image{
+  width: 80px;
+  height: 80px;
+  border-radius: 45px;
+  border: 5px solid transparent;
+  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+  margin-top: 30px;
+}

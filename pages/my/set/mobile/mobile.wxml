@@ -1,0 +1,57 @@
+<!--pages/my/set/mobile/mobile.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
+<view wx:if="{{ifBind}}">
+  <view class="bind-img">
+    <image src="/images/my/bind_mobile_{{filters.sub(color, 1, 7)}}.png"></image>
+  </view>
+  <view class="bind-mobile">绑定的手机号：{{mobile}}</view>
+  <view class="bind-but">
+    <button style="background-color: {{color}};" bindtap="showBingMobile">更换手机号</button>
+  </view>
+</view>
+<view wx:else>
+  <view class="cozy-tip">
+    <view>温馨提示：</view>
+    <view style="text-indent: 20px;">绑定未注册的手机号码，系统将自动注册为用户，登录密码默认为手机后6位，为了您的账户安全，请立即修改密码。</view>
+  </view>
+  <view class="form-container">
+    <form bindsubmit="formSubmit">
+      <view class="form-item">
+        <view class="item-label">手机号码</view>
+        <view class="item-input">
+          <input name="mobile" type="number" maxlength="11" placeholder="请输入手机号码" bindinput="changeMobile"></input>
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="item-label">图 形 码</view>
+        <view class="item-code">
+          <input maxlength="4" placeholder="请输入图形码" bindinput="changeFigureCode"></input>
+        </view>
+        <view class="item-image" bindtap="initDraw">
+          <canvas style="width: 80px;height: 25px;top: 6px;" canvas-id="canvas"></canvas>
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="item-label">验 证 码</view>
+        <view class="item-code">
+          <input name="verifyCode" type="number" maxlength="6" placeholder="请输入验证码"></input>
+        </view>
+        <view class="item-but">
+          <button style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="sendVerifyCode">发送</button>
+        </view>
+      </view>
+      <view class="form-item" wx:if="{{mobileStatus == '0'}}">
+        <view style="height: 20px;"></view>
+        <view class="item-label">推荐号码</view>
+        <view class="item-input">
+          <input name="rmdMobile" type="number" maxlength="11" placeholder="推荐手机号码(选填)"></input>
+        </view>
+      </view>
+      <view class="form-item form-item-none">
+        <view class="item-submit">
+          <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+        </view>
+      </view>
+    </form>
+  </view>
+</view>

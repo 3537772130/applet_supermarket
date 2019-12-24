@@ -1,0 +1,33 @@
+<!--pages/cart/settlement/settlement.wxml-->
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<view>
+  <view class="settlement-heard">
+    <view class="heard-address">
+      <view class="h-first">
+        <view class="f-def" wx:if="{{site.isDefault}}">默认</view>
+        <view class="f-label" wx:if="{{site.label === 1}}">家</view>
+        <view class="f-label" wx:if="{{site.label === 5}}">公司</view>
+        <view class="f-label" wx:if="{{site.label === 3}}">学校</view>
+        <view class="f-label" wx:if="{{site.label === 4}}">其他</view>
+        <view class="f-region">{{site.region}}</view>
+      </view>
+      <view class="h-two">{{site.address}}</view>
+      <view class="h-three">
+        <view class="t-name">{{site.name}}</view>
+        <view class="t-mobile">{{filters.sub(site.mobile, 0, 3) + '****' + filters.sub(site.mobile, 7, 11)}}</view>
+      </view>
+    </view>
+    <view class="heard-icon">
+      <i-icon type="enter" size="28" color="#80848f" />
+    </view>
+  </view>
+  <view class="paly-type">
+    <view class="t-title">支付方式</view>
+    <view class="t-name">
+      {{playType === 1 ? '在线支付':'货到付款'}}
+      <i-icon type="more" size="28" color="#00000" />
+    </view>
+  </view>
+  <view></view>
+  <view></view>
+</view>

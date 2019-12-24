@@ -1,0 +1,45 @@
+<!--pages/my/set/info/info.wxml-->
+<view class="info-heard">
+  <view class="heard-img" style="background-color: {{color}};">
+    <image src="{{userInfo.avatarUrl + timestamp}}" bindtap="uploadImage"></image>
+  </view>
+</view>
+<view class="form-container">
+  <form bindsubmit="formSubmitInfo">
+    <view class="form-item">
+      <view class="item-label">昵 称</view>
+      <view class="item-input">
+        <input name="nickName" placeholder="昵称长度为1-20个字符" value="{{userInfo.nickName}}"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">性 别</view>
+      <view class="item-input">
+        <radio-group class="radio-group" bindchange="radioChange">
+          <radio class="radio" color="{{color}}" wx:for-items="{{sexItems}}" wx:key="index" value="{{item.value}}" checked="{{item.checked}}">
+            <text>{{item.name}}</text>
+          </radio>
+        </radio-group>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">生 日</view>
+      <view class="item-input">
+        <picker mode="date" value="{{birthday}}" start="1900-01-01" end="2099-12-31" bindchange="bindDateChange">
+          <view class="picker">{{birthday}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">邮 箱</view>
+      <view class="item-input">
+        <input name="email" placeholder="邮箱长度为6-20个字符" value="{{userInfo.email}}"></input>
+      </view>
+    </view>
+    <view class="form-item form-item-none">
+      <view class="item-submit">
+        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+      </view>
+    </view>
+  </form>
+</view>

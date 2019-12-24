@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/main/main",
+    "pages/cart/cart",
+    "pages/goods/classify/classify",
+    "pages/my/my",
+    "pages/goods/details/details",
+    "pages/introduce/introduce",
+    "pages/logs/logs",
+    "pages/main/about-seller/about-seller",
+    "pages/main/group-buying-today/group-buying-today",
+    "pages/main/search/search",
+    "pages/test/test",
+    "pages/error/error",
+    "pages/my/auth/auth",
+    "pages/my/set/set",
+    "pages/my/set/info/info",
+    "pages/my/set/pass/pass",
+    "pages/my/set/mobile/mobile",
+    "pages/my/set/theme/theme",
+    "pages/my/set/address-list/address-list",
+    "pages/my/set/address-list/address/address",
+    "pages/my/set/location/location",
+    "pages/cart/settlement/settlement"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#CDCDCD",
+    "selectedColor": "#CDCDCD",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "iconPath": "images/menu/home_canceled.png",
+        "selectedIconPath": "images/menu/home_canceled.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/goods/classify/classify",
+        "iconPath": "images/menu/cate_canceled.png",
+        "selectedIconPath": "images/menu/cate_canceled.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "iconPath": "images/menu/cart_canceled.png",
+        "selectedIconPath": "images/menu/cart_canceled.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/menu/member_canceled.png",
+        "selectedIconPath": "images/menu/member_canceled.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

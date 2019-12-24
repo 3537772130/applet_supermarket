@@ -1,0 +1,25 @@
+<!--pages/my/set/theme/theme.wxml-->
+<view>
+  <view class="theme-title">主题色彩</view>
+  <view class="theme-color">
+    <view class="option" style="border: {{color == '#1afa29' ? '1px #1afa29 solid':'none'}};" bindtap="previewColor" data-color="#1afa29">
+      <view class="option-color" style="background-color: #1afa29;"></view>
+      <view class="option-text" style="color: #1afa29;">春绿</view>
+    </view>
+    <view class="option" style="border: {{color == '#1296db' ? '1px #1296db solid':'none'}};" bindtap="previewColor" data-color="#1296db">
+      <view class="option-color" style="background-color: #1296db;"></view>
+      <view class="option-text" style="color: #1296db;">天蓝</view>
+    </view>
+    <view class="option" style="border: {{color == '#fd8403' ? '1px #fd8403 solid':'none'}};" bindtap="previewColor" data-color="#fd8403">
+      <view class="option-color" style="background-color: #fd8403;"></view>
+      <view class="option-text" style="color: #fd8403;">明黄</view>
+    </view>
+    <view class="option" style="border: {{color == '#ff6347' ? '1px #ff6347 solid':'none'}};" bindtap="previewColor" data-color="#ff6347">
+      <view class="option-color" style="background-color: #ff6347;"></view>
+      <view class="option-text" style="color: #ff6347;">番茄</view>
+    </view>
+  </view>
+  <view class="theme-but">
+    <button style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="subColor">提交</button>
+  </view>
+</view>

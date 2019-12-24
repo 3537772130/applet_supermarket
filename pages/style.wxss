@@ -1,0 +1,124 @@
+page {
+  background-color: #e6e6e6;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+/**
+* 表单
+*/
+
+.form-container{
+  padding: 30px 20px;
+}
+
+.form-item{
+  border-bottom: 1px #e6e6e6 solid;
+  padding: 5px 0px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.form-item-none{
+  border: none;
+}
+
+.form-item >.item-label{
+  display: inline-table;
+  width: 18%;
+  height:25px;
+  line-height: 25px;
+  text-align: right;
+  font-size: 12px;
+}
+.form-item > .item-input{
+  display: inline-table;
+  width: 75%;
+  height: 25px;
+  line-height: 25px;
+  margin-left: 3%;
+}
+
+.form-item > .item-input > input{
+  font-size: 12px;
+  border: none;
+}
+
+
+
+.form-item > .item-submit {
+  margin: auto;
+  height: 50px;
+  padding-top: 50px;
+}
+
+.form-item > .item-submit > button {
+  margin: auto;
+  width: 180px;
+  height: 30px;
+  line-height: 30px;
+  letter-spacing: 5px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.form-item > .item-input > text {
+  display: inline-table;
+  font-size: 14px;
+  width: 180px;
+}
+
+.form-item > .item-input > .radio-group > .radio{
+  transform:scale(0.8);
+  margin-right: 10px;
+}
+
+.form-item > .item-input .picker{
+  font-size: 12px;
+}
+
+.form-item > .item-code {
+  display: inline-table;
+  width: 40%;
+  height: 25px;
+  text-align: left;
+  margin-left: 3%;
+}
+
+.form-item > .item-code > input {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font-size: 12px;
+}
+
+.form-item > .item-image {
+  display: inline-table;
+  width: 80px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.form-item > .item-image > image {
+  width: 80px;
+  height: 25px;
+}
+
+.form-item > .item-but {
+  display: inline-table;
+  width: 80px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.form-item > .item-but > button {
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  color: #FFFFFF;
+  font-size: 12px;
+  letter-spacing: 5px;
+  position: relative;
+  top: 5rpx;
+}

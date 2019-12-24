@@ -1,0 +1,180 @@
+<!--pages/main/main.wxml-->
+<wxs module="filters" src="../filter.wxs"></wxs>
+<!-- <navigator url='/pages/test/test'>去测试页</navigator> -->
+<view class='body'>
+  <block wx:for='{{mainList}}' wx:for-item='info' wx:key='info'>
+<!-- 图文标题 -->
+    <view class='img-text-title' wx:if='{{info.id == "img-text-title"}}'>
+      <image src='{{path + info.list[0].icon + timestamp}}'></image>
+      <view class='title' style="background-image: -webkit-linear-gradient({{biColor}});">{{info.title}}</view>
+      <view class='remark' style="background-image: -webkit-linear-gradient({{biColor}});" wx:if='{{info.describe}}'> | {{info.describe}}</view>
+    </view>
+    <!-- 图片标题 -->
+    <view class="img-title" wx:if='{{info.id == "img-title"}}'>
+      <image src="{{path + info.list[0].icon + timestamp}}" bindtap="loadGoodsDetails" data-id="{{info.list[0].goodsId}}"></image>
+    </view>
+    <!-- Divider分隔符标题 -->
+    <view class='divider-title' wx:if='{{info.id == "divider-title"}}'>
+      <view class='i-divider'>
+        <view class='i-divider-content'>{{info.title}}</view>
+        <view class='i-divider-line'></view>
+      </view>
+    </view>
+
+    <!-- 搜索栏 -->
+    <view class='goods-search' wx:if='{{info.id == "goods-search"}}'>
+      <view class='s-case'>
+        <i-icon type="search" size="24" color="#cdcdcd" />
+        <view class='s-text'>搜索商品</view>
+      </view>
+    </view>
+    <!-- 轮播图 -->
+    <view class='img-carousel' wx:if='{{info.id == "img-carousel"}}'>
+      <view class='rotation-chart'>
+        <swiper autoplay='true' circular='true' interval='5000' indicator-color='#FFFFFF' indicator-active-color='#EE0000' display-multiple-items='1' style='height: 150px;'>
+          <block wx:for='{{info.list}}' wx:key='info'>
+            <swiper-item>
+              <image src='{{path + item.icon + timestamp}}' class='rotation-pic' bindtap='loadGoodsDetails' data-id='{{item.goodsId}}'></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+    <!-- 通告栏 -->
+    <view class='notice-bar' wx:if='{{info.id == "notice-bar"}}'>
+      <i-notice-bar icon="systemprompt" color="{{color}}" loop>{{info.describe}}</i-notice-bar>
+    </view>
+    <!-- 分类栏(三排) -->
+    <view class='type-frame' wx:if='{{info.id == "type-frame-three"}}'>
+      <block wx:for='{{info.list}}' wx:key='info'>
+        <view class='type-details' style="width: 32%;" bindtap='loadGoodsType' data-id='{{item.id}}'>
+          <view class='type-pic'>
+            <image src='{{path + item.icon + timestamp}}'></image>
+          </view>
+          <view class='type-text'>{{item.name}}</view>
+        </view>
+      </block>
+    </view>
+    <!-- 分类栏(四排) -->
+    <view class='type-frame' wx:if='{{info.id == "type-frame-four"}}'>
+      <block wx:for='{{info.list}}' wx:key='info'>
+        <view class='type-details' bindtap='{{item.event}}' data-id='{{item.id}}'>
+          <view class='type-pic'>
+            <image src='{{path + item.icon + timestamp}}'></image>
+          </view>
+          <view class='type-text'>{{item.name}}</view>
+        </view>
+      </block>
+    </view>
+    
+    <!-- 推荐商品(双排) -->
+    <view class='goods-palace-module' wx:if='{{info.id == "goods-two-row"}}'>
+      <view class='goods-module'>
+        <block wx:for='{{info.list}}' wx:key='info'>
+          <view class='goods-details' bindtap='loadGoodsDetails' data-id='{{item.id}}'>
+            <view class='goods-pic'>
+              <image src='{{path + item.goodsIcon + timestamp}}'></image>
+            </view>
+            <view class='goods-text goods-price'>
+              ￥{{filters.toFix(item.minPrice)}}
+              <block wx:if='{{item.maxPrice > item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
+            </view>
+            <view class='goods-text goods-name'>{{item.name}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- 推荐商品(三排) -->
+    <view class='goods-palace-module' wx:if='{{info.id == "goods-three-row"}}'>
+      <view class='goods-module'>
+        <block wx:for='{{info.list}}' wx:key='info'>
+          <view class='goods-details' style="width: 33.3%;" bindtap='loadGoodsDetails' data-id='{{item.id}}'>
+            <view class='goods-pic'>
+              <image src='{{path + item.goodsIcon + timestamp}}' style="width: 95px;height: 95px;"></image>
+            </view>
+            <view class='goods-text goods-price'>
+              ￥{{filters.toFix(item.minPrice)}}
+              <block wx:if='{{item.maxPrice > 0 && item.maxPrice != item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
+            </view>
+            <view class='goods-text goods-name'>{{item.name}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- 推荐商品滑动模块（竖) -->
+    <view class='goodsY-scroll' wx:if='{{info.id == "goodsY-scroll"}}'>
+      <view class='goods-module'>
+        <scroll-view class='goods-scroll' scroll-x='true' style='width: {{width}}px;'>
+          <block wx:for='{{info.list}}' wx:key='info'>
+            <view class='goods-details' bindtap='loadGoodsDetails' data-id='{{item.id}}'>
+              <view class='goods-pic'>
+                <image src='{{path + item.goodsIcon + timestamp}}'></image>
+              </view>
+              <view class='goods-text goods-price'>
+                ￥{{filters.toFix(item.minPrice)}}
+                <block wx:if='{{item.maxPrice > 0 && item.maxPrice != item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
+              </view>
+              <view class='goods-text goods-name'>{{item.name}}</view>
+            </view>
+          </block>
+          <view class='image-fill'></view>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- 推荐图片滑动模块(横) -->
+    <view class='image-scroll-module' wx:if='{{info.id == "imgX-scroll"}}'>
+      <view class='image-module'>
+        <scroll-view class='image-scroll' scroll-x='true' style='width: {{width}}px;'>
+          <view class='image-fill'></view>
+          <block wx:for='{{info.list}}' wx:key='info'>
+            <view class='image-pack' bindtap='loadGoodsDetails' data-id='{{item.goodsId}}'>
+              <image style='width: 220px;height: 100px;' src='{{path + item.icon + timestamp}}'></image>
+            </view>
+          </block>
+          <view class='image-fill'></view>
+        </scroll-view>
+      </view>
+    </view>
+
+
+
+
+    <!-- 团购商品(滑动模块) -->
+    <view class='goods-scroll-module' wx:if='{{info.configId == 9}}'>
+      <view class='goods-module'>
+        <scroll-view class='goods-scroll' scroll-x='true' style='width: {{width}}px;'>
+          <block wx:for='{{info.list}}' wx:key='info'>
+            <view class='goods-details' bindtap='{{item.event}}' data-id='{{item.objectId}}'>
+              <view class='goods-pic'>
+                <image src='{{item.imgUrl + timestamp}}'></image>
+              </view>
+              <view class='goods-text goods-name'>{{item.name}}</view>
+              <view class='goods-text group-goods-price'>
+                <image src='/images/group-buying.png'></image>
+                <text>￥{{filters.toFix(item.minPrice)}}</text>
+              </view>
+            </view>
+          </block>
+          <view class='image-fill'></view>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- 团购商品(宫格模块) -->
+    <view class='goods-palace-module' wx:if='{{info.configId == 11}}'>
+      <view class='goods-module'>
+        <block wx:for='{{info.list}}' wx:key='info'>
+          <view class='goods-details' bindtap='{{item.event}}' data-id='{{item.objectId}}'>
+            <view class='goods-pic'>
+              <image src='{{item.imgUrl + timestamp}}'></image>
+            </view>
+            <view class='goods-text goods-name'>{{item.name}}</view>
+            <view class='goods-text group-goods-price'>
+              <image src='/images/group-buying.png'></image>
+              <text>￥{{filters.toFix(item.minPrice)}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+</view>

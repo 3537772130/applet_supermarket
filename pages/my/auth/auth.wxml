@@ -1,0 +1,9 @@
+<!--pages/my/auth/auth.wxml-->
+<!-- <open-data type="userAvatarUrl"></open-data>
+<open-data type="userNickName"></open-data> -->
+<view class="applet-logo">
+  <image src="{{logo}}"></image>
+</view>
+<!-- 需要使用 button 来授权登录 -->
+<button class="applet-auth" wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" style="background-color: {{color}};border: 1px {{color}} solid;">授权登录</button>
+<view class="wx-upgrade" wx:else>请升级微信版本</view>

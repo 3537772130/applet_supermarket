@@ -1,0 +1,52 @@
+/* pages/my/set/theme/theme.wxss */
+
+page {
+  background-color: #fff;
+}
+
+.theme-title{
+  margin: 40px 20px 0px 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.theme-color{
+  margin: 20px 40px;
+}
+
+.theme-color > .option{
+  display: inline-table;
+  width: 49.5%;
+  height: 50px;
+  margin: auto;
+  padding: 20px 0px;
+  border-radius: 5px;
+}
+
+
+.theme-color > .option > .option-color{
+  width: 40px;
+  height: 20px;
+  margin: auto;
+}
+
+.option-text{
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.theme-but{
+  text-align: center;
+  height: 50px;
+}
+
+.theme-but > button{
+  width: 180px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 5px;
+}

@@ -1,0 +1,28 @@
+/**页面工具 */
+var filters = {
+  // 保留两位小数
+  toFix: function(val) {
+    return val.toFixed(2)
+  },
+  // 自定义小数位长度
+  toFixCustom: function(val, length) {
+    return val.toFixed(length)
+  },
+  // 转化为数值
+  toNumber: function(val) {
+    return parseInt(val);
+  },
+  sub: function(val, sIndex, eIndex) {
+    if (val && val != undefined && val.length != 0) {
+      return val.substring(sIndex, eIndex);
+    }
+    return;
+  }
+}
+
+module.exports = {
+  toFix: filters.toFix,
+  toFixCustom: filters.toFixCustom,
+  toNumber: filters.toNumber,
+  sub: filters.sub
+}

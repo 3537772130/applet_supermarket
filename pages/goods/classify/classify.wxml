@@ -1,0 +1,65 @@
+<!--pages/classify/classify.wxml-->
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<block wx:for='{{classifyInfo}}' wx:for-item='info' wx:key='info'>
+  <!-- 商品分类-滑动吸顶 -->
+  <view wx:if='{{info.id == 1}}'>
+    <view class='type-tab' style='height: {{height-35}}px;color: {{color}};'>
+      <scroll-view scroll-y='true' scroll-into-view='type{{typePostion1}}' style='height: {{height-35}}px;'>
+        <block wx:for='{{info.typeList}}' wx:for-item='type' wx:key='type1' wx:for-index='typeIndex'>
+          <view id='type{{type.id}}' class='tab-text {{typePostion1 == type.id ? "tab-this":""}}' bindtap='onClickTypePostion' data-id='{{type.id}}'>{{type.typeName}}</view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class='goods-list'>
+      <scroll-view scroll-y='true' scroll-into-view='goodsType{{typePostion2}}' bindscroll='onChangeScroll' style='height: {{height}}px;'>
+        <view class="i-sticky-demo">
+          <i-sticky scrollTop="{{scrollTop}}">
+            <i-sticky-item i-class="i-sticky-demo-title" wx:for='{{info.typeList}}' wx:for-item='type' wx:key='type2' wx:for-index='typeIndex'>
+              <view id='goodsType{{type.id}}' style="color: {{color}};" bindtap='onClickGoodsTypePostion' data-id='{{type.id}}' slot="title">
+                {{type.typeName}}
+              </view>
+              <view slot="content">
+                <view class="i-sticky-demo-item i-sticky-goods" wx:for='{{info.goodsList}}' wx:for-item='goods' wx:key='goods' wx:if='{{goods.typeId == type.id}}' bindtap="loadGoodsDetails" data-id="{{goods.id}}">
+                  <view class='goods-pic'>
+                    <image src='{{path + goods.coverSrc + timestamp}}'></image>
+                  </view>
+                  <view class='goods-text goods-price'>
+                    ￥{{filters.toFix(goods.minPrice)}}
+                    <block wx:if='{{goods.maxPrice > 0 && goods.maxPrice != goods.minPrice}}'> - {{filters.toFix(goods.maxPrice)}}</block>
+                  </view>
+                  <view class='goods-text'>{{goods.goodsName}}</view>
+                </view>
+              </view>
+            </i-sticky-item>
+          </i-sticky>
+        </view>
+        <view class='goods-bottom'></view>
+      </scroll-view>
+    </view>
+  </view>
+  <!-- 商品分类-普通 -->
+  <view wx:if='{{info.id == 2}}'>
+    <view class='type-tab' style='height: {{height-35}}px;'>
+      <scroll-view scroll-y='true' scroll-into-view='type{{typePostion1}}' style='height: {{height-35}}px;'>
+        <block wx:for='{{info.typeList}}' wx:for-item='type' wx:key='type1' wx:for-index='typeIndex'>
+          <view id='type{{typeIndex}}' class='tab-text {{typeId == type.id ? "tab-this":""}}' bindtap='onClickType' data-id='{{type.id}}'>{{type.name}}</view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class='goods-list'>
+      <scroll-view scroll-y='true' scroll-into-view='goodsType{{typePostion2}}' bindscroll='onChangeScroll' style='height: {{height}}px;'>
+        <view class="i-sticky-goods" wx:for='{{info.goodsList}}' wx:for-item='goods' wx:key='goods' wx:if='{{goods.typeId == typeId}}'>
+          <view class='goods-pic'>
+            <image src='{{goods.imgUrl + timestamp}}'></image>
+          </view>
+          <view class='goods-text'>{{goods.name}}</view>
+          <view class='goods-text goods-price'>
+            ￥{{filters.toFix(goods.minPrice)}}
+            <block wx:if='{{goods.maxPrice > 0 && goods.maxPrice != goods.minPrice}}'> - {{filters.toFix(goods.maxPrice)}}</block>
+          </view>
+        </view>
+        <view class='goods-bottom'></view>
+      </scroll-view>
+    </view>
+  </view>
+</block>

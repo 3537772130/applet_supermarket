@@ -1,0 +1,14 @@
+<!--pages/error/error.wxml-->
+<view wx:if="{{code == '0'}}">
+  <view class="error-img-div">
+    <image src="/images/naughty.png" class="error-img"></image>
+  </view>
+  <view class="error-text">{{msg}}</view>
+</view>
+
+<view wx:if="{{code == '-1'}}">
+  <view class="error-img-div">
+    <image src="/images/small_bean_ding.png" class="error-img"></image>
+  </view>
+  <view class="error-text">{{msg}}</view>
+</view>

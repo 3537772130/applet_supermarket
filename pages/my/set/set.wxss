@@ -1,0 +1,16 @@
+/* pages/my/set/set.wxss */
+@import "/pages/weui.wxss";
+@import "/pages/style.wxss";
+
+page {
+  background-color: #fff;
+}
+
+.user-set {
+  background-color: #fff;
+}
+
+.merchant-set {
+  background-color: #fff;
+  border-top: 5px #e6e6e6 solid;
+}

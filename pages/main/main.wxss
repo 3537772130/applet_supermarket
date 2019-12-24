@@ -1,0 +1,466 @@
+/* pages/main/main.wxss */
+@import "/pages/weui.wxss";
+@import "/pages/style.wxss";
+
+/**
+* 标题栏
+*/
+
+.tab-title {
+  width: 100%;
+  background-color: #fff;
+}
+
+/**
+* 轮播图 - 通用
+*/
+
+.rotation-chart {
+  width: 100%;
+  background-color: #fff;
+}
+
+.img-carousel {
+  width: 100%;
+  background-color: #fff;
+}
+
+.rotation-pic {
+  width: 100%;
+  height: 100%;
+}
+
+/**
+* 通告栏
+*/
+
+.notice-bar {
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px #e6e6e6 solid;
+  border-bottom: 1px #e6e6e6 solid;
+}
+
+/**
+* 搜索栏
+*/
+
+.goods-search {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 5px;
+}
+
+.s-case {
+  width: 90%;
+  height: 30px;
+  line-height: 30px;
+  margin: auto;
+  padding: 5px 10px;
+  background-color: #fff;
+  margin-top: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.s-case > i-icon{
+  position: relative;
+  top: -1px;
+}
+
+.s-text {
+  display: inline-block;
+  font-size: 16px;
+  color: #cdcdcd;
+}
+
+/**
+* 普通居中标题模块
+*/
+
+.divider-title{
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.divider-title>.i-divider{
+  width: 100%;
+  height: 48px;
+  color: #ed3f14;
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-title>.i-divider>.i-divider-content{
+  background-color: #fff;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0 10px;
+  font-family: '幼圆';
+  height: 45px;
+}
+
+.divider-title>.i-divider>.i-divider-line{
+  position: absolute;
+  left: 0;
+  width: 90%;
+  margin: 0px 5%;
+  height: 1rpx;
+  background: #cdcdcd;
+  top: 50%;
+}
+
+
+/**
+* 带图片的标题模块
+*/
+
+.img-text-title {
+  width: 100%;
+  height: 58px;
+  line-height: 58px;
+  padding-left: 10px;
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+.img-text-title>image {
+  width: 48px;
+  height: 48px;
+  margin: 5px;
+  display: inline-block;
+}
+
+.img-text-title>view {
+  display: inline-block;
+  height: 58px;
+  line-height: 58px;
+}
+
+.img-text-title>.title {
+  font-size: 18px;
+  font-weight: bold;
+  position: relative;
+  top: -20px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.img-text-title>.remark {
+  height: 50px;
+  line-height: 50px;
+  padding-top: 8px;
+  font-size: 14px;
+  color: #8c939d;
+  margin-left: 5px;
+  overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+  white-space: nowrap; /* 不换行 */
+  text-overflow: ellipsis;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/**
+* 图片标题
+*/
+.img-title{
+  height: 120px;
+}
+
+.img-title > image{
+  width: 100%;
+  height: 120px;
+}
+
+
+
+/**
+* 商品-滑动通用模块
+*/
+
+.goodsY-scroll {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.goodsY-scroll>.goods-module {
+  width: 100%;
+  height: 220px;
+  padding-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.goods-scroll {
+  height: 220px;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.goods-scroll .goods-details {
+  width: 140px;
+  margin-left: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border-top: 1px #b2b2b2 solid;
+  border-left: 1px #b2b2b2 solid;
+  display: inline-table;
+  box-shadow: 3px 3px 6px #b2b2b2;
+}
+
+.goods-scroll .goods-details>.goods-pic {
+  width: 100%;
+  height: 120px;
+  text-align: center;
+}
+
+.goods-scroll .goods-details>.goods-pic image {
+  width: 110px;
+  height: 110px;
+  margin: 10px 10px 0px 10px;
+  border-radius: 5px;
+}
+
+.goods-scroll .goods-details>.goods-text{
+  margin: auto;
+  width: 110px;
+  height: 20px;
+  font-size: 12px;
+}
+
+.goods-scroll .goods-details>.goods-name {
+  height: 37px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+  margin-bottom: 10px;
+}
+
+.goods-scroll .goods-details>.goods-price{
+  color: #ff6347;
+  font-size: 12px;
+  position: relative;
+  top: -3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.goods-scroll .goods-details>.group-goods-price {
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 5px;
+}
+
+.goods-scroll .goods-details>.group-goods-price image {
+  display: inline-block;
+  width: 35px;
+  height: 20px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.goods-scroll .goods-details>.group-goods-price text {
+  display: inline-block;
+  color: #ff6347;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 5px;
+  position: relative;
+  top: -3px;
+}
+
+/**
+* 商品-宫格通用模块
+*/
+
+.goods-palace-module {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.goods-palace-module>.goods-module {
+  width: 100%;
+}
+
+.goods-palace-module>.goods-rotation-chart{
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.goods-module>.goods-details {
+  margin: auto;
+  width: 50%;
+  display: inline-block;
+}
+
+.goods-module>.goods-details>.goods-pic {
+  width: 100%;
+  height: 120px;
+  text-align: center;
+}
+
+.goods-module>.goods-details>.goods-pic>image {
+  width: 110px;
+  height: 110px;
+  margin: 10px 10px 0px 10px;
+  border-radius: 5px;
+}
+
+.goods-module>.goods-details>.goods-text {
+  margin: auto;
+  width: 110px;
+  height: 20px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.goods-module>.goods-details>.goods-name {
+  height: 37px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  border-bottom: 1px #e6e6e6 solid;
+}
+
+.goods-module>.goods-details>.goods-price {
+  color: #ff6347;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.goods-module>.goods-details>.group-goods-price{
+  color: #ff6347;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.goods-module>.goods-details>.group-goods-price>image{
+  display: inline-block;
+  width: 35px;
+  height: 20px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.goods-module>.goods-details>.group-goods-price>text{
+  margin-left: 5px;
+  position: relative;
+  top: -3px;
+}
+
+/**
+* 标题
+* 图片滑动模块
+*/
+.image-scroll-module {
+  width: 100%;
+  background-color: #fff;
+  padding-top: 5px;
+}
+
+.image-module{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.image-scroll{
+  overflow: hidden;
+}
+
+.image-pack{
+  display: inline-block;
+  margin: 5px;
+}
+
+.image-pack>image{
+  margin: 0px 3px 0px 3px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #b2b2b2;
+}
+
+.image-fill{
+  width: 10px;
+  background-color: #fff;
+  display: inline-block;
+}
+
+/**
+* 商品类型 - 宫格模块
+*/
+.type-frame{
+  background-color: #fff;
+  padding: 10px;
+}
+.type-frame .type-details{
+  width: 25%;
+  margin: auto;
+  display: inline-block;
+}
+.type-details>.type-pic{
+  margin: auto;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+}
+.type-details>.type-pic>image{
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+.type-details>.type-text{
+  margin: auto;
+  width: 60px;
+  height: 20px;
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+  white-space: nowrap; /* 不换行 */
+  text-overflow: ellipsis;
+}
+
+/**
+* 普通图片模块
+*/
+
+.ordinary-image-module{
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.ordinary-image-module>image{
+  width: 100%;
+}

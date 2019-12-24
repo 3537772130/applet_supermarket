@@ -1,0 +1,98 @@
+<!--pages/goods/details/details.wxml-->
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<view class='body'>
+  <view class='img-carousel'>
+    <view class='rotation-chart'>
+      <swiper autoplay='true' circular='true' interval='5000' style='height: 400px;' bindchange="carouselChage">
+        <block wx:for='{{fileList}}' wx:key='file'>
+          <swiper-item wx:if="{{item.fileType == 2 && item.fileSrc != null}}">
+            <video src="{{path + item.fileSrc + timestamp}}" class='rotation-pic' bindtap='{{item.event}}' data-src='{{item.fileSrc}}'></video>
+          </swiper-item>
+          <swiper-item wx:if="{{item.fileType == 1 && item.fileSrc != null}}">
+            <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='{{item.event}}' data-src='{{item.fileSrc}}'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="img-carousel-number">{{carouselIndex + "/" + fileList.length}}</view>
+  </view>
+  <view class="info-details">
+    <!-- <view>活动图</view> -->
+    <view class="price-details">￥
+      <text class="price">{{filters.toFix(info.minPrice)}}</text>
+      <text class="price" wx:if="{{info.maxPrice > info.minPrice}}"> - {{filters.toFix(info.maxPrice)}}</text>
+      <view class="share" bindtap="handleOpen1">
+        <image src="/images/share.png"></image>
+        分享
+      </view>
+      <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
+    </view>
+    <view class="name-details">
+      <view class="name-icon">精选</view>
+      {{info.goodsName}}
+    </view>
+  </view>
+  <view class="specs-info">
+    <view class="shop-preferential">优惠</view>
+    <view class="goods-specs">
+      <view class="specs-view" bindtap="powerDrawer" data-statu="open">
+        规格
+        <view class="specs-default">
+          <view>{{specs.specsText + ' * ' + specsNumber}}</view>
+        </view>
+        <view class="specs-more">···</view>
+      </view>
+      <!--mask-->
+      <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+      <!--content-->
+      <!--使用animation属性指定需要执行的动画-->
+      <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+        <!--drawer content-->
+        <view class="drawer_content">
+          <view class="specs-img">
+            <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;"></image>
+            <view class="specs-price">￥{{filters.toFix(specs.actualPrice)}}</view>
+            <view class="specs-divider"></view>
+          </view>
+          <view class="specs-datas">
+            <view class="specs-title">规格：</view>
+            <view class="specs-data" wx:for="{{specsList}}" wx:key='specs' wx:for-index="index" style="{{chooseSpecsIndex == index ? 'border: 1px ' + color + ' solid;color: ' + color + ';':''}}" bindtap="chooseSpecsData" data-index="{{index}}">{{item.specsText}}</view>
+            <view class="specs-text">数量：
+              <view class="specs-number">
+                <view class="specs-number-operation" bindtap="reduceSpecsNumber">-</view>
+                <view class="specs-number-input">{{specsNumber}}</view>
+                <view class="specs-number-operation" bindtap="addSpecsNumber">+</view>
+              </view>
+            </view>
+            <view class="specs-text" style="margin-bottom: 40px;">合计：
+              <view class="specs-number" style="color: #ff6347;">￥{{filters.toFix(countPrice)}}</view>
+            </view>
+          </view>
+          <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-statu="close">确定</view>
+        </view>
+      </view>
+    </view>
+    <view class="specs-remark">备注
+      <textarea placeholder="请输入备注信息" placeholder-style="color: #cdcdcd;" maxlength="120" auto-height="true" fixed="true" value="{{remark}}" bindinput="inputRemark"></textarea>
+    </view>
+  </view>
+
+  <view style="height: 80px;"></view>
+  <view class="specs-menu">
+    <view class="menu-element" style="width: 25%;">
+      <view class="element-img">
+        <image src="/images/tel_bus.png"></image>
+      </view>
+      <view class="element-text">联系商家</view>
+    </view>
+    <view class="menu-element" style="width: 25%;" bindtap="loadCart">
+      <view class="element-img">
+        <image src="/images/put_icon_cart.png"></image>
+      </view>
+      <view class="element-text">购物车</view>
+    </view>
+    <view class="menu-element" style="width: 50%;">
+      <view class="put-cart" style="{{'background-color: ' + color + ';'}}" bindtap="addCart">加入购物车</view>
+    </view>
+  </view>
+</view>

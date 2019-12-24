@@ -1,0 +1,263 @@
+/* pages/cart/cart.wxss */
+@import "/pages/weui.wxss";
+@import "/pages/style.wxss";
+
+.cart-title {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+  margin-bottom: 10px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
+.cart-title>text {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  margin-right: 15px;
+  color: #1296db;
+  font-size: 14px;
+  border: 1rpx #1296db solid;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+/**
+* 商品信息
+*/
+
+.i-swipeout-demo {
+  margin-top: 50px;
+}
+
+.goods-info {
+  vertical-align: middle;
+}
+
+.goods-info>.goods-select {
+  display: inline-block;
+  width: 25px;
+  position: relative;
+  top: -40px;
+}
+
+.goods-info>.goods-select>view {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.goods-info>.goods-select>view>i-icon {
+  position: relative;
+  top: -4px;
+  left: -1px;
+}
+
+.goods-info>.goods-pic {
+  display: inline-block;
+  margin-right: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.goods-info>.goods-pic>image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.goods-info>.goods-text {
+  display: inline-block;
+  height: 100px;
+  font-size: 12px;
+}
+
+.goods-info>.goods-text>.goods-name {
+  /* height: 40px; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /*用来限制在一个块元素显示的文本的行数*/
+  overflow: hidden;
+}
+
+.goods-info>.goods-text>.goods-data {
+  height: 50px;
+  color: #b2b2b2;
+}
+
+.goods-info>.goods-text>.goods-data>.data-text {
+  display: inline-block;
+  color: #b2b2b2;
+  border: 1rpx #b2b2b2 solid;
+  margin-top: 3px;
+  margin-right: 5px;
+  padding: 0px 5px;
+  border-radius: 5px;
+}
+
+.goods-info>.goods-text>.goods-data>.data-remark {
+  margin-top: 5px;
+  color: #b2b2b2;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.goods-info>.goods-text>.goods-value {
+  height: 30px;
+}
+
+.goods-info>.goods-text>.goods-value>view {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 50%;
+}
+
+.goods-info>.goods-text>.goods-value>.value-price {
+  text-align: left;
+  color: #f00;
+}
+
+.goods-info>.goods-text>.goods-value>.value-count {
+  text-align: left;
+  color: #1296db;
+}
+
+.goods-info>.goods-text>.goods-value>.value-count image {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+}
+
+.goods-info>.goods-text>.goods-value>.value-count text {
+  display: inline-block;
+  width: 8px;
+  height: 19px;
+  line-height: 19px;
+  padding: 0px 6px 5px 5px;
+  text-align: center;
+}
+
+.goods-info>.goods-text>.goods-value>.value-count .opt-amount {
+  color: #fff;
+  background-color: #ff6347;
+}
+
+/**
+* 去逛逛
+*/
+
+.stock-no {
+  width: 100%;
+  margin: 60px 0px;
+}
+
+.stock-no>view {
+  text-align: center;
+  font-size: 16px;
+}
+
+.stock-no>.remark {
+  font-size: 14px;
+  color: #b2b2b2;
+}
+
+.stock-no>view>button {
+  width: 120px;
+  background-color: #f8f8ff;
+  border: 1rpx #3cc51f solid;
+  color: #3cc51f;
+  margin-top: 25px;
+}
+
+/**
+* 底部固定栏
+*/
+
+.cart-bottom {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+}
+
+.cart-bottom>view {
+  display: inline-block;
+}
+
+.cart-bottom>.check-all {
+  width: 25%;
+  text-align: center;
+  position: relative;
+  top: -18px;
+}
+
+.cart-bottom>.check-all>view {
+  display: inline-block;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.cart-bottom>.check-all>view>.check-all-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  background-color: #eee;
+  position: relative;
+  top: 15px;
+}
+
+.cart-bottom>.check-all>view>.check-all-icon>i-icon {
+  position: relative;
+  top: -16px;
+}
+
+.cart-bottom>.check-all>.check-all-text {
+  margin-left: 10px;
+}
+
+.cart-bottom>.total {
+  width: 50%;
+  height: 50px;
+  line-height: 50px;
+  text-align: right;
+  font-size: 16px;
+  position: relative;
+  top: -18px;
+}
+
+.cart-bottom>.total>text {
+  color: #f00;
+  margin-right: 10px;
+}
+
+.cart-bottom>.settlement {
+  width: 25%;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  background-color: #f00;
+  text-align: center;
+  font-size: 16px;
+  overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+  white-space: nowrap; /* 不换行 */
+  text-overflow: ellipsis;
+}
+
+.cart-bottom>.settlement-false {
+  background-color: #bfbfbf;
+}

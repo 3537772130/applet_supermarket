@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "修改密码",
+  "usingComponents": {
+    "i-tabs": "../../../../dist/tabs/index",
+    "i-tab": "../../../../dist/tab/index"
+  }
+}

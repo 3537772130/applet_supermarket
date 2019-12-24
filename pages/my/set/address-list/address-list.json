@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "收货地址",
+  "usingComponents": {
+    "i-swipeout": "../../dist/swipeout/index",
+    "i-icon": "../../dist/icon/index"
+  }
+}

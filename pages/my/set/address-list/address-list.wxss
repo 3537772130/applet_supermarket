@@ -1,0 +1,77 @@
+/* pages/my/set/address/address.wxss */
+@import "/pages/style.wxss";
+
+page{
+  background-color: #FFFFFF;
+}
+
+.del-tip{
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #e6e6e6;
+  text-align: center;
+  border: 1px #cdcdcd solid;
+}
+
+.list-item{
+  padding: 10px 20px;
+  font-size: 12px;
+}
+
+.list-item > .item-content{
+  display: inline-table;
+  width: 80%;
+  height: 60px;
+}
+
+.list-item > .item-content > .c-user{
+  font-size: 14px;
+}
+
+.list-item > .item-content > .c-user > .u-text{
+  display: inline-table;
+  margin-right: 10px;
+  height: 20px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.list-item > .item-content > .c-user > .u-def{
+  color: #FFFFFF;
+  background-color: #d81e06;
+  border-radius: 5px;
+  padding: 0px 5px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.list-item > .item-content > .c-user > .u-label{
+  color: #FFFFFF;
+  background-color: #1296db;
+  border-radius: 5px;
+  padding: 0px 5px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.list-item > .item-content > .c-address{
+  margin-top: 7px;
+  font-size: 12px;
+}
+
+.list-item > .item-icon{
+  float: right;
+  display: inline-table;
+  width: 20%;
+  height: 60px;
+  line-height: 60px;
+  text-align: right;
+}
+
+.list-item > .item-icon > image{
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: 5px;
+}

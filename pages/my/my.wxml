@@ -1,0 +1,61 @@
+<!--pages/my/my.wxml-->
+<wxs module="filters" src="../filter.wxs"></wxs>
+<view class="page">
+  <view class="my-heard">
+    <view class="heard-content" style="background-color: {{color}};">
+      <view class="heard-img">
+        <image src="{{userInfo.avatarUrl + timestamp}}"></image>
+      </view>
+      <view class="heard-info">
+        <view class="info-name">
+          <text>{{userInfo.nickName}}</text>
+          <image src="/images/my/sex_man.png" wx:if="{{userInfo.gender == '1'}}"></image>
+          <image src="/images/my/sex_girl.png" style="width: 15px;height: 15px;top: 3px;" wx:else></image>
+        </view>
+        <view class="info-mobile" wx:if="{{userInfo.mobile}}">{{filters.sub(userInfo.mobile, 0, 3) + '****' + filters.sub(userInfo.mobile, 7, 11)}}</view>
+        <view class="info-text" wx:else>未绑定手机号</view>
+      </view>
+    </view>
+    <image class="heard-set" src="/images/my/set.png" bindtap="loadSet"></image>
+    <view class="heard-notice">
+      <i-notice-bar icon="systemprompt" color="{{color}}" loop>东方故事大概是多少分割</i-notice-bar>
+    </view>
+  </view>
+
+  <view class="my-account">
+    <view class="account-element">
+      <view class="element-img">
+        <image src="/images/my/balance_{{filters.sub(color, 1, 7)}}.png"></image>
+      </view>
+      <view class="element-text" style="color: {{color}};">账户余额</view>
+    </view>
+    <view class="account-element">
+      <view class="element-img">
+        <image src="/images/my/integral_{{filters.sub(color, 1, 7)}}.png"></image>
+      </view>
+      <view class="element-text" style="color: {{color}};">我的积分</view>
+    </view>
+    <view class="account-element">
+      <view class="element-img">
+        <image src="/images/my/coupon_{{filters.sub(color, 1, 7)}}.png"></image>
+      </view>
+      <view class="element-text" style="color: {{color}};">我的优惠券</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{userInfo.userId}}">
+  <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
+  <i-cell-group>
+    <i-cell title="{{userInfo.nickName}}" is-link></i-cell>
+    <i-cell title="{{userInfo.gender == 1 ? '男':'女'}}" is-link url="/pages/dashboard/index"></i-cell>
+    <i-cell title="{{userInfo.mobile}}" is-link></i-cell>
+  </i-cell-group>
+</view>
+<view wx:else>
+  <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
+  <i-cell-group>
+    <i-cell title="{{userInfo.nickName}}" is-link></i-cell>
+    <i-cell title="{{userInfo.gender == 1 ? '男':'女'}}" is-link url="/pages/dashboard/index"></i-cell>
+  </i-cell-group>
+</view>

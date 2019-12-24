@@ -1,0 +1,65 @@
+<!--pages/cart/cart.wxml-->
+<wxs module="filters" src="../filter.wxs"></wxs>
+<view wx:if='{{goodsList.length > 0}}'>
+  <view>
+    <view class='cart-title'>
+      <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:if='{{ifEdit}}'>完成</text>
+      <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:else>编辑</text>
+    </view>
+    <view class="i-swipeout-demo">
+      <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for='{{goodsList}}' wx:for-item='goods' wx:key='goods' bindchange='deleteGoods' data-id='{{goods.id}}' data-name='{{goods.name}}'>
+        <view class='goods-info' slot="content">
+          <view class='goods-select'>
+            <view style='background-color:{{goods.ifSelected ? color:"#fff"}};border: {{goods.ifSelected ? "none":"1rpx #b2b2b2 solid"}};' bindtap='onClickSelect' data-id='{{goods.id}}'>
+              <i-icon type="right" size="18" color="#fff" />
+            </view>
+          </view>
+          <view class='goods-pic'>
+            <image src='{{path + goods.specs.specsSrc + timestamp}}' bindtap="loadGoodsDetails" data-id="{{goods.id}}"></image>
+          </view>
+          <view class='goods-text' style='width:{{width-155}}px;'>
+            <view class='goods-name'>{{goods.name}}</view>
+            <view class='goods-data'>
+              <view class="data-text">{{goods.specs.specsText}}</view>
+              <view class="data-remark">备注：{{goods.remark}}</view>
+            </view>
+            <view class='goods-value'>
+              <view class='value-price'>￥{{filters.toFix(goods.specs.actualPrice)}}</view>
+              <view class='value-count'>
+                <view wx:if='{{!ifEdit}}'>x {{goods.amount}}</view>
+                <view wx:else>
+                  <text class="opt-amount" style="background-color: {{color}};" bindtap='editGoodsAmount' data-id='{{goods.id}}' data-op='reduce'>-</text>
+                  <text style="width: 18px;">{{goods.amount}}</text>
+                  <text class="opt-amount" style="background-color: {{color}};" bindtap='editGoodsAmount' data-id='{{goods.id}}' data-op='add'>+</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </i-swipeout>
+    </view>
+    <view style='width: 100%;height: 80px;'></view>
+  </view>
+  <view class='cart-bottom'>
+    <view class='check-all'>
+      <view>
+        <view class='check-all-icon' style='background-color:{{ifCheckAll ? color:"#fff"}};border: {{ifCheckAll ? "none":"1rpx #b2b2b2 solid"}};' bindtap='onClickSelectAll'>
+          <i-icon type="right" size="20" color="#fff" />
+        </view>
+      </view>
+      <view class='check-all-text'>全选</view>
+    </view>
+    <view class='total'>合计：
+      <text>￥{{filters.toFix(totalPrice)}}</text>
+    </view>
+    <view class='settlement' style="background-color: {{color}};" wx:if='{{totalPrice > 0 && !ifEdit}}' bindtap="immediateSettlement">立即结算</view>
+    <view class='settlement settlement-false' wx:else>立即结算</view>
+  </view>
+</view>
+<view class='stock-no' wx:else>
+  <view>购物车已经饿瘪了 T.T</view>
+  <view class='remark'>快去挑点宝贝吧</view>
+  <view>
+    <button bindtap='loadMain'>去逛逛</button>
+  </view>
+</view>

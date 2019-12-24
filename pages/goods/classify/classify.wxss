@@ -1,0 +1,97 @@
+/* pages/classify/classify.wxss */
+@import "/pages/weui.wxss";
+@import "/pages/style.wxss";
+
+/**
+* 商品分类-滑动吸顶
+*/
+
+.type-tab {
+  width: 80px;
+  font-size: 14px;
+  background-color: #eee;
+  padding-top: 35px;
+  float: left;
+}
+
+.type-tab>scroll-view {
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.type-tab .tab-text {
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+  white-space: nowrap; /* 不换行 */
+  text-overflow: ellipsis;
+}
+
+.type-tab .tab-this {
+  background-color: #fff;
+}
+
+.goods-list {
+  margin-left: 80px;
+  background-color: #fff;
+}
+
+.goods-list .goods-bottom {
+  width: 100%;
+  height: 100px;
+}
+
+.goods-list .i-sticky-goods {
+  margin: auto;
+  display: inline-block;
+  width: 80px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.goods-list .i-sticky-goods>.goods-pic{
+  width: 100%;
+  text-align: center;
+}
+
+.goods-list .i-sticky-goods>.goods-pic>image{
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  border: 1px #e6e6e6 solid;
+}
+
+.goods-list .i-sticky-goods>.goods-text{
+  margin: auto;
+  width: 80px;
+  height: 37px;
+  font-size: 12px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+}
+
+.goods-list .i-sticky-goods>.goods-price{
+  height: 20px;
+  font-size: 12px;
+  color: #ff6347;
+  -webkit-line-clamp: 1;
+}
+
+.i-sticky-title{
+  background-color: blue;
+  color: #fff;
+}

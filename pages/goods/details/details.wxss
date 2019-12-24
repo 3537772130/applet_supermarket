@@ -1,0 +1,324 @@
+/* pages/goods/details/details.wxss */
+@import "/pages/weui.wxss";
+@import "/pages/style.wxss";
+
+.img-carousel {
+  width: 100%;
+  background-color: #fff;
+}
+
+.rotation-pic {
+  width: 100%;
+  height: 100%;
+}
+
+.img-carousel-number {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  background-color: #8a8a8a;
+  border-radius: 10px 0px 0px 10px;
+  float: right;
+  position: relative;
+  top: -50px;
+  z-index: 999;
+}
+
+.info-details {
+  background-color: #fff;
+  padding-bottom: 20px;
+  border-radius: 0px 0px 8px 8px;
+}
+
+.info-details > .price-details {
+  height: 50px;
+  line-height: 50px;
+  padding: 0px 20px;
+  font-size: 14px;
+  color: #ff6347;
+}
+
+.info-details > .price-details > .share {
+  float: right;
+  position: relative;
+  right: -10px;
+}
+
+.info-details > .price-details > .share > image {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: 7px;
+}
+
+.info-details > .price-details > .price {
+  font-size: 18px;
+}
+
+.info-details > .name-details {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px 10px;
+}
+
+.info-details > .name-details > .name-icon {
+  display: inline-table;
+  color: #fff;
+  background-color: #ff6347;
+  margin: 0px 10px;
+  padding: 0px 5px;
+  font-family: '幼圆';
+  font-size: 12px;
+  position: relative;
+  top: -3px;
+}
+
+.specs-info {
+  background-color: #fff;
+  margin-top: 5px;
+  padding: 20px 10px;
+  border-radius: 8px;
+}
+
+.shop-preferential {
+  background-color: #fff;
+  font-size: 14px;
+  padding: 0px 10px 5px 10px;
+  border-bottom: 1px #e6e6e6 solid;
+}
+
+.goods-specs {
+  background-color: #fff;
+  border-bottom: 1px #e6e6e6 solid;
+}
+
+.goods-specs > .specs-view {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  padding: 0px 10px;
+}
+
+.goods-specs > .specs-view > .specs-default {
+  display: inline-table;
+  padding-left: 10px;
+  color: #cdcdcd;
+  width: 250px;
+}
+
+.goods-specs > .specs-view > .specs-default > view {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.goods-specs > .specs-view > .specs-more {
+  display: inline-table;
+  float: right;
+  font-weight: bold;
+}
+
+/*mask*/
+
+.drawer_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+}
+
+/*content*/
+
+.drawer_attr_box {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  background: #fff;
+}
+
+.drawer_content {
+  padding: 20rpx 40rpx;
+  height: 670rpx;
+  overflow-y: hidden;
+}
+
+.drawer_title {
+  padding: 20rpx;
+  font: 42rpx "microsoft yahei";
+  text-align: center;
+}
+
+.line {
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img {
+  width: 100%;
+  float: left;
+  position: fixed;
+  top: -50px;
+  left: -40rpx;
+  padding-left: 40rpx;
+  z-index: 1002;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img > image {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-left: 40rpx;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-price {
+  display: inline-table;
+  color: #ff6347;
+  font-size: 18px;
+  margin-left: 30px;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-divider {
+  margin-top: 10x;
+  border-bottom: 1px #e6e6e6 solid;
+  margin: 0px 40rpx;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-datas {
+  height: 235px;
+  overflow-y: scroll;
+  margin-top: 60px;
+  font-size: 16px;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-datas > .specs-title {
+  padding: 5px 0px;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-datas > .specs-data {
+  display: inline-table;
+  padding: 0px 10px;
+  margin: 0px 5px 5px 10px;
+  font-size: 14px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+
+.goods-specs .specs-datas > .specs-text {
+  border-top: 1px #e6e6e6 solid;
+  font-size: 14px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.goods-specs .specs-datas > .specs-text > .specs-number {
+  float: right;
+  display: inline-table;
+  width: 100px;
+  text-align: right;
+}
+
+.goods-specs .specs-datas > .specs-text > .specs-number > view {
+  display: inline-table;
+  border: 1px #e6e6e6 solid;
+}
+
+.goods-specs .specs-datas > .specs-text > .specs-number > .specs-number-operation {
+  border: 1px #ff6347 solid;
+  background-color: #ff6347;
+  color: #fff;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+}
+
+.goods-specs .specs-datas > .specs-text > .specs-number > .specs-number-input {
+  width: 30px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  text-align: right;
+  margin: 0px 5px;
+}
+
+.goods-specs .define-choose {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  letter-spacing: 20px;
+  position: fixed;
+  bottom: 0px;
+  left: -40rpx;
+  padding-left: 40rpx;
+  color: #fff;
+  font-family: '幼圆';
+}
+
+.specs-remark {
+  background-color: #fff;
+  font-size: 14px;
+  padding: 5px 10px 0px 10px;
+  border-bottom: 1px #e6e6e6 solid;
+}
+
+.specs-remark>textarea {
+  display: inline-table;
+  padding-left: 10px;
+  color: #cdcdcd;
+  width: 250px;
+  position: relative;
+  top: -13px;
+}
+
+.specs-menu {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  box-shadow: 0px -3px 6px #cdcdcd;
+}
+
+.specs-menu > .menu-element {
+  display: inline-table;
+  width: 33.3%;
+  height: 50px;
+  text-align: center;
+}
+
+.specs-menu > .menu-element > .element-img {
+  text-align: center;
+  height: 22px;
+}
+
+.specs-menu > .menu-element > .element-img > image {
+  width: 22px;
+  height: 22px;
+}
+
+.specs-menu > .menu-element > .element-text {
+  text-align: center;
+  font-size: 12px;
+  color: #bfbfbf;
+}
+
+.specs-menu > .menu-element > .put-cart {
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+}

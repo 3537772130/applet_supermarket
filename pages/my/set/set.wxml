@@ -1,0 +1,16 @@
+<!--pages/my/set/set.wxml-->
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<view class="user-set">
+  <i-cell-group>
+    <i-cell title="基本信息" is-link bindtap="loadInfo" data-index="0"></i-cell>
+    <i-cell title="绑定手机号" value="{{mobile}}" is-link  bindtap="loadInfo" data-index="1"></i-cell>
+    <i-cell title="修改密码" is-link bindtap="loadInfo" data-index="2"></i-cell>
+    <i-cell title="收货地址" is-link bindtap="loadInfo" data-index="3"></i-cell>
+  </i-cell-group>
+</view>
+<view class="merchant-set" wx:if="{{isDealer}}">
+  <i-cell-group i-class="value-style">
+    <i-cell title="主题色彩" value="{{colorText}}" is-link bindtap="loadInfo" data-index="10"></i-cell>
+    <i-cell title="店铺定位" value="{{appletInfo.appletSimple ? appletInfo.appletSimple : '未定位'}}" is-link bindtap="loadInfo" data-index="11"></i-cell>
+  </i-cell-group>
+</view>

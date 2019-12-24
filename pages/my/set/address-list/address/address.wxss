@@ -1,0 +1,23 @@
+/* pages/my/set/address-list/address/address.wxss */
+@import "/pages/style.wxss";
+
+page{
+  background-color: #FFFFFF;
+}
+
+.label-text{
+  display: inline-table;
+  width: 30px;
+  height: 20px;
+  padding: 0px 5px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 13px;
+  color: #000000;
+  font-size: 12px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.wx-switch-input{width:42px !important;height:20px !important;}
+.wx-switch-input::before{width:41px !important;height: 20px !important;}
+.wx-switch-input::after{width: 18px !important;height: 18px !important;}

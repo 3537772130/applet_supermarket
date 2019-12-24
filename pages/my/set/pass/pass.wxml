@@ -1,0 +1,71 @@
+<!--pages/my/set/pass/pass.wxml-->
+<i-tabs current="{{ current }}" color="{{color}}" bindchange="handleChange">
+  <i-tab key="tab1" title="密码验证"></i-tab>
+  <i-tab key="tab2" title="短信验证"></i-tab>
+</i-tabs>
+<view class="form-container" wx:if="{{current == 'tab1'}}">
+  <form bindsubmit="formSubmitPass">
+    <view class="form-item">
+      <view class="item-label">旧密码</view>
+      <view class="item-input">
+        <input name="oldPass" password="true" maxlength="20" placeholder="请输入旧密码"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">新密码</view>
+      <view class="item-input">
+        <input name="newPass" password="true" maxlength="20" placeholder="请输入新密码"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">确认密码</view>
+      <view class="item-input">
+        <input name="confirmPass" password="true" maxlength="20" placeholder="请输入确认密码"></input>
+      </view>
+    </view>
+    <view class="form-item form-item-none">
+      <view class="item-submit">
+        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+      </view>
+    </view>
+  </form>
+</view>
+<view class="form-container" wx:else>
+  <form bindsubmit="formCodeSubmit">
+    <view class="form-item">
+      <view class="item-label">手机号码</view>
+      <view class="item-input">
+        <text>{{mobile}}</text>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">图 形 码</view>
+      <view class="item-code">
+        <input placeholder="请输入图形码" maxlength="4" bindinput="changeFigureCode"></input>
+      </view>
+      <view class="item-image" bindtap="initDraw">
+        <canvas style="width: 80px;height: 25px;top: 6px;" canvas-id="canvas"></canvas>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">验 证 码</view>
+      <view class="item-code">
+        <input name="verifyCode" type="number" maxlength="6" placeholder="请输入验证码"></input>
+      </view>
+      <view class="item-but">
+        <button style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="sendVerifyCode">发送</button>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="item-label">新 密 码</view>
+      <view class="item-input">
+        <input name="pass" password="true" maxlength="20" placeholder="请输入新密码"></input>
+      </view>
+    </view>
+    <view class="form-item form-item-none">
+      <view class="item-submit">
+        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+      </view>
+    </view>
+  </form>
+</view>

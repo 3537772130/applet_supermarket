@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "填写订单",
+  "usingComponents": {
+    "i-icon": "../../dist/icon/index"
+  }
+}

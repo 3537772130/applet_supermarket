@@ -1,0 +1,114 @@
+/* pages/cart/settlement/settlement.wxss */
+@import "/pages/style.wxss";
+
+.settlement-heard {
+  margin-bottom: 10px;
+  padding: 20px 20px 10px 20px;
+  background-color: #fff;
+  height: 70px;
+}
+
+.settlement-heard > .heard-address{
+  float: left;
+  display: inline-table;
+  width: 85%;
+  height: 70px;
+}
+
+.settlement-heard > .heard-address > .h-first {
+  height: 15px;
+  line-height: 15px;
+  font-size: 10px;
+}
+
+.settlement-heard > .heard-address > .h-first > .f-def {
+  display: inline-table;
+  height: 12px;
+  line-height: 12px;
+  padding: 0px 5px;
+  color: #fff;
+  background-color: #d81e06;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.settlement-heard > .heard-address > .h-first > .f-label {
+  display: inline-table;
+  height: 12px;
+  line-height: 12px;
+  padding: 0px 5px;
+  color: #fff;
+  background-color: #1296db;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.settlement-heard > .heard-address > .h-first > .f-region {
+  display: inline-table;
+  font-size: 12px;
+}
+
+.settlement-heard > .heard-address > .h-two {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.settlement-heard > .heard-address > .h-three {
+  display: inline-table;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.settlement-heard > .heard-address > .h-three > .t-name {
+  display: inline-table;
+  margin-right: 5px;
+}
+
+.settlement-heard > .heard-address > .h-three > .t-mobile {
+  display: inline-table;
+}
+
+
+.settlement-heard > .heard-icon{
+  float: left;
+  display: inline-table;
+  width: 15%;
+  height: 70px;
+  text-align: right;
+}
+
+.settlement-heard > .heard-icon > i-icon{
+  position: relative;
+  top: 15px;
+}
+
+.paly-type{
+  height: 30px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
+
+.paly-type > .t-title{
+  display: inline-table;
+  width: 50%;
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.paly-type > .t-name{
+  display: inline-table;
+  width: 50%;
+  text-align: right;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+}

@@ -1,0 +1,6 @@
+/* pages/my/set/location/location.wxss */
+@import "/pages/style.wxss";
+
+page{
+  background-color: #FFFFFF;
+}
