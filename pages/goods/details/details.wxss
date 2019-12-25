@@ -57,6 +57,13 @@
   font-size: 18px;
 }
 
+.info-details > .price-details > .price-org{
+  display: inline-table;
+  margin-left: 10px;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
 .info-details > .name-details {
   font-size: 16px;
   font-weight: bold;
@@ -140,7 +147,7 @@
   left: 0;
   z-index: 1000;
   background: #000;
-  opacity: 0.2;
+  opacity: 0.5;
   overflow: hidden;
 }
 
@@ -194,6 +201,14 @@
   color: #ff6347;
   font-size: 18px;
   margin-left: 30px;
+}
+
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-price-org{
+  display: inline-table;
+  color: #ff6347;
+  font-size: 14px;
+  margin-left: 10px;
+  text-decoration: line-through;
 }
 
 .goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-divider {

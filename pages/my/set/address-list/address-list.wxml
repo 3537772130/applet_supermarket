@@ -1,10 +1,10 @@
 <!--pages/my/set/address/address.wxml-->
 <wxs module="filters" src="../../../filter.wxs"></wxs>
-<view class="del-tip" wx:if="{{showTip}}">← 滑动删除</view>
+<view class="del-tip" wx:if="{{showTip}}">温馨提示：往左滑动删除</view>
 <view class="i-swipeout-demo">
   <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for='{{list}}' wx:for-index='index' wx:key='address' bindchange='deleteAddress' data-id='{{item.id}}' data-name='{{item.name}}'>
   <view class="list-item" slot="content">
-    <view class="item-content">
+    <view class="item-content" bindtap="chooseAddress" data-index="{{index}}">
       <view class="c-user">
         <view class="u-text">{{item.name}}</view>
         <view class="u-text">{{filters.sub(item.mobile, 0, 3) + '****' + filters.sub(item.mobile, 7, 11)}}</view>
@@ -17,7 +17,6 @@
       <view class="c-address">{{item.region + " " + item.address}}</view>
     </view>
     <view class="item-icon">
-      <!-- <image src="/images/my/update.png" bindtap="loadAddress" data-index="{{index}}"></image> -->
       <i-icon type="editor" size="22" color="#000000" bindtap="loadAddress" data-index="{{index}}" />
     </view>
   </view>

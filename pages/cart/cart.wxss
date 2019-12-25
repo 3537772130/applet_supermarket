@@ -6,7 +6,6 @@
   width: 100%;
   height: 40px;
   line-height: 40px;
-  text-align: right;
   margin-bottom: 10px;
   background-color: #fff;
   position: fixed;
@@ -14,7 +13,21 @@
   z-index: 99;
 }
 
-.cart-title>text {
+.cart-title>.cart-del{
+  display: inline-table;
+  width: 50%;
+  text-align: center;
+  font-size: 12px;
+  color: #cdcdcd;
+}
+
+.cart-title>.edit{
+  display: inline-table;
+  width: 50%;
+  text-align: right;
+}
+
+.cart-title>.edit>text {
   display: inline-block;
   height: 20px;
   line-height: 20px;
@@ -42,7 +55,7 @@
   display: inline-block;
   width: 25px;
   position: relative;
-  top: -40px;
+  top: -30px;
 }
 
 .goods-info>.goods-select>view {
@@ -63,6 +76,8 @@
   margin-right: 10px;
   width: 100px;
   height: 100px;
+  position: relative;
+  top: 10px;
 }
 
 .goods-info>.goods-pic>image {
@@ -86,24 +101,25 @@
 }
 
 .goods-info>.goods-text>.goods-data {
-  height: 50px;
+  height: 30px;
+  line-height: 30px;
   color: #b2b2b2;
 }
 
 .goods-info>.goods-text>.goods-data>.data-text {
   display: inline-block;
   color: #b2b2b2;
-  border: 1rpx #b2b2b2 solid;
   margin-top: 3px;
   margin-right: 5px;
   padding: 0px 5px;
   border-radius: 5px;
 }
 
-.goods-info>.goods-text>.goods-data>.data-remark {
+.goods-info>.data-remark {
   margin-top: 5px;
   color: #b2b2b2;
   font-size: 12px;
+  text-indent: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -118,19 +134,19 @@
 
 .goods-info>.goods-text>.goods-value>view {
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
+  height: 25px;
+  line-height: 25px;
   width: 50%;
+  text-align: center;
 }
 
 .goods-info>.goods-text>.goods-value>.value-price {
-  text-align: left;
   color: #f00;
+  font-size: 14px;
 }
 
 .goods-info>.goods-text>.goods-value>.value-count {
-  text-align: left;
-  color: #1296db;
+  /* color: #1296db; */
 }
 
 .goods-info>.goods-text>.goods-value>.value-count image {

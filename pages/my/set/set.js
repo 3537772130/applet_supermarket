@@ -116,7 +116,7 @@ Page({
           pageUrl = '/pages/my/set/pass/pass'
           break
         case '3':
-          pageUrl = '/pages/my/set/address-list/address-list'
+          pageUrl = '/pages/my/set/address-list/address-list?isChosse=0' 
           break
         case '10':
           pageUrl = '/pages/my/set/theme/theme'

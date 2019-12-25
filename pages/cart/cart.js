@@ -176,7 +176,7 @@ Page({
     var name = event.currentTarget.dataset.name;
     wx.showModal({
       title: '温馨提示',
-      content: '确定删除商品【' + name + '】？',
+      content: '确定删除商品【' + name + '】吗？',
       success(res) {
         if (res.confirm) {
           var totalPrice = that.data.totalPrice;
@@ -187,7 +187,7 @@ Page({
           for (var i = 0; i < goodsList.length; i++) {
             var goods = goodsList[i];
             if (goods.id === id) {
-
+              // 删除购物车商品
             } else {
               if (goods.ifSelected) {
                 var amoutCount = goods.specs.actualPrice * goods.amount;
@@ -227,7 +227,7 @@ Page({
       }
       var json = JSON.stringify(list)
       wx.navigateTo({
-        url: '/pages/cart/settlement/settlement?json=' + json,
+        url: '/pages/cart/settlement/settlement?json=' + json + '&totalPrice=' + this.data.totalPrice,
       })
     } else {
       app.bindMobileShowModal()

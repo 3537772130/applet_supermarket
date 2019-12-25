@@ -7,18 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    playType: 2,
-    site: {
-      id: 1,
-      name: '周华虎啊哈',
-      mobile: '17601301913',
-      region: '上海市上海市松江区',
-      address: '虬泾路899弄象屿都城48栋702室',
-      lon: 0.0000,
-      lat: 0.0000,
-      label: 1,
-      isDefault: true
-    }
+    playType: 2, //支付方式： 1线上支付   2货到付款
+    fare: 0.00,// 运费
+    goodsTotalPrice: 0.00,
+    totalPrice: 0.00,
+    site: {}
   },
 
   /**
@@ -29,7 +22,9 @@ Page({
     wx.hideShareMenu()
     var json = options.json
     this.setData({
-      list: JSON.parse(json)
+      list: JSON.parse(json),
+      goodsTotalPrice: parseInt(options.totalPrice),
+      totalPrice: parseInt(options.totalPrice)
     })
   },
 
@@ -44,7 +39,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    wx.getStorage({
+      key: 'choose_site',
+      success: function(res) {
+        that.setData({
+          site: res.data
+        })
+        wx.removeStorage({
+          key: 'choose_site'
+        })
+      },
+    })
   },
 
   /**
@@ -80,5 +86,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  loadGoodsDetails: function (event) {
+    wx.navigateTo({
+      url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
+    })
+  },
+  chooseAddress: function (){
+    wx.navigateTo({
+      url: '/pages/my/set/address-list/address-list?isChosse=1',
+    })
   }
 })

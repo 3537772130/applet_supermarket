@@ -4,12 +4,12 @@
   <view class='img-carousel'>
     <view class='rotation-chart'>
       <swiper autoplay='true' circular='true' interval='5000' style='height: 400px;' bindchange="carouselChage">
-        <block wx:for='{{fileList}}' wx:key='file'>
+        <block wx:for='{{fileList}}' wx:key='file' wx:for-index="index">
           <swiper-item wx:if="{{item.fileType == 2 && item.fileSrc != null}}">
-            <video src="{{path + item.fileSrc + timestamp}}" class='rotation-pic' bindtap='{{item.event}}' data-src='{{item.fileSrc}}'></video>
+            <video src="{{path + item.fileSrc + timestamp}}" class='rotation-pic'></video>
           </swiper-item>
           <swiper-item wx:if="{{item.fileType == 1 && item.fileSrc != null}}">
-            <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='{{item.event}}' data-src='{{item.fileSrc}}'></image>
+            <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='imagesPreview' data-index='{{index}}'></image>
           </swiper-item>
         </block>
       </swiper>
@@ -21,9 +21,9 @@
       <view class="name-icon">精选</view>
       {{info.goodsName}}
     </view>
-    <view class="price-details">￥
-      <text class="price">{{filters.toFix(info.minPrice)}}</text>
-      <text class="price" wx:if="{{info.maxPrice > info.minPrice}}"> - {{filters.toFix(info.maxPrice)}}</text>
+    <view class="price-details">
+      <text class="price" wx:if="{{info.discount !== 100}}">￥{{filters.toFix(info.minPrice*info.discount/100) + (info.maxPrice > info.minPrice ? '-' + filters.toFix(info.maxPrice*info.discount/100):'')}}</text>
+      <text class="price {{info.discount !== 100 ? 'price-org':''}}">￥{{filters.toFix(info.minPrice) + (info.maxPrice > info.minPrice ? '-' + filters.toFix(info.maxPrice):'')}}</text>
       <view class="share" bindtap="handleOpen1">
         <image src="/images/share.png"></image>
         分享
@@ -50,8 +50,9 @@
         <!--drawer content-->
         <view class="drawer_content">
           <view class="specs-img">
-            <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;"></image>
-            <view class="specs-price">￥{{filters.toFix(specs.sellPrice)}}</view>
+            <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;" bindtap="imagePreview" data-src="{{specs.specsSrc}}"></image>
+            <view class="specs-price" wx:if="{{info.discount !== 100}}">￥{{filters.toFix(specs.sellPrice*info.discount/100)}}</view>
+            <view class="specs-price {{info.discount !== 100 ? 'specs-price-org':''}}">￥{{filters.toFix(specs.sellPrice)}}</view>
             <view class="specs-divider"></view>
           </view>
           <view class="specs-datas">

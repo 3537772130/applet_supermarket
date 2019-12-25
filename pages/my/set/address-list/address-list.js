@@ -8,6 +8,7 @@ Page({
    */
   data: {
     showTip:true,
+    isChosse: '0', //是否选择： 0关闭   1启用
     actions: [{
       name: '删除',
       color: '#fff',
@@ -48,13 +49,9 @@ Page({
   onLoad: function(options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    var that = this
-    var id = setTimeout(function () {
-      that.setData({
-        showTip: false
-      })
-      clearTimeout(id)
-    }, 3000);
+    this.setData({
+      isChosse: options.isChosse
+    })
   },
 
   /**
@@ -68,8 +65,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.setAppletColor(this)
-
+    var that = this
+    var id = setTimeout(function () {
+      that.setData({
+        showTip: false
+      })
+      clearTimeout(id)
+    }, 2000)
   },
 
   /**
@@ -114,7 +116,41 @@ Page({
     })
   },
   deleteAddress:function(event){
+    var that = this
     var id = event.currentTarget.dataset.id
     var name = event.currentTarget.dataset.name
+    wx.showModal({
+      title: '温馨提示',
+      content: '确定删除收货人为【' + name + '】的地址吗？',
+      success(res) {
+        if (res.confirm) {
+          var list = that.data.list
+          var newList = []
+          for (var i = 0; i < list.length; i++){
+            if (list[i].id === id){
+              // 删除地址
+            } else {
+              newList.push(list[i])
+            }
+          }
+          that.setData({
+            list: newList
+          })
+        }
+      }
+    })
+  },
+  chooseAddress: function (event){
+    if (this.data.isChosse === '1'){
+      var index = event.currentTarget.dataset.index
+      var site = this.data.list[index]
+      wx.setStorage({
+        key: 'choose_site',
+        data: site
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }
   }
 })

@@ -1,7 +1,7 @@
 <!--pages/cart/settlement/settlement.wxml-->
 <wxs module="filters" src="../../filter.wxs"></wxs>
 <view>
-  <view class="settlement-heard">
+  <view class="settlement-heard" bindtap="chooseAddress" wx:if="{{site.id}}">
     <view class="heard-address">
       <view class="h-first">
         <view class="f-def" wx:if="{{site.isDefault}}">默认</view>
@@ -21,15 +21,67 @@
       <i-icon type="enter" size="28" color="#80848f" />
     </view>
   </view>
+  <view class="add-address" bindtap="chooseAddress" wx:else>
+    <view class="add-title">选择收货地址</view>
+    <view class="add-icon">
+      <i-icon type="enter" size="18" color="#80848f" />
+    </view>
+  </view>
   <view class="paly-type">
     <view class="t-title">支付方式</view>
     <view class="t-name">
-      {{playType === 1 ? '在线支付':'货到付款'}}
+      <text>{{playType === 1 ? '在线支付':'货到付款'}}</text>
       <i-icon type="more" size="28" color="#00000" />
     </view>
   </view>
-  <view>
-    
+  <view class="goods-list" wx:for="{{list}}" wx:key="item">
+    <view class="goods-item">
+      <view class="item-img">
+        <image src="{{path + item.specs.specsSrc + timestamp}}" bindtap="loadGoodsDetails" data-id="{{item.id}}"></image>
+      </view>
+      <view class="item-info">
+        <view class="info-name">{{item.name}}</view>
+        <view class="info-specs">
+          <text>规格：{{item.specs.specsText}}</text>
+        </view>
+        <view class="info-data">
+          <view class="data-price">￥{{filters.toFix(item.specs.actualPrice * item.amount)}}</view>
+          <view class="data-num">数量：{{item.amount}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="goods-remark" if="{{item.remark}}">{{item.remark}}</view>
   </view>
-  <view></view>
+  <view class="order-data">
+    <view class="data-item">
+      <view class="item-title">优惠券</view>
+      <view class="item-name">
+        <text>{{playType === 1 ? '在线支付':'无可用'}}</text>
+        <i-icon type="more" size="28" color="#00000" />
+      </view>
+    </view>
+    <view class="data-item">
+      <view class="item-title">运费</view>
+      <view class="item-name">
+        <text style="color: #d81e06;">+ ￥{{filters.toFix(fare)}}</text>
+        <i-icon type="more" size="28" color="#00000" />
+      </view>
+    </view>
+    <view class="data-item">
+      <view class="item-title">商品金额</view>
+      <view class="item-name">
+        <text>￥{{filters.toFix(goodsTotalPrice)}}</text>
+        <i-icon type="more" size="28" color="#00000" />
+      </view>
+    </view>
+  </view>
+
+  <view class="but-menu">
+    <view class="order-total-price">
+      ￥<text>{{filters.toFix(totalPrice)}}</text>
+    </view>
+    <view class="order-sub">
+      <button style='background-color:{{color}};border: 1px {{color}} solid;'>提交订单</button>
+    </view>
+  </view>
 </view>

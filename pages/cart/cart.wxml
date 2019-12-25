@@ -3,8 +3,11 @@
 <view wx:if='{{goodsList.length > 0}}'>
   <view>
     <view class='cart-title'>
-      <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:if='{{ifEdit}}'>完成</text>
-      <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:else>编辑</text>
+      <view class="cart-del">温馨提示：往左滑动删除</view>
+      <view class="edit">
+        <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:if='{{ifEdit}}'>完成</text>
+        <text style="color: {{color}};border:1px {{color}} solid;" bindtap='onClickEdit' wx:else>编辑</text>
+      </view>
     </view>
     <view class="i-swipeout-demo">
       <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for='{{goodsList}}' wx:for-item='goods' wx:key='goods' bindchange='deleteGoods' data-id='{{goods.id}}' data-name='{{goods.name}}'>
@@ -20,13 +23,12 @@
           <view class='goods-text' style='width:{{width-155}}px;'>
             <view class='goods-name'>{{goods.name}}</view>
             <view class='goods-data'>
-              <view class="data-text">{{goods.specs.specsText}}</view>
-              <view class="data-remark">备注：{{goods.remark}}</view>
+              <view class="data-text">规格：{{goods.specs.specsText}}</view>
             </view>
             <view class='goods-value'>
               <view class='value-price'>￥{{filters.toFix(goods.specs.actualPrice)}}</view>
               <view class='value-count'>
-                <view wx:if='{{!ifEdit}}'>x {{goods.amount}}</view>
+                <view wx:if='{{!ifEdit}}'>数量：{{goods.amount}}</view>
                 <view wx:else>
                   <text class="opt-amount" style="background-color: {{color}};" bindtap='editGoodsAmount' data-id='{{goods.id}}' data-op='reduce'>-</text>
                   <text style="width: 18px;">{{goods.amount}}</text>
@@ -35,6 +37,7 @@
               </view>
             </view>
           </view>
+          <!-- <view class="data-remark" wx:if="{{goods.remark}}">备注：{{goods.remark}}</view> -->
         </view>
       </i-swipeout>
     </view>

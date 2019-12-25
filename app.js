@@ -28,18 +28,20 @@ App({
         id: 81,
         specsText: "S925银五圈戒",
         specsSrc: "/api/image/GS-20191204103028629178",
+        sellPrice: 19,
         actualPrice: 21
       }
     }, {
       amount: 3,
       id: 89,
       ifSelected: false,
-      name: "东北师范您方便拿衣服少奶奶辅导班你发的深V",
-      remark: "实打实大代表他不是。",
+      name: "东北师范您方便拿衣服少奶奶辅导班你发的深V大范甘迪手动阀发送到发发送到发斯蒂芬防守打法",
+      remark: "",
       specs: {
         id: 81,
         specsText: "S925银五圈戒",
         specsSrc: "/api/image/GS-20191204103028629178",
+        sellPrice: 1126.50,
         actualPrice: 1126.50
       }
     }]

@@ -54,7 +54,7 @@ Page({
             fileList: res.data.data.fileList,
             specsList: res.data.data.specsList,
             specs: res.data.data.specsList[0],
-            countPrice: res.data.data.specsList[0].sellPrice
+            countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100
           })
           wx.setNavigationBarTitle({
             title: res.data.data.info.goodsName //页面标题为路由参数
@@ -91,7 +91,7 @@ Page({
       that.setData({
         timestamp: app.getTimestamp()
       })
-    }, 180 * 1000)
+    }, 60 * 1000)
   },
 
   /**
@@ -243,7 +243,7 @@ Page({
     this.setData({
       specs: specs,
       chooseSpecsIndex: index,
-      countPrice: specs.actualPrice * this.data.specsNumber
+      countPrice: (specs.sellPrice * this.data.info.discount / 100) * this.data.specsNumber
     })
   },
   addSpecsNumber: function() {
@@ -251,7 +251,7 @@ Page({
     specsNumber = specsNumber > 99 ? 99 : specsNumber
     this.setData({
       specsNumber: specsNumber,
-      countPrice: this.data.specs.sellPrice * specsNumber
+      countPrice: (this.data.specs.sellPrice * this.data.info.discount / 100) * specsNumber
     })
   },
   reduceSpecsNumber: function() {
@@ -259,7 +259,7 @@ Page({
     specsNumber = specsNumber < 1 ? 1 : specsNumber
     this.setData({
       specsNumber: specsNumber,
-      countPrice: this.data.specs.sellPrice * specsNumber
+      countPrice: (this.data.specs.sellPrice * this.data.info.discount / 100) * specsNumber
     })
   },
   inputRemark: function(event) {
@@ -306,7 +306,8 @@ Page({
         id: this.data.specs.id,
         specsText: this.data.specs.specsText,
         specsSrc: this.data.specs.specsSrc,
-        actualPrice: this.data.specs.sellPrice
+        sellPrice: this.data.specs.sellPrice,
+        actualPrice: this.data.specs.sellPrice * this.data.info.discount / 100
       }
     }
     var bool = true
@@ -335,5 +336,28 @@ Page({
       title: '加入成功',
       icon: 'success'
     });
+  },
+  imagePreview(event) {
+    var src = event.currentTarget.dataset.src
+    const images = []
+    images.push(app.globalData.path + src + app.getTimestamp())
+    wx.previewImage({
+      current: images[0],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
+  imagesPreview(event) {
+    var index = event.currentTarget.dataset.index
+    const images = []
+    var list = this.data.fileList
+    for (var i = 0; i < list.length; i++){
+      if (list[i].fileType == 1 && list[i].fileSrc != null){
+        images.push(app.globalData.path + list[i].fileSrc + app.getTimestamp())
+      }
+    }
+    wx.previewImage({
+      current: images[index-1],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
   }
 })
