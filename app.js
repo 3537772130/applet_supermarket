@@ -56,6 +56,7 @@ App({
           path: this.globalData.path,
           timestamp: this.getTimestamp(),
           width: this.globalData.width,
+          height: this.globalData.height,
           color: systemColor
         })
       }

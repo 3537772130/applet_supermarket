@@ -47,7 +47,9 @@
 <view wx:if="{{userInfo.userId}}">
   <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
   <i-cell-group>
-    <i-cell title="{{userInfo.nickName}}" is-link></i-cell>
+    <i-cell title="我的优惠券" is-link url="/pages/my/coupon/coupon">
+      <i-icon type="coupons_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
     <i-cell title="{{userInfo.gender == 1 ? '男':'女'}}" is-link url="/pages/dashboard/index"></i-cell>
     <i-cell title="{{userInfo.mobile}}" is-link></i-cell>
   </i-cell-group>

@@ -109,7 +109,7 @@ Page({
     var that = this
     if (event.detail.value.length == 11) {
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/checkMobile',
+        url: app.globalData.path + '/api/applet/user/checkMobile',
         data: {
           appletCode: app.globalData.appletCode,
           mobile: event.detail.value
@@ -145,7 +145,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/sendBindAppletCode',
+        url: app.globalData.path + '/api/applet/wechant/sendBindAppletCode',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode,
@@ -171,7 +171,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/bindApplet',
+        url: app.globalData.path + '/api/applet/wechant/bindApplet',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode,

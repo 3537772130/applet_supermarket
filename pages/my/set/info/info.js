@@ -106,7 +106,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/updateUserInfo',
+        url: app.globalData.path + '/api/applet/user/updateUserInfo',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode,

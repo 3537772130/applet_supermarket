@@ -9,15 +9,24 @@ module.exports = {
           wx.getUserInfo({
             success(re) {
               const userInfo = re.userInfo;
+              var src = '/api/applet/wechant/login'
+              var loginCode = res.code
+              var wxCode = ''
+              if (app.globalData.userInfo){
+                loginCode = ''
+                wxCode = app.globalData.userInfo.wxCode
+                src = '/api/applet/wechant/loadUserInfo'
+              }
               var values = {
                 appletCode: app.globalData.appletCode,
-                code: res.code,
+                loginCode: loginCode,
+                wxCode: wxCode,
                 nickName: userInfo.nickName,
                 avatarUrl: userInfo.avatarUrl,
                 gender: userInfo.gender == '1' ? true : false
               }
               wx.request({
-                url: app.globalData.path + '/api/applet/wechat/login',
+                url: app.globalData.path + src,
                 data: values,
                 success: function(data) {
                   notFound(data.statusCode);
@@ -70,7 +79,7 @@ module.exports = {
             title: '正在上传',
           })
           wx.uploadFile({
-            url: app.globalData.path + '/api/applet/wechat/uploadUserAvatar',
+            url: app.globalData.path + '/api/applet/user/uploadUserAvatar',
             filePath: file.path,
             name: 'avatar',
             formData: {

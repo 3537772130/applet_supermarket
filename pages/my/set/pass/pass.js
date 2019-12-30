@@ -115,7 +115,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/updateUserPassToPass',
+        url: app.globalData.path + '/api/applet/user/updateUserPassToPass',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode,
@@ -158,7 +158,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/sendUpdatePassVerifyCode',
+        url: app.globalData.path + '/api/applet/user/sendUpdatePassVerifyCode',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode
@@ -183,7 +183,7 @@ Page({
       })
       var that = this
       wx.request({
-        url: app.globalData.path + '/api/applet/wechat/updateUserPassToCode',
+        url: app.globalData.path + '/api/applet/user/updateUserPassToCode',
         data: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode,
