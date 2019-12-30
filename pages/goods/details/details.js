@@ -44,8 +44,10 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/goods/loadGoodsDetails',
       data: {
-        appletCode: app.globalData.appletCode,
         goodsId: options.id
+      },
+      header: {
+        appletCode: app.globalData.appletCode
       },
       success: function(res) {
         if (res.data.code == '1') {

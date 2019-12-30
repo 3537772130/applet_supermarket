@@ -117,10 +117,12 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/user/updateUserPassToPass',
         data: {
-          appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode,
           oldPass: info.oldPass,
           newPass: info.newPass
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
         },
         success: function (res) {
           wx.showModal({
@@ -159,7 +161,7 @@ Page({
       var that = this
       wx.request({
         url: app.globalData.path + '/api/applet/user/sendUpdatePassVerifyCode',
-        data: {
+        header: {
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode
         },
@@ -185,10 +187,12 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/user/updateUserPassToCode',
         data: {
-          appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode,
           pass: info.pass,
           code: info.verifyCode
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
         },
         success: function (res) {
           wx.showModal({

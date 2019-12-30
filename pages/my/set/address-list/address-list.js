@@ -8,7 +8,7 @@ Page({
    */
   data: {
     showTip:true,
-    isChosse: '0', //是否选择： 0关闭   1启用
+    isChoose: '0', //是否可以选择： 0不可以   1可以
     actions: [{
       name: '删除',
       color: '#fff',
@@ -17,30 +17,7 @@ Page({
       icon: 'trash',
       background: '#ed3f14'
     }],
-    list: [
-      {
-        id: 1,
-        name: '周华虎啊哈',
-        mobile: '17601301913',
-        region: '上海市上海市松江区',
-        address: '虬泾路899弄象屿都城48栋702室',
-        lon: 0.0000,
-        lat: 0.0000,
-        label: 1,
-        isDefault: true
-      },
-      {
-        id: 2,
-        name: '周华虎',
-        mobile: '18374254725',
-        region: '江苏省无锡市滨湖区',
-        address: '经贸路天竺花苑(A区)85栋1903室',
-        lon: 0.0000,
-        lat: 0.0000,
-        label: 2,
-        isDefault: false
-      }
-    ]
+    list: []
   },
 
   /**
@@ -50,7 +27,7 @@ Page({
     app.setAppletColor(this)
     wx.hideShareMenu()
     this.setData({
-      isChosse: options.isChosse
+      isChoose: options.isChoose
     })
   },
 
@@ -58,13 +35,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
     var that = this
     var id = setTimeout(function () {
       that.setData({
@@ -72,6 +42,13 @@ Page({
       })
       clearTimeout(id)
     }, 2000)
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.loadAddressList()
   },
 
   /**
@@ -108,9 +85,36 @@ Page({
   onShareAppMessage: function() {
 
   },
+  loadAddressList(){
+    wx.showLoading({
+      title: '加载',
+    })
+    var that = this
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/queryReceiveAddressList',
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          that.setData({
+            list: res.data.data
+          })
+        } else {
+          that.setData({
+            list: []
+          })
+        }
+      },
+      complete: function () {
+        wx.hideLoading()
+      }
+    })
+  },
   loadAddress: function(event) {
     var index = parseInt(event.currentTarget.dataset.index)
-    var info = index >= 0 ? JSON.stringify(this.data.list[index]) : null
+    var info = index >= 0 ? JSON.stringify(this.data.list[index]) : ''
     wx.navigateTo({
       url: '/pages/my/set/address-list/address/address?info=' + info,
     })
@@ -124,24 +128,42 @@ Page({
       content: '确定删除收货人为【' + name + '】的地址吗？',
       success(res) {
         if (res.confirm) {
-          var list = that.data.list
-          var newList = []
-          for (var i = 0; i < list.length; i++){
-            if (list[i].id === id){
-              // 删除地址
-            } else {
-              newList.push(list[i])
+          wx.showLoading({
+            title: '加载',
+          })
+          wx.request({
+            url: app.globalData.path + '/api/applet/user/deleteReceiveAddress',
+            data: {
+              id: id
+            },
+            header: {
+              appletCode: app.globalData.appletCode,
+              wxCode: app.globalData.userInfo.wxCode
+            },
+            success: function (res) {
+              wx.showModal({
+                title: '温馨提示',
+                content: res.data.data,
+                confirmText: '确定',
+                confirmColor: that.data.color,
+                showCancel: false,
+                success() {
+                  if (res.data.code == '1') {
+                    that.loadAddressList()
+                  }
+                }
+              })
+            },
+            complete: function () {
+              wx.hideLoading()
             }
-          }
-          that.setData({
-            list: newList
           })
         }
       }
     })
   },
   chooseAddress: function (event){
-    if (this.data.isChosse === '1'){
+    if (this.data.isChoose === '1'){
       var index = event.currentTarget.dataset.index
       var site = this.data.list[index]
       wx.setStorage({

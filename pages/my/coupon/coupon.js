@@ -100,10 +100,12 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/user/coupon/queryUserCouponPage',
       data: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode,
         page: that.data.page,
         pageSize: that.data.pageSize
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
       },
       success: function(res) {
         var totalCount = res.data.data.totalCount

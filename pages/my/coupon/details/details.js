@@ -24,9 +24,11 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/user/coupon/queryUserCouponDetails',
       data: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode,
         userCouponId: parseInt(options.id)
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
       },
       success: function(res) {
         if (res.data.code === '1') {

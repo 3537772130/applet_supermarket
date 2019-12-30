@@ -64,8 +64,10 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/page/queryAppletPageInfo',
       data: {
-        appletCode: app.globalData.appletCode,
         pageLogo: pageLogo
+      },
+      header: {
+        appletCode: app.globalData.appletCode
       },
       success: function (res) {
         if (res.data.code == '1') {

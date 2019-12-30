@@ -68,9 +68,13 @@ Page({
   },
   loadLocation: function () {
     var that = this
+    wx.showLoading({
+      title: '加载地图中',
+    })
     wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      type: 'wgs84', //返回可以用于wx.openLocation的经纬度
       success(res) {
+        wx.hideLoading()
         const latitude = res.latitude
         const longitude = res.longitude
         wx.chooseLocation({
@@ -80,8 +84,8 @@ Page({
             var appletInfo = that.data.appletInfo
             appletInfo['addressDetails'] = re.address
             appletInfo['addressSimple'] = re.name
-            appletInfo['lat'] = latitude
-            appletInfo['lon'] = longitude
+            appletInfo['lat'] = re.latitude
+            appletInfo['lon'] = re.longitude
             that.setData({
               appletInfo: appletInfo
             })
@@ -93,7 +97,7 @@ Page({
   inputAddressTitle(e){
     var info = this.data.appletInfo
     info['addressSimple'] = e.detail.value
-    this.setdATA({
+    this.setData({
       appletInfo: info
     })
   },
@@ -105,12 +109,14 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/setAppletAddress',
       data: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode,
         address: that.data.appletInfo.addressDetails,
         title: that.data.appletInfo.addressSimple,
         lat: that.data.appletInfo.lat,
         lon: that.data.appletInfo.lon
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
         wx.showModal({

@@ -18,9 +18,7 @@ module.exports = {
                 src = '/api/applet/wechant/loadUserInfo'
               }
               var values = {
-                appletCode: app.globalData.appletCode,
                 loginCode: loginCode,
-                wxCode: wxCode,
                 nickName: userInfo.nickName,
                 avatarUrl: userInfo.avatarUrl,
                 gender: userInfo.gender == '1' ? true : false
@@ -30,7 +28,9 @@ module.exports = {
                 data: values,
                 method: 'POST',
                 header: {
-                  'content-type': 'application/x-www-form-urlencoded' //post
+                  'content-type': 'application/x-www-form-urlencoded', //post
+                  appletCode: app.globalData.appletCode,
+                  wxCode: wxCode
                 },
                 success: function(data) {
                   notFound(data.statusCode);
@@ -86,9 +86,9 @@ module.exports = {
             url: app.globalData.path + '/api/applet/user/uploadUserAvatar',
             filePath: file.path,
             name: 'avatar',
-            formData: {
-              'appletCode': app.globalData.appletCode,
-              'wxCode': app.globalData.userInfo.wxCode
+            header: {
+              appletCode: app.globalData.appletCode,
+              wxCode: app.globalData.userInfo.wxCode
             },
             success(res) {
               var data = JSON.parse(res.data)

@@ -85,9 +85,11 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/setAppletColor',
       data: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode,
         color: that.data.color
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
         if (res.data.code == '1'){

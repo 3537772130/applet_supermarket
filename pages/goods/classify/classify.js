@@ -46,7 +46,7 @@ Page({
     //加载小程序信息
     wx.request({
       url: app.globalData.path + '/api/applet/goods/loadGoodsClassify',
-      data: {
+      header: {
         appletCode: app.globalData.appletCode
       },
       success: function (res) {

@@ -111,8 +111,10 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/user/checkMobile',
         data: {
-          appletCode: app.globalData.appletCode,
           mobile: event.detail.value
+        },
+        header: {
+          appletCode: app.globalData.appletCode
         },
         success: function(res) {
           that.setData({
@@ -147,9 +149,11 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/wechant/sendBindAppletCode',
         data: {
-          appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode,
           mobile: this.data.mobile
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
         },
         success: function(res) {
           app.showModal(res.data.data)
@@ -173,11 +177,13 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/wechant/bindApplet',
         data: {
-          appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode,
           mobile: info.mobile,
           code: info.verifyCode,
           rmdMobile: info.rmdMobile
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
         },
         success: function(res) {
           wx.showModal({

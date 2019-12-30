@@ -94,7 +94,7 @@ Page({
   },
   chooseAddress: function (){
     wx.navigateTo({
-      url: '/pages/my/set/address-list/address-list?isChosse=1',
+      url: '/pages/my/set/address-list/address-list?isChoose=1',
     })
   }
 })

@@ -4,25 +4,25 @@
     <view class="form-item">
       <view class="item-label">收 货 人</view>
       <view class="item-input">
-        <input name="nickName" maxlength="5" placeholder="请输入收货人" value="{{info.name}}"></input>
+        <input name="name" maxlength="20" placeholder="请输入收货人" value="{{info.name}}" bindinput="inputName"></input>
       </view>
     </view>
     <view class="form-item">
       <view class="item-label">联系号码</view>
       <view class="item-input">
-        <input name="nickName" type="number" maxlength="11" placeholder="请输入联系号码" value="{{info.mobile}}"></input>
+        <input name="mobile" type="number" maxlength="11" placeholder="请输入联系号码" value="{{info.mobile}}" bindinput="inputMobile"></input>
       </view>
     </view>
     <view class="form-item">
       <view class="item-label">所在地区</view>
       <view class="item-input">
-        <input name="nickName" type="number" placeholder="请选择所在地区" value="{{info.region}}" bindtap="loadLocation"></input>
+        <input name="region" placeholder="请选择所在地区" value="{{info.region}}" disabled="true" bindtap="loadLocation"></input>
       </view>
     </view>
     <view class="form-item">
       <view class="item-label">详细地址</view>
       <view class="item-input">
-        <input name="email" maxlength="50" placeholder="请输入详细地址" value="{{info.address}}"></input>
+        <input name="address" maxlength="50" placeholder="请输入详细地址" value="{{info.address}}" bindinput="inputAddress"></input>
       </view>
     </view>
     <view class="form-item">
@@ -37,8 +37,14 @@
     <view class="form-item">
       <view class="item-label">设置默认</view>
       <view class="item-input">
-        <switch color="{{color}}" checked="{{info.isDefault}}" bindchange="switch1Change"/>
+        <switch name="isDefault" color="{{color}}" checked="{{info.isDefault}}" bindchange="switch1Change" />
       </view>
+    </view>
+    <view style="display: none;">
+      <input type="number" name="lon" value="{{info.lon}}"></input>
+      <input type="number" name="lat" value="{{info.lat}}"></input>
+      <input type="number" name="label" value="{{info.label}}"></input>
+      <input type="number" name="id" value="{{info.id}}"></input>
     </view>
     <view class="form-item form-item-none">
       <view class="item-submit">

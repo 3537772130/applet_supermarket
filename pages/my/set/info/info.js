@@ -108,12 +108,14 @@ Page({
       wx.request({
         url: app.globalData.path + '/api/applet/user/updateUserInfo',
         data: {
-          appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode,
           nickName: info.nickName,
           gender: that.data.gender,
           birthday: that.data.birthday,
           email: info.email
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
         },
         success: function(res) {
           wx.showModal({
