@@ -1,0 +1,119 @@
+/* pages/my/coupon/details/details.wxss */
+
+.applet-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  position: relative;
+  z-index: 99;
+}
+
+.main {
+  margin: 0px 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+  top: -40px;
+  z-index: 98;
+}
+
+.main > .applet-name {
+  margin-top: 20px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+}
+
+.main > .img {
+  height: 120px;
+  margin-bottom: 10px;
+}
+
+.main > .img > image {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+}
+
+.main > .info {
+  float: left;
+  width: 95%;
+  height: 120px;
+  line-height: 120px;
+  position: absolute;
+  color: #eeb422;
+}
+
+.main > .info > .coupon-name {
+  height: 35px;
+  line-height: 35px;
+  text-align: right;
+  font-size: 14px;
+  padding-right: 15px;
+}
+
+.main > .info > .price {
+  height: 75px;
+  line-height: 110px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 50px;
+  font-family: '宋体';
+}
+
+.main > .info > .price > label {
+  font-size: 16px;
+  display: inline-table;
+  margin-left: 5px;
+  font-family: '宋体';
+}
+
+.main > .text {
+  text-align: left;
+  font-size: 12px;
+  color: #bfbfbf;
+}
+
+.main > .value {
+  text-align: left;
+  font-size: 12px;
+  height: 20px;
+  text-indent: 20px;
+}
+
+.main > .use {
+  margin-top: 20px;
+  border-top: 1px #cdcdcd dashed;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.main > .use > .left{
+  float: left;
+  height: 10px;
+  width: 10px;
+  position: relative;
+  top: -45px;
+  left: -15px;
+  border-radius: 5px;
+}
+
+.main > .use > .right{
+  float: right;
+  height: 10px;
+  width: 10px;
+  position: relative;
+  top: -45px;
+  right: -15px;
+  border-radius: 5px;
+}
+
+.main > .use > button {
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 3px;
+}

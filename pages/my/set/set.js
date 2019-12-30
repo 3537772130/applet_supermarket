@@ -17,37 +17,6 @@ Page({
   onLoad: function(options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    this.setData({
-      isDealer: app.globalData.isDealer,
-      mobile: ''
-    })
-    var userInfo = app.globalData.userInfo
-    if (userInfo.mobile){
-      var mobile = userInfo.mobile
-      this.setData({
-        mobile: mobile.substring(0, 3) + '****' + mobile.substring(7, 11)
-      })
-    }
-    if (app.globalData.isDealer){
-      var colorText = ''
-      switch (app.globalData.appletInfo.systemColor) {
-        case '#1afa29':
-          colorText = '春绿'
-          break;
-        case '#1296db':
-          colorText = '天蓝'
-          break;
-        case '#fd8403':
-          colorText = '明黄'
-          break;
-        case '#ff6347':
-          colorText = '番茄'
-          break;
-      }
-      this.setData({
-        colorText: colorText
-      })
-    }
   },
 
   /**
@@ -62,6 +31,43 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
+    this.setData({
+      isDealer: app.globalData.isDealer,
+      mobile: ''
+    })
+    var userInfo = app.globalData.userInfo
+    if (userInfo.mobile) {
+      var mobile = userInfo.mobile
+      this.setData({
+        mobile: mobile.substring(0, 3) + '****' + mobile.substring(7, 11)
+      })
+    }
+    if (app.globalData.isDealer) {
+      var colorText = ''
+      switch (app.globalData.appletInfo.systemColor) {
+        case '#1afa29':
+          colorText = '春绿'
+          break;
+        case '#1296db':
+          colorText = '天蓝'
+          break;
+        case '#fd8403':
+          colorText = '明黄'
+          break;
+        case '#ff6347':
+          colorText = '番茄'
+          break;
+        case '#FF6EC7':
+          colorText = '粉红'
+          break;
+        case '#8470FF':
+          colorText = '紫蓝'
+          break;
+      }
+      this.setData({
+        colorText: colorText
+      })
+    }
   },
 
   /**

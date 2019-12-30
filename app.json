@@ -23,7 +23,9 @@
     "pages/my/set/address-list/address/address",
     "pages/my/set/location/location",
     "pages/cart/settlement/settlement",
-    "pages/my/coupon/coupon"
+    "pages/my/coupon/coupon",
+    "pages/my/coupon/details/details",
+    "pages/cart/settlement/coupon/coupon"
   ],
   "window": {
     "backgroundTextStyle": "light",

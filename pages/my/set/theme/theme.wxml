@@ -6,17 +6,25 @@
       <view class="option-color" style="background-color: #1afa29;"></view>
       <view class="option-text" style="color: #1afa29;">春绿</view>
     </view>
-    <view class="option" style="border: {{color == '#1296db' ? '1px #1296db solid':'none'}};" bindtap="previewColor" data-color="#1296db">
-      <view class="option-color" style="background-color: #1296db;"></view>
-      <view class="option-text" style="color: #1296db;">天蓝</view>
-    </view>
     <view class="option" style="border: {{color == '#fd8403' ? '1px #fd8403 solid':'none'}};" bindtap="previewColor" data-color="#fd8403">
       <view class="option-color" style="background-color: #fd8403;"></view>
       <view class="option-text" style="color: #fd8403;">明黄</view>
     </view>
+    <view class="option" style="border: {{color == '#1296db' ? '1px #1296db solid':'none'}};" bindtap="previewColor" data-color="#1296db">
+      <view class="option-color" style="background-color: #1296db;"></view>
+      <view class="option-text" style="color: #1296db;">天蓝</view>
+    </view>
+    <view class="option" style="border: {{color == '#8470FF' ? '1px #8470FF solid':'none'}};" bindtap="previewColor" data-color="#8470FF">
+      <view class="option-color" style="background-color: #8470FF;"></view>
+      <view class="option-text" style="color: #8470FF;">紫蓝</view>
+    </view>
     <view class="option" style="border: {{color == '#ff6347' ? '1px #ff6347 solid':'none'}};" bindtap="previewColor" data-color="#ff6347">
       <view class="option-color" style="background-color: #ff6347;"></view>
       <view class="option-text" style="color: #ff6347;">番茄</view>
+    </view>
+    <view class="option" style="border: {{color == '#FF6EC7' ? '1px #FF6EC7 solid':'none'}};" bindtap="previewColor" data-color="#FF6EC7">
+      <view class="option-color" style="background-color: #FF6EC7;"></view>
+      <view class="option-text" style="color: #FF6EC7;">粉红</view>
     </view>
   </view>
   <view class="theme-but">

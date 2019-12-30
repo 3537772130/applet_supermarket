@@ -89,5 +89,49 @@ Page({
         })
       }
     })
+  },
+  inputAddressTitle(e){
+    var info = this.data.appletInfo
+    info['addressSimple'] = e.detail.value
+    this.setdATA({
+      appletInfo: info
+    })
+  },
+  subLocation(){
+    var that = this
+    wx.showLoading({
+      title: '正在提交',
+    })
+    wx.request({
+      url: app.globalData.path + '/api/applet/setAppletAddress',
+      data: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode,
+        address: that.data.appletInfo.addressDetails,
+        title: that.data.appletInfo.addressSimple,
+        lat: that.data.appletInfo.lat,
+        lon: that.data.appletInfo.lon
+      },
+      success: function (res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: res.data.data,
+          confirmText: '确定',
+          confirmColor: that.data.color,
+          showCancel: false,
+          success() {
+            if (res.data.code == '1') {
+              app.globalData.appletInfo = that.data.appletInfo
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
+        })
+      },
+      complete: function () {
+        wx.hideLoading();
+      }
+    })
   }
 })

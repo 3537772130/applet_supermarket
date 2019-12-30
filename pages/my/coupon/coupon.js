@@ -12,6 +12,7 @@ Page({
     page: 1,
     pageSize: 10,
     totalCount: 0,
+    isNull: false,
     hide: false
   },
 
@@ -20,6 +21,7 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
+    wx.hideShareMenu()
     this.queryCouponList()
   },
 
@@ -114,7 +116,12 @@ Page({
           that.setData({
             totalCount: totalCount,
             list: list,
+            isNull: false,
             timestamp: app.getTimestamp()
+          })
+        } else {
+          that.setData({
+            isNull: true
           })
         }
       },
@@ -123,6 +130,12 @@ Page({
           wx.hideLoading();
         }, 1000);
       }
+    })
+  },
+  loadDetails(event) {
+    var id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/my/coupon/details/details?id=' + id,
     })
   }
 })

@@ -1,0 +1,29 @@
+<!--pages/my/coupon/details/details.wxml-->
+<view style="height: {{height}}px;background-color: {{color}};text-align: center;">
+  <image class="applet-logo" src="{{path + info.useAppletLogo + timestamp}}"></image>
+  <view class="main">
+    <view class="applet-name">{{info.useAppletName}}</view>
+    <view class="info">
+      <!-- <view class="type">满减优惠券</view> -->
+      <view class="price">
+        {{info.denomination}}<label>元</label>
+      </view>
+      <view class="coupon-name">{{info.couponName}}</view>
+    </view>
+    <view class="img">
+      <image src="/images/my/coupon-bgi.png"></image>
+    </view>
+    <view class="text">优惠券类型：</view>
+    <view class="value">
+      <label wx:if="{{info.couponType === 1}}">通用优惠券</label>
+      <label wx:else>满减优惠券</label>
+    </view>
+    <view class="text">有效期至：</view>
+    <view class="value">{{info.activityOver}}</view>
+    <view class="use">
+      <view class="left" style="background-color: {{color}};"> </view>
+      <view class="right" style="background-color: {{color}};"> </view>
+      <button style="background-color: {{color}};border:1px {{color}} solid;" bindtap="loadApplet">立即使用</button>
+    </view>
+  </view>
+</view>

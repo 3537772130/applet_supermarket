@@ -38,7 +38,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.setAppletColor(this)
     var that = this
     wx.showLoading({
       title: '加载中',
@@ -50,7 +49,7 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: function(res) {
-              //授权登录
+              // 授权登录
               utils.getAuthorization(that);
             }
           })
@@ -58,6 +57,19 @@ Page({
           wx.redirectTo({
             url: '/pages/my/auth/auth?logo=' + app.globalData.path + app.globalData.appletInfo.appletLogo,
           })
+        }
+      }
+    })
+    // 加载小程序信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/getAppletInfo',
+      data: {
+        appletCode: app.globalData.appletCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          app.globalData.appletInfo = res.data.data
+          app.setAppletColor(that);
         }
       }
     })

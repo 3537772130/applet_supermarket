@@ -1,22 +1,28 @@
 <!--pages/my/coupon/coupon.wxml-->
-<view>
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<view class="is-null" wx:if="{{isNull}}">
+  <image src="/images/is_null.png"></image>
+  <view>空空如也</view>
+</view>
+<view wx:else>
   <scroll-view scroll-y="true" style="height: {{height}}px;" bindscrolltolower="lower">
     <view class="coupon-list">
-      <view class="coupon" wx:for="{{list}}" wx:key="item">
-        <view class="info">
-          <view class="name">{{item.id + '-' + item.couponName}}</view>
-          <view class="price">
-            {{item.denomination}}<label>元</label>
-          </view>
-          <view class="date">截止: {{item.activityOver}}</view>
+      <view class="coupon" wx:for="{{list}}" wx:key="item" bindtap="loadDetails" data-id="{{item.id}}">
+        <view class="price">
+          {{item.denomination}}<label>元</label>
         </view>
-        <view class="logo">
-          <image src="{{path + item.useAppletLogo + timestamp}}"></image>
+        <view class="info">
+          <view class="coupon-name">{{item.id + '-' + item.couponName}}</view>
+          <view class="applet-name">【{{item.useAppletName}}】专享优惠券</view>
+          <view class="date">
+            <view class="time">截止: {{filters.sub(item.activityOver, 0, 11)}}</view>
+            <view class="details">查看详情</view>
+          </view>
         </view>
       </view>
     </view>
     <view class="coupon-botton">
-      <i-icon type="refresh" size="20" color="#cdcdcd" wx:if="{{hide}}"/>
+      <i-icon type="refresh" size="20" color="#cdcdcd" wx:if="{{hide}}" />
       <view wx:if="{{hide}}">没有更多了</view>
     </view>
   </scroll-view>

@@ -4,18 +4,18 @@
     <view class="form-item">
       <view class="item-label">所在地区</view>
       <view class="item-input">
-        <input name="nickName" type="number" placeholder="请选择所在地区" value="{{appletInfo.addressDetails}}" bindtap="loadLocation"></input>
+        <input name="addressDetails" type="number" placeholder="请选择所在地区" value="{{appletInfo.addressDetails}}" bindtap="loadLocation"></input>
       </view>
     </view>
     <view class="form-item">
       <view class="item-label">详细地址</view>
       <view class="item-input">
-        <input name="email" maxlength="50" placeholder="请输入详细地址" value="{{appletInfo.addressSimple}}"></input>
+        <input name="addressSimple" maxlength="50" placeholder="请输入详细地址" value="{{appletInfo.addressSimple}}" bindinput="inputAddressTitle"></input>
       </view>
     </view>
     <view class="form-item form-item-none">
       <view class="item-submit">
-        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;">提交</button>
+        <button formType="submit" style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="subLocation">提交</button>
       </view>
     </view>
   </form>

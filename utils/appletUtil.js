@@ -28,6 +28,10 @@ module.exports = {
               wx.request({
                 url: app.globalData.path + src,
                 data: values,
+                method: 'POST',
+                header: {
+                  'content-type': 'application/x-www-form-urlencoded' //post
+                },
                 success: function(data) {
                   notFound(data.statusCode);
                   var info = data.data
