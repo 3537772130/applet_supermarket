@@ -1,5 +1,10 @@
 // pages/cart/settlement/settlement.js
 const app = getApp();
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk.min')
+// 实例化API核心类
+let qqmapsdk = new QQMapWX({
+  key: 'O3MBZ-73E3F-GCZJU-J3MVE-SAPU7-GOB5J' // YU7BZ-EWRWJ-GXEFP-KILXN-NM7C7-IUF74
+})
 var idJson = ''
 
 Page({
@@ -13,7 +18,8 @@ Page({
     goodsTotalPrice: 0.00,
     totalPrice: 0.00,
     site: {},
-    coupon: {}
+    coupon: {},
+    resultDistance: 0
   },
 
   /**
@@ -37,7 +43,7 @@ Page({
     })
     //获取当前页面信息
     wx.request({
-      url: app.globalData.path + '/api/applet/user/order/loadOrderReadyInfo',
+      url: app.globalData.path + '/api/applet/user/cart/loadOrderReadyInfo',
       data: {
         idJson: idJson,
         mountPrice: that.data.goodsTotalPrice
@@ -59,6 +65,7 @@ Page({
             list: res.data.data.list,
             totalPrice: totalPrice
           })
+          loadMapDistance(that)
         }
       },
       complete: function () {
@@ -85,6 +92,7 @@ Page({
         that.setData({
           site: res.data
         })
+        loadMapDistance(that)
         wx.removeStorage({
           key: 'choose_site'
         })
@@ -154,3 +162,36 @@ Page({
     })
   }
 })
+
+var loadMapDistance = function(that){
+  // 起点经纬度
+  let latStart = that.data.site['lat']
+  let lonStart = that.data.site['lon']
+  // 终点经纬度
+  let latEnd = that.data.appletInfo['lat']
+  let lonEnd = that.data.appletInfo['lon']
+  // 获取两点的距离
+  qqmapsdk.calculateDistance({
+    to: [{
+      latitude: latStart,
+      longitude: lonStart
+    }, {
+      latitude: latEnd,
+      longitude: lonEnd
+    }],
+    success: function (res) {
+      console.log('两点之间的距离0：', res.result.elements[0].distance);
+      console.log('两点之间的距离1：', res.result.elements[1].distance);
+      console.log(res);
+      that.setData({
+        resultDistance: res.result.elements[1].distance
+      });
+    },
+    fail: function (res) {
+      console.log(res);
+    },
+    complete: function (res) {
+      console.log(res);
+    }
+  });
+}

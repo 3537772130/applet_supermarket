@@ -1,2 +1,14 @@
 <!--pages/test/test.wxml-->
-<web-view src='https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU4Mjc2NTgzOQ==&scene=126&bizpsid=0#wechat_redirect'></web-view>
+<!--地图容器-->
+<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
+
+
+
+
+起点：<input placeholder='请输入起点' bindinput='getStart'></input>
+终点：<input placeholder='请输入终点' bindinput='getEnd'></input>
+
+两点之间的距离：{{resultDistance}}
+
+<!--绑定点击事件-->
+<button bindtap="driving" disabled='{{openNav}}'>开始导航</button>

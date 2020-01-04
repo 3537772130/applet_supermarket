@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/test/test",
     "pages/main/main",
     "pages/cart/cart",
     "pages/goods/classify/classify",
@@ -11,7 +12,6 @@
     "pages/main/about-seller/about-seller",
     "pages/main/group-buying-today/group-buying-today",
     "pages/main/search/search",
-    "pages/test/test",
     "pages/error/error",
     "pages/my/auth/auth",
     "pages/my/set/set",

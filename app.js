@@ -17,34 +17,7 @@ App({
     bindStatus: false,
     isDealer: false,
     width: 0,
-    height: 0,
-    cartGoodsList: [{
-      amount: 2,
-      id: 79,
-      ifSelected: false,
-      name: "s925银戒指女简约个性单圈多层三环指环时尚食指戒尾戒J923",
-      remark: "刚发你的夫人，个人运费到付甜热热，地方不大方不方便方不方便方不方便方不方便分别是。",
-      specs: {
-        id: 81,
-        specsText: "S925银五圈戒",
-        specsSrc: "/api/image/GS-20191204103028629178",
-        sellPrice: 19,
-        actualPrice: 21
-      }
-    }, {
-      amount: 3,
-      id: 89,
-      ifSelected: false,
-      name: "东北师范您方便拿衣服少奶奶辅导班你发的深V大范甘迪手动阀发送到发发送到发斯蒂芬防守打法",
-      remark: "",
-      specs: {
-        id: 81,
-        specsText: "S925银五圈戒",
-        specsSrc: "/api/image/GS-20191204103028629178",
-        sellPrice: 1126.53,
-        actualPrice: 1126.53
-      }
-    }]
+    height: 0
   },
   setAppletColor: function(that) {
     if (this.globalData.appletInfo){

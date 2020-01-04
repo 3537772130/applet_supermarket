@@ -6,7 +6,7 @@
       <view class="h-first">
         <view class="f-def" wx:if="{{site.isDefault}}">默认</view>
         <view class="f-label" wx:if="{{site.label === 1}}">家</view>
-        <view class="f-label" wx:if="{{site.label === 5}}">公司</view>
+        <view class="f-label" wx:if="{{site.label === 2}}">公司</view>
         <view class="f-label" wx:if="{{site.label === 3}}">学校</view>
         <view class="f-label" wx:if="{{site.label === 4}}">其他</view>
         <view class="f-region">{{site.region}}</view>
@@ -27,6 +27,9 @@
       <i-icon type="enter" size="18" color="#80848f" />
     </view>
   </view>
+  <view style="font-size: 14px;">{{appletInfo.addressDetails + appletInfo.addressSimple}}</view>
+  <view>相距：{{resultDistance}}米</view>
+
   <view class="paly-type">
     <view class="t-title">支付方式</view>
     <view class="t-name">
@@ -34,6 +37,7 @@
       <i-icon type="more" size="28" color="#00000" />
     </view>
   </view>
+
   <view class="goods-list" wx:for="{{list}}" wx:key="item">
     <view class="goods-item">
       <view class="item-img">
@@ -52,6 +56,7 @@
     </view>
     <view class="goods-remark" wx:if="{{item.describeStr}}">{{item.describeStr}}</view>
   </view>
+
   <view class="order-data">
     <view class="data-item">
       <view class="item-title">商品金额</view>
@@ -73,7 +78,7 @@
       </view>
     </view>
   </view>
-
+  
   <view class="but-menu">
     <view class="order-total-price">
       ￥<text>{{filters.toFix(totalPrice)}}</text>

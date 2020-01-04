@@ -167,9 +167,9 @@
 .goods-list > .goods-item > .item-img{
   float: left;
   display: inline-table;
-  width: 35%;
+  width: 40%;
   text-align: center;
-  margin-right: 3%;
+  /* margin-right: 3%; */
 }
 .goods-list > .goods-item > .item-img > image{
   width: 100px;
@@ -180,13 +180,13 @@
 
 .goods-list > .goods-item > .item-info{
   display: inline-table;
-  width: 62%;
+  width: 60%;
 }
 
 .goods-list > .goods-item > .item-info > .info-name{
   text-align: left;
   font-size: 12px;
-  height: 35px;
+  height: 32px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

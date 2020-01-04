@@ -1,44 +1,32 @@
 // pages/test/test.js
-const {
-  $Message
-} = require('../../dist/base/index');
+let QQMapWX = require('../../utils/qqmap-wx-jssdk.min')
+// 实例化API核心类
+let qqmapsdk = new QQMapWX({
+  key: 'O3MBZ-73E3F-GCZJU-J3MVE-SAPU7-GOB5J' // YU7BZ-EWRWJ-GXEFP-KILXN-NM7C7-IUF74
+})
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    visible2: false,
-    //小程序没有refs，所以只能用动态布尔值控制关闭
-    toggle: false,
-    toggle2: false,
-    actions2: [{
-      name: '删除',
-      color: '#ed3f14'
-    }],
-    actions: [{
-        name: '喜欢',
-        color: '#fff',
-        fontsize: '20',
-        width: 100,
-        icon: 'like',
-        background: '#ed3f14'
-      },
-      {
-        name: '返回',
-        width: 100,
-        color: '#80848f',
-        fontsize: '20',
-        icon: 'undo'
-      }
-    ]
+    openNav: true,
+    site: {
+      'lon': 120.275495927,
+      'lat': 31.525915299
+    },
+    appletInfo: {
+      'lon': 120.2753334,
+      'lat': 31.527484388
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.loadMapDistance()
   },
 
   /**
@@ -89,42 +77,92 @@ Page({
   onShareAppMessage: function() {
 
   },
-  handleCancel2() {
+  loadMapDistance: function() {
+    var that = this
+    // 起点经纬度
+    let latStart = this.data.site['lat']
+    let lonStart = this.data.site['lon']
+    // 终点经纬度
+    let latEnd = this.data.appletInfo['lat']
+    let lonEnd = this.data.appletInfo['lon']
     this.setData({
-      visible2: false,
-      toggle: this.data.toggle ? false : true
-    });
-    console.log(this.data.toggle, 111111111)
-  },
-  handleClickItem2() {
-    const action = [...this.data.actions2];
-    action[0].loading = true;
+      latitude: latStart,
+      longitude: lonStart,
+      scale: 16,
+      markers: [{
+          id: 0,
+          latitude: latStart,
+          longitude: lonStart,
+          iconPath: '/images/location.png'
+        },
+        {
+          id: 1,
+          latitude: latEnd,
+          longitude: lonEnd,
+          iconPath: '/images/location.png'
+        }
+      ]
+    })
 
-    this.setData({
-      actions2: action
+    // 获取两点的距离
+    qqmapsdk.calculateDistance({
+      to: [{
+        latitude: latStart,
+        longitude: lonStart
+      }, {
+        latitude: latEnd,
+        longitude: lonEnd
+      }],
+      success: function(res) {
+        console.log('两点之间的距离0：', res.result.elements[0].distance);
+        console.log('两点之间的距离1：', res.result.elements[1].distance);
+        console.log(res);
+        that.setData({
+          resultDistance: res.result.elements[1].distance + '米'
+        });
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
     });
 
-    setTimeout(() => {
-      action[0].loading = false;
-      this.setData({
-        visible2: false,
-        actions2: action,
-        toggle: this.data.toggle ? false : true
-      });
-
-    }, 2000);
-  },
-  handlerCloseButton() {
-    this.setData({
-      toggle2: this.data.toggle2 ? false : true
-    });
-  },
-  actionsTap() {
-    this.setData({
-      visible2: true
-    });
-  },
-  handlerButton(){
-    console.log('进来啦。。')
+    //网络请求设置
+    let opt = {
+      //WebService请求地址，from为起点坐标，to为终点坐标，开发key为必填
+      url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${latStart},${lonStart}&to=${latEnd},${lonEnd}&key=${qqmapsdk.key}`,
+      method: 'GET',
+      dataType: 'json',
+      //请求成功回调
+      success: function(res) {
+        let ret = res.data
+        if (ret.status != 0) return; //服务异常处理
+        let coors = ret.result.routes[0].polyline,
+          pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        let kr = 1000000;
+        for (let i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (let i = 0; i < coors.length; i += 2) {
+          pl.push({
+            latitude: coors[i],
+            longitude: coors[i + 1]
+          })
+        }
+        //设置polyline属性，将路线显示出来
+        that.setData({
+          polyline: [{
+            points: pl,
+            color: '#FF0000DD',
+            width: 4
+          }]
+        })
+      }
+    };
+    wx.request(opt);
   }
 })
