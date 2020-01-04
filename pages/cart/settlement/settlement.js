@@ -1,5 +1,6 @@
 // pages/cart/settlement/settlement.js
 const app = getApp();
+var idJson = ''
 
 Page({
 
@@ -11,7 +12,8 @@ Page({
     fare: 0.00,// 运费
     goodsTotalPrice: 0.00,
     totalPrice: 0.00,
-    site: {}
+    site: {},
+    coupon: {}
   },
 
   /**
@@ -20,11 +22,48 @@ Page({
   onLoad: function (options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    var json = options.json
+    idJson = options.json
     this.setData({
-      list: JSON.parse(json),
-      goodsTotalPrice: parseInt(options.totalPrice),
-      totalPrice: parseInt(options.totalPrice)
+      goodsTotalPrice: parseFloat(options.totalPrice),
+      totalPrice: parseFloat(options.totalPrice),
+      fare: 0.00,
+      coupon: {},
+      site: {}
+    })
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    //获取当前页面信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/order/loadOrderReadyInfo',
+      data: {
+        idJson: idJson,
+        mountPrice: that.data.goodsTotalPrice
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          var coupon = res.data.data.coupon
+          var totalPrice = that.data.goodsTotalPrice
+          if (coupon){
+            totalPrice = parseFloat(that.data.goodsTotalPrice) - parseFloat(res.data.data.coupon.denomination)
+          }
+          that.setData({
+            site: res.data.data.address,
+            coupon: coupon,
+            list: res.data.data.list,
+            totalPrice: totalPrice
+          })
+        }
+      },
+      complete: function () {
+        app.hideLoading();
+      }
     })
   },
 
@@ -48,6 +87,18 @@ Page({
         })
         wx.removeStorage({
           key: 'choose_site'
+        })
+      },
+    })
+    wx.getStorage({
+      key: 'choose_coupon',
+      success: function (res) {
+        that.setData({
+          coupon: res.data,
+          totalPrice: parseFloat(that.data.goodsTotalPrice) - parseFloat(res.data.denomination)
+        })
+        wx.removeStorage({
+          key: 'choose_coupon'
         })
       },
     })
@@ -95,6 +146,11 @@ Page({
   chooseAddress: function (){
     wx.navigateTo({
       url: '/pages/my/set/address-list/address-list?isChoose=1',
+    })
+  },
+  chooseCoupon: function(){
+    wx.navigateTo({
+      url: '/pages/cart/settlement/coupon/coupon?goodsTotalPrice=' + this.data.goodsTotalPrice,
     })
   }
 })

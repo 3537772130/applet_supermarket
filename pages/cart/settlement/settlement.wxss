@@ -174,6 +174,8 @@
 .goods-list > .goods-item > .item-img > image{
   width: 100px;
   height: 100px;
+  border: 1px #cdcdcd solid;
+  border-radius: 5px;
 }
 
 .goods-list > .goods-item > .item-info{

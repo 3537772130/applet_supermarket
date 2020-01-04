@@ -31,7 +31,6 @@ page{
   margin-top: 10px;
   border-radius: 8px;
   box-shadow: 3px 3px 6px #b2b2b2;
-  border: 1px #cdcdcd solid;
 }
 
 .coupon-list > .coupon > .info {

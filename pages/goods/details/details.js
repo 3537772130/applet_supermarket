@@ -44,7 +44,7 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/goods/loadGoodsDetails',
       data: {
-        goodsId: options.id
+        goodsId: parseInt(options.id)
       },
       header: {
         appletCode: app.globalData.appletCode
@@ -298,46 +298,38 @@ Page({
     }
   },
   addCart: function() {
-    var goods = {
-      id: this.data.info.id,
-      name: this.data.info.goodsName,
-      amount: this.data.specsNumber,
-      remark: this.data.remark,
-      ifSelected: false,
-      specs: {
-        id: this.data.specs.id,
-        specsText: this.data.specs.specsText,
-        specsSrc: this.data.specs.specsSrc,
-        sellPrice: this.data.specs.sellPrice,
-        actualPrice: this.data.specs.sellPrice * this.data.info.discount / 100
-      }
-    }
-    var bool = true
-    var list = []
-    var goodsList = app.globalData.cartGoodsList
-    for (var i = 0; i < goodsList.length; i++) {
-      if (goodsList[i].id == goods.id) {
-        bool = false
-        list.push(goods)
-      } else {
-        list.push(goodsList[i])
-      }
-    }
-    if (bool) {
-      list.push(goods)
-    }
-    app.globalData.cartGoodsList = list
-    this.setData({
-      specs: this.data.specsList[0],
-      countPrice: this.data.specsList[0].sellPrice,
-      specsNumber: 1,
-      chooseSpecsIndex: 0,
-      remark: ''
+    wx.showLoading({
+      title: '加载中',
     })
-    wx.showToast({
-      title: '加入成功',
-      icon: 'success'
-    });
+    var that = this
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/cart/saveUserCartInfo',
+      data: {
+        goodsId: parseInt(this.data.info.id),
+        specsId: parseInt(this.data.specs.id),
+        amount: parseInt(this.data.specsNumber)
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          wx.showToast({
+            title: '加入成功',
+            icon: 'success'
+          })
+        } else {
+          wx.showToast({
+            title: '加入失败',
+            icon: 'warn'
+          })
+        }
+      },
+      complete: function () {
+        wx.hideLoading();
+      }
+    })
   },
   imagePreview(event) {
     var src = event.currentTarget.dataset.src

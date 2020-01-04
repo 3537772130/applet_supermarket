@@ -11,8 +11,10 @@ Page({
    */
   data: {
     totalPrice: 0.00,
+    cartList: [],
     ifEdit: false,
     ifCheckAll: false,
+    idList: [],
     actions: [{
       name: '删除',
       color: '#fff',
@@ -43,8 +45,34 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    this.setData({
-      goodsList: app.globalData.cartGoodsList
+    wx.showLoading({
+      title: '加载中',
+    })
+    var that = this
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/cart/queryUserCartList',
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function(res) {
+        if (res.data.code == '1') {
+          var list = []
+          for (var i = 0; i < res.data.data.length; i++) {
+            var info = res.data.data[i]
+            info['ifSelected'] = false
+            list.push(info)
+          }
+          that.setData({
+            cartList: list,
+            ifCheckAll: false,
+            totalPrice: 0.00
+          })
+        }
+      },
+      complete: function() {
+        wx.hideLoading();
+      }
     })
   },
 
@@ -96,13 +124,14 @@ Page({
   onClickSelect: function(event) {
     var id = event.currentTarget.dataset.id;
     var totalPrice = this.data.totalPrice
-    var goodsList = this.data.goodsList;
+    var cartList = this.data.cartList;
     var list = [];
+    var idList = []
     var ifCheckAll = true;
-    for (var i = 0; i < goodsList.length; i++) {
-      var goods = goodsList[i];
+    for (var i = 0; i < cartList.length; i++) {
+      var goods = cartList[i];
       if (goods.id === id) {
-        var amoutCount = goods.specs.actualPrice * goods.amount;
+        var amoutCount = (goods.sellPrice * goods.discount / 100) * goods.amount;
         if (goods.ifSelected) {
           totalPrice = totalPrice - amoutCount;
         } else {
@@ -111,62 +140,83 @@ Page({
         goods.ifSelected = !goods.ifSelected;
       }
       list.push(goods);
+      if (goods.ifSelected) {
+        idList.push(goods.id)
+      }
       if (ifCheckAll) {
         ifCheckAll = goods.ifSelected;
       }
     }
     this.setData({
-      goodsList: list,
+      cartList: list,
       ifCheckAll: ifCheckAll,
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
+      idList: idList
     })
+    console.info('当前选中的ID有：', idList)
   },
   onClickSelectAll: function() {
     var totalPrice = this.data.totalPrice;
     totalPrice = 0.00;
     var ifCheckAll = !this.data.ifCheckAll;
-    var goodsList = this.data.goodsList;
+    var cartList = this.data.cartList;
     var list = [];
-    for (var i = 0; i < goodsList.length; i++) {
-      var goods = goodsList[i];
+    var idList = []
+    for (var i = 0; i < cartList.length; i++) {
+      var goods = cartList[i];
       if (ifCheckAll) {
-        var amoutCount = goods.specs.actualPrice * goods.amount;
+        var amoutCount = (goods.sellPrice * goods.discount / 100) * goods.amount;
         totalPrice = totalPrice + amoutCount;
+        idList.push(goods.id)
+      } else {
+        idList = []
       }
       goods.ifSelected = ifCheckAll;
       list.push(goods);
     }
     this.setData({
-      goodsList: list,
+      cartList: list,
       ifCheckAll: ifCheckAll,
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
+      idList: idList
     })
+    console.info('当前选中的ID有：', idList)
   },
   editGoodsAmount: function(event) {
     var id = event.currentTarget.dataset.id;
     var op = event.currentTarget.dataset.op;
     var totalPrice = this.data.totalPrice;
     totalPrice = 0.00;
-    var goodsList = this.data.goodsList;
+    var cartList = this.data.cartList;
     var list = [];
-    for (var i = 0; i < goodsList.length; i++) {
-      var goods = goodsList[i];
+    for (var i = 0; i < cartList.length; i++) {
+      var goods = cartList[i];
       if (goods.id === id) {
         if (op == 'add') {
           goods.amount = goods.amount < 99 ? goods.amount + 1 : 99;
         } else {
           goods.amount = goods.amount > 1 ? goods.amount - 1 : 1;
         }
-
+        wx.request({
+          url: app.globalData.path + '/api/applet/user/cart/updateCartGoodsAmount',
+          data: {
+            id: goods.id,
+            amount: goods.amount
+          },
+          header: {
+            appletCode: app.globalData.appletCode,
+            wxCode: app.globalData.userInfo.wxCode
+          }
+        })
       }
       if (goods.ifSelected) {
-        var amoutCount = goods.specs.actualPrice * goods.amount;
+        var amoutCount = (goods.sellPrice * goods.discount / 100) * goods.amount;
         totalPrice = totalPrice + amoutCount;
       }
       list.push(goods);
     }
     this.setData({
-      goodsList: list,
+      cartList: list,
       totalPrice: totalPrice
     })
   },
@@ -179,18 +229,27 @@ Page({
       content: '确定删除商品【' + name + '】吗？',
       success(res) {
         if (res.confirm) {
-          var totalPrice = that.data.totalPrice;
-          totalPrice = 0.00;
-          var goodsList = that.data.goodsList;
-          var list = [];
           var ifCheckAll = true;
-          for (var i = 0; i < goodsList.length; i++) {
-            var goods = goodsList[i];
+          var totalPrice = 0.00;
+          var cartList = that.data.cartList;
+          var list = [];
+          for (var i = 0; i < cartList.length; i++) {
+            var goods = cartList[i];
             if (goods.id === id) {
               // 删除购物车商品
+              wx.request({
+                url: app.globalData.path + '/api/applet/user/cart/deleteUserCart',
+                data: {
+                  id: goods.id
+                },
+                header: {
+                  appletCode: app.globalData.appletCode,
+                  wxCode: app.globalData.userInfo.wxCode
+                }
+              })
             } else {
               if (goods.ifSelected) {
-                var amoutCount = goods.specs.actualPrice * goods.amount;
+                var amoutCount = (goods.sellPrice * goods.discount / 100) * goods.amount;
                 totalPrice = totalPrice + amoutCount;
               }
               list.push(goods);
@@ -199,12 +258,20 @@ Page({
               }
             }
           }
+          var idList = that.data.idList
+          var idList1 = []
+          for (var k = 0; k < idList.length; k++) {
+            if (id !== idList[k]) {
+              idList1.push(idList[k])
+            }
+          }
           that.setData({
-            goodsList: list,
+            cartList: list,
+            idList: idList1,
             ifCheckAll: ifCheckAll,
             totalPrice: totalPrice
           })
-          app.globalData.cartGoodsList = list
+          app.globalData.cartcartList = list
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -216,16 +283,9 @@ Page({
       url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
     })
   },
-  immediateSettlement: function(){
-    if (app.globalData.bindStatus){
-      var goodsList = this.data.goodsList
-      var list = []
-      for (var i = 0; i < goodsList.length; i++){
-        if (goodsList[i].ifSelected){
-          list.push(goodsList[i])
-        }
-      }
-      var json = JSON.stringify(list)
+  immediateSettlement: function() {
+    if (app.globalData.bindStatus) {
+      var json = JSON.stringify(this.data.idList)
       wx.navigateTo({
         url: '/pages/cart/settlement/settlement?json=' + json + '&totalPrice=' + this.data.totalPrice,
       })

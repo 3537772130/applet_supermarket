@@ -136,17 +136,17 @@
   display: inline-block;
   height: 25px;
   line-height: 25px;
-  width: 50%;
   text-align: center;
 }
 
 .goods-info>.goods-text>.goods-value>.value-price {
   color: #f00;
   font-size: 14px;
+  width: 40%;
 }
 
 .goods-info>.goods-text>.goods-value>.value-count {
-  /* color: #1296db; */
+  width: 60%;
 }
 
 .goods-info>.goods-text>.goods-value>.value-count image {
@@ -159,7 +159,7 @@
 .goods-info>.goods-text>.goods-value>.value-count text {
   display: inline-block;
   width: 8px;
-  height: 19px;
+  height: 15px;
   line-height: 19px;
   padding: 0px 6px 5px 5px;
   text-align: center;

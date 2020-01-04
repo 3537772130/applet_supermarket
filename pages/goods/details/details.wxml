@@ -30,7 +30,7 @@
       </view>
       <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
     </view>
-    <view class="describe-str">{{info.describeStr}}</view>
+    <view class="describe-str" wx:if="{{info.describeStr}}">{{info.describeStr}}</view>
   </view>
   <view class="specs-info">
     <view class="shop-preferential">优惠</view>

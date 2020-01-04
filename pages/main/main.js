@@ -20,27 +20,6 @@ Page({
     wx.setNavigationBarTitle({
       title: app.globalData.appletInfo.appletName //页面标题为路由参数
     })
-    var biColor = '';
-    switch (app.globalData.appletInfo.systemColor) {
-      case '#1afa29':
-        biColor = 'top, #7CCD7C, #1afa29, #C1FFC1'
-        break;
-      case '#1296db':
-        biColor = 'top, #6495ED, #1296db, #87CEFA'
-        break;
-      case '#fd8403':
-        biColor = 'top, #bfbfbf, #fd8403, #FFFACD'
-        break;
-      case '#ff6347':
-        biColor = 'top, #FF0000, #FF6347, #FFD39B'
-        break;
-    }
-    this.setData({
-      width: app.globalData.width,
-      path: app.globalData.path,
-      color: app.globalData.appletInfo.systemColor,
-      biColor: biColor
-    })
   },
 
   /**
@@ -55,36 +34,31 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
+    var biColor = '';
+    switch (app.globalData.appletInfo.systemColor) {
+      case '#1afa29':
+        biColor = 'top, #7CCD7C, #1afa29, #C1FFC1'
+        break;
+      case '#1296db':
+        biColor = 'top, #6495ED, #1296db, #87CEFA'
+        break;
+      case '#fd8403':
+        biColor = 'top, #bfbfbf, #fd8403, #FFFACD'
+        break;
+      case '#ff6347':
+        biColor = 'top, #FF0000, #FF6347, #FFD39B'
+        break;
+      case '#8470FF':
+        biColor = 'top, #8470FF, #9198e5, #7EC0EE'
+        break;
+      case '#FF6EC7':
+        biColor = 'top, #FF6EC7, #EE799F, #EE82EE'
+        break;
+    }
+    this.setData({
+      biColor: biColor
     })
-    //获取当前页面信息
-    wx.request({
-      url: app.globalData.path + '/api/applet/page/queryAppletPageInfo',
-      data: {
-        pageLogo: pageLogo
-      },
-      header: {
-        appletCode: app.globalData.appletCode
-      },
-      success: function (res) {
-        if (res.data.code == '1') {
-          var json = JSON.parse(res.data.data)
-          that.setData({
-            mainList: JSON.parse(res.data.data)
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data
-          })
-        }
-      },
-      complete: function () {
-        app.hideLoading();
-      }
-    })
+    this.loadPageInfo()
   },
 
   /**
@@ -120,6 +94,38 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  loadPageInfo:function(){
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    //获取当前页面信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/page/queryAppletPageInfo',
+      data: {
+        pageLogo: pageLogo
+      },
+      header: {
+        appletCode: app.globalData.appletCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          var json = JSON.parse(res.data.data)
+          that.setData({
+            mainList: JSON.parse(res.data.data)
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data
+          })
+        }
+      },
+      complete: function () {
+        app.hideLoading();
+      }
+    })
   },
   handleChange({
     detail

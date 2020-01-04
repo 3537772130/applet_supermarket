@@ -41,8 +41,8 @@ App({
         id: 81,
         specsText: "S925银五圈戒",
         specsSrc: "/api/image/GS-20191204103028629178",
-        sellPrice: 1126.50,
-        actualPrice: 1126.50
+        sellPrice: 1126.53,
+        actualPrice: 1126.53
       }
     }]
   },

@@ -12,7 +12,7 @@
           {{item.denomination}}<label>元</label>
         </view>
         <view class="info">
-          <view class="coupon-name">{{item.id + '-' + item.couponName}}</view>
+          <view class="coupon-name">{{item.couponName}}</view>
           <view class="applet-name">【{{item.useAppletName}}】专享优惠券</view>
           <view class="date">
             <view class="time">截止: {{filters.sub(item.activityOver, 0, 11)}}</view>
