@@ -93,13 +93,17 @@ Page({
           id: 0,
           latitude: latStart,
           longitude: lonStart,
-          iconPath: '/images/location.png'
+          iconPath: '/images/location_1296db.png',
+          width: 25,
+          height: 25
         },
         {
           id: 1,
           latitude: latEnd,
           longitude: lonEnd,
-          iconPath: '/images/location.png'
+          iconPath: '/images/location_e5270f.png',
+          width: 25,
+          height: 25
         }
       ]
     })

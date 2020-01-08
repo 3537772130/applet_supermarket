@@ -45,35 +45,37 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    wx.showLoading({
-      title: '加载中',
-    })
-    var that = this
-    wx.request({
-      url: app.globalData.path + '/api/applet/user/cart/queryUserCartList',
-      header: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode
-      },
-      success: function(res) {
-        if (res.data.code == '1') {
-          var list = []
-          for (var i = 0; i < res.data.data.length; i++) {
-            var info = res.data.data[i]
-            info['ifSelected'] = false
-            list.push(info)
+    if (app.globalData.userInfo){
+      var that = this
+      wx.showLoading({
+        title: '加载中',
+      })
+      wx.request({
+        url: app.globalData.path + '/api/applet/user/cart/queryUserCartList',
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
+        },
+        success: function (res) {
+          if (res.data.code == '1') {
+            var list = []
+            for (var i = 0; i < res.data.data.length; i++) {
+              var info = res.data.data[i]
+              info['ifSelected'] = false
+              list.push(info)
+            }
+            that.setData({
+              cartList: list,
+              ifCheckAll: false,
+              totalPrice: 0.00
+            })
           }
-          that.setData({
-            cartList: list,
-            ifCheckAll: false,
-            totalPrice: 0.00
-          })
+        },
+        complete: function () {
+          app.hideLoading();
         }
-      },
-      complete: function() {
-        wx.hideLoading();
-      }
-    })
+      })
+    }
   },
 
   /**

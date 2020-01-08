@@ -72,7 +72,7 @@ App({
     if (this.globalData.userInfo) {
       wx.showModal({
         title: '温馨提示',
-        content: '为了增加您的使用体验，请绑定手机号码',
+        content: '绑定手机号码才可以哟',
         confirmText: '立即绑定',
         confirmColor: this.globalData.appletInfo.systemColor,
         cancelText: '稍后再去',
@@ -90,7 +90,7 @@ App({
     } else {
       wx.showModal({
         title: '温馨提示',
-        content: '您还没有登录，不能进行此项操作',
+        content: '您还没有登录哟',
         confirmText: '马上登录',
         confirmColor: this.globalData.appletInfo.systemColor,
         cancelText: '稍后再去',

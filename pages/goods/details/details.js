@@ -10,7 +10,19 @@ Page({
   data: {
     carouselIndex: 1,
     showModalStatus: false,
-    specs: {},
+    autoPlay: false,
+    fileList: [],
+    videoAtuoPlay: true,
+    videoTimestamp: app.getTimestamp(),
+    info: {
+      minPrice: 0.00,
+      maxPrice: 0.00,
+      discount: 100
+    },
+    specs: {
+      sellPrice: 0.00
+    },
+    couponList: [],
     chooseSpecsIndex: 0,
     specsNumber: 1,
     countPrice: 0.00,
@@ -36,44 +48,7 @@ Page({
       path: app.globalData.path
     })
     var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    //加载小程序信息
-    wx.request({
-      url: app.globalData.path + '/api/applet/goods/loadGoodsDetails',
-      data: {
-        goodsId: parseInt(options.id)
-      },
-      header: {
-        appletCode: app.globalData.appletCode
-      },
-      success: function(res) {
-        if (res.data.code == '1') {
-          that.setData({
-            info: res.data.data.info,
-            fileList: res.data.data.fileList,
-            specsList: res.data.data.specsList,
-            specs: res.data.data.specsList[0],
-            countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100
-          })
-          wx.setNavigationBarTitle({
-            title: res.data.data.info.goodsName //页面标题为路由参数
-          })
-          wx.showShareMenu({
-            withShareTicket: true
-          })
-        } else {
-          wx.redirectTo({
-            url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data,
-          })
-        }
-      },
-      complete: function() {
-        app.hideLoading();
-      }
-    })
+    loadGoodsDetails(this, options.id)
   },
 
   /**
@@ -88,12 +63,12 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    var that = this
-    setInterval(function() {
-      that.setData({
-        timestamp: app.getTimestamp()
-      })
-    }, 60 * 1000)
+    // var that = this
+    // setInterval(function() {
+    //   that.setData({
+    //     timestamp: app.getTimestamp()
+    //   })
+    // }, 60 * 1000)
   },
 
   /**
@@ -185,6 +160,23 @@ Page({
         }
       })
     }
+  },
+  playVideo: function() {
+    this.setData({
+      autoPlay: false,
+      timestamp: app.getTimestamp()
+    })
+  },
+  pauseVideo: function() {
+    this.setData({
+      autoPlay: true
+    })
+  },
+  endVideo: function() {
+    this.setData({
+      autoPlay: true,
+      videoAtuoPlay: false
+    })
   },
   carouselChage: function(e) {
     this.setData({
@@ -313,7 +305,7 @@ Page({
         appletCode: app.globalData.appletCode,
         wxCode: app.globalData.userInfo.wxCode
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data.code == '1') {
           wx.showToast({
             title: '加入成功',
@@ -326,7 +318,7 @@ Page({
           })
         }
       },
-      complete: function () {
+      complete: function() {
         wx.hideLoading();
       }
     })
@@ -336,22 +328,137 @@ Page({
     const images = []
     images.push(app.globalData.path + src + app.getTimestamp())
     wx.previewImage({
-      current: images[0],  //当前预览的图片
-      urls: images,  //所有要预览的图片
+      current: images[0], //当前预览的图片
+      urls: images, //所有要预览的图片
     })
   },
   imagesPreview(event) {
     var index = event.currentTarget.dataset.index
     const images = []
     var list = this.data.fileList
-    for (var i = 0; i < list.length; i++){
-      if (list[i].fileType == 1 && list[i].fileSrc != null){
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].fileType == 1 && list[i].fileSrc != null) {
         images.push(app.globalData.path + list[i].fileSrc + app.getTimestamp())
       }
     }
     wx.previewImage({
-      current: images[index-1],  //当前预览的图片
-      urls: images,  //所有要预览的图片
+      current: images[index - 1], //当前预览的图片
+      urls: images, //所有要预览的图片
     })
+  },
+  gianCoupon: function(event) {
+    var id = event.currentTarget.dataset.id
+    userGainCoupon(this, id)
   }
 })
+
+/**
+ * 
+ * 加载商品详情信息
+ * 
+ */
+var loadGoodsDetails = function(that, id) {
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
+  var url = '/api/applet/goods/loadGoodsDetails'
+  var wxCode = ''
+  if (app.globalData.userInfo) {
+    url = '/api/applet/goods/loadUserGoodsDetails'
+    wxCode = app.globalData.userInfo.wxCode
+  }
+  //加载小程序信息
+  wx.request({
+    url: app.globalData.path + url,
+    data: {
+      goodsId: parseInt(id)
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: wxCode
+    },
+    success: function(res) {
+      if (res.data.code == '1') {
+        that.setData({
+          info: res.data.data.info,
+          fileList: res.data.data.fileList,
+          specsList: res.data.data.specsList,
+          couponList: res.data.data.couponList,
+          specs: res.data.data.specsList[0],
+          countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100
+        })
+        wx.setNavigationBarTitle({
+          title: res.data.data.info.goodsName //页面标题为路由参数
+        })
+        wx.showShareMenu({
+          withShareTicket: true
+        })
+      } else {
+        wx.redirectTo({
+          url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data,
+        })
+      }
+    },
+    complete: function() {
+      app.hideLoading();
+    }
+  })
+}
+
+/**
+ * 
+ * 领取优惠券
+ * 
+ */
+var userGainCoupon = function(that, id) {
+  if (app.globalData.userInfo) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    //加载小程序信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/coupon/userGainCoupon',
+      data: {
+        couponId: parseInt(id)
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function(res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: res.data.data,
+          confirmText: '确定',
+          confirmColor: that.data.color,
+          showCancel: false,
+          success() {
+            if (res.data.code == '0') {
+              loadGoodsDetails(that, that.data.info.id)
+            } else if (res.data.code == '1') {
+              var couponList = that.data.couponList
+              var list = []
+              for (var i = 0; i < couponList.length; i++) {
+                var coupon = couponList[i]
+                if (coupon.id == id) {
+                  coupon.status = false
+                }
+                list.push(coupon)
+              }
+              that.setData({
+                couponList: list
+              })
+            }
+          }
+        })
+      },
+      complete: function() {
+        wx.hideLoading();
+      }
+    })
+  } else {
+    app.bindMobileShowModal()
+  }
+}

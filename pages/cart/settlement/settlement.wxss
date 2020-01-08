@@ -210,7 +210,7 @@
 
 .goods-list > .goods-item > .item-info > .info-data > .data-price{
   display: inline-table;
-  width: 50%;
+  width: 40%;
   text-align: center;
   font-size: 14px;
   color: #d81e06;
@@ -218,7 +218,7 @@
 
 .goods-list > .goods-item > .item-info > .info-data > .data-num{
   display: inline-table;
-  width: 50%;
+  width: 60%;
   height: 50px;
   line-height: 50px;
   font-size: 12px;
@@ -248,7 +248,7 @@
 
 .order-data > .data-item > .item-title {
   display: inline-table;
-  width: 50%;
+  width: 30%;
   height: 30px;
   line-height: 30px;
   text-align: left;
@@ -257,7 +257,7 @@
 
 .order-data > .data-item > .item-name {
   display: inline-table;
-  width: 50%;
+  width: 70%;
   text-align: right;
   height: 30px;
   line-height: 30px;
@@ -268,6 +268,12 @@
   display: inline-table;
   margin-right: 10px;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
 }
 
 /**

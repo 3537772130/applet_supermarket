@@ -1,0 +1,37 @@
+<!--pages/cart/settlement/order/order.wxml-->
+<!--地图容器-->
+<map id="myMap" style="width: 100%; height: 350px;" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" include-points="{{points}}" show-location="true" enable-3D="true" show-compass="true" show-location></map>
+<view class="order">
+  <view class="order-title">
+    <view class="load-img">
+      <view>
+        <image src="/images/load_1296db.png"></image>
+      </view>
+    </view>
+    <view class="order-status">待接单</view>
+  </view>
+  <view class="order-info">
+    <view class="label">订单编号</view>
+    <view class="text">{{order.orderNo}}</view>
+  </view>
+  <view class="order-info">
+    <view class="label">下单时间</view>
+    <view class="text">{{order.gmtModified}}</view>
+  </view>
+  <view class="order-info">
+    <view class="label">收货地址</view>
+    <view class="text">{{order.detailAddr}}</view>
+  </view>
+  <view class="order-info">
+    <view class="tel">
+      <view style="background-color: {{color}};border: 1px {{color}} solid;">
+        <i-icon type="interactive" size="18" color="#2c2c2c" />联系商家
+      </view>
+    </view>
+    <view class="cancel">
+      <view>
+        <i-icon type="close" size="18" color="#2c2c2c" />取消订单
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,7 +1,14 @@
 const app = getApp();
+let QQMapWX = require('./qqmap-wx-jssdk.min.js')
+// 实例化API核心类
+let qqmapsdk = new QQMapWX({
+  key: 'O3MBZ-73E3F-GCZJU-J3MVE-SAPU7-GOB5J' // YU7BZ-EWRWJ-GXEFP-KILXN-NM7C7-IUF74
+})
 
 module.exports = {
-  //获取用户授权信息
+  /**
+   * 获取用户授权信息，并发起登录请求
+   */
   getAuthorization: function(that) {
     wx.login({
       success(res) {
@@ -42,7 +49,8 @@ module.exports = {
                     userInfo.avatarUrl = (info.data.bindStatus ? app.globalData.path + userInfo.avatarUrl : userInfo.avatarUrl)
                     app.globalData.userInfo = userInfo
                     that.setData({
-                      userInfo: userInfo
+                      userInfo: userInfo,
+                      isDealer: info.data.isDealer
                     })
                     if (info.code == '0') {
                       app.bindMobileShowModal()
@@ -68,6 +76,9 @@ module.exports = {
       }
     })
   },
+  /**
+   * 上传用户头像
+   */
   uploadAvatar:function(that){
     wx.chooseImage({
       success(res) {
@@ -112,6 +123,83 @@ module.exports = {
         }
       }
     })
+  },
+  /**
+   * 加载地图距离
+   */
+  loadMapDistance: function (that, lonEnd, latEnd) {
+    // 起点经纬度
+    let latStart = that.data.appletInfo['lat']
+    let lonStart = that.data.appletInfo['lon']
+
+    // 获取两点的距离
+    qqmapsdk.calculateDistance({
+      to: [{
+        latitude: latStart,
+        longitude: lonStart
+      }, {
+        latitude: latEnd,
+        longitude: lonEnd
+      }],
+      success: function (res) {
+        console.log('两点之间的距离0：', res.result.elements[0].distance)
+        console.log('两点之间的距离1：', res.result.elements[1].distance)
+        console.log(res)
+        that.setData({
+          distance: res.result.elements[1].distance
+        })
+      },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
+  },
+  /**
+   * 加载地图路线
+   */
+  loadMapRoute: function (that, lonEnd, latEnd){
+    // 起点经纬度
+    let latStart = that.data.appletInfo['lat']
+    let lonStart = that.data.appletInfo['lon']
+
+    //网络请求设置
+    let opt = {
+      //WebService请求地址，from为起点坐标，to为终点坐标，开发key为必填
+      url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${latStart},${lonStart}&to=${latEnd},${lonEnd}&key=${qqmapsdk.key}`,
+      method: 'GET',
+      dataType: 'json',
+      //请求成功回调
+      success: function (res) {
+        let ret = res.data
+        if (ret.status != 0) return; //服务异常处理
+        let coors = ret.result.routes[0].polyline,
+          pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        let kr = 1000000;
+        for (let i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (let i = 0; i < coors.length; i += 2) {
+          pl.push({
+            latitude: coors[i],
+            longitude: coors[i + 1]
+          })
+        }
+        //设置polyline属性，将路线显示出来
+        that.setData({
+          polyline: [{
+            points: pl,
+            color: '#FF0000DD',
+            width: 4
+          }]
+        })
+      }
+    };
+    wx.request(opt);
   }
 }
 

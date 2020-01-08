@@ -1,18 +1,30 @@
-// pages/main/group-buying-today/group-buying-today.js
+// pages/my/order/my-order/my-order.js
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    scrollTop: 0,
+    list: [],
+    page: 1,
+    pageSize: 10,
+    totalCount: 0,
+    isNull: false,
+    hide: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.setAppletColor(this)
+    wx.hideShareMenu()
+    wx.showLoading({
+      title: '加载中',
+    })
   },
 
   /**

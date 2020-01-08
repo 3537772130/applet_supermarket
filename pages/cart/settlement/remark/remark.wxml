@@ -1,0 +1,10 @@
+<!--pages/cart/settlement/remark/remark.wxml-->
+<view class="remark">
+  <view class="title">填写备注</view>
+  <view class="text">
+    <textarea placeholder="请输入备注信息" placeholder-style="color: #cdcdcd;" maxlength="120" auto-focus="true" fixed="true" value="{{remark}}" bindinput="inputRemark"></textarea>
+  </view>
+  <view class="but">
+    <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="backOrder">提交</button>
+  </view>
+</view>

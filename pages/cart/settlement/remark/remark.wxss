@@ -1,0 +1,41 @@
+/* pages/cart/settlement/remark/remark.wxss */
+page{
+  background-color: #FFFFFF;
+}
+
+.remark{
+  margin: auto;
+  padding: 20px;
+}
+
+.remark > .title{
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+}
+
+.remark > .text{
+  margin: auto;
+  padding: 10px;
+  border: 1px #cdcdcd solid;
+  border-radius: 8px;
+}
+
+.remark > .text > textarea{
+  height: 120px;
+  font-size: 14px;
+}
+
+.remark > .but{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.remark > .but > button{
+  width: 80%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 5px;
+}

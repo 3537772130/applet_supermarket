@@ -3,10 +3,10 @@
 <view class='body'>
   <view class='img-carousel'>
     <view class='rotation-chart'>
-      <swiper autoplay='true' circular='true' interval='5000' style='height: 400px;' bindchange="carouselChage">
+      <swiper autoplay='{{autoPlay}}' circular='true' interval='5000' style='height: 400px;' bindchange="carouselChage">
         <block wx:for='{{fileList}}' wx:key='file' wx:for-index="index">
           <swiper-item wx:if="{{item.fileType == 2 && item.fileSrc != null}}">
-            <video src="{{path + item.fileSrc + timestamp}}" class='rotation-pic'></video>
+            <video src="{{path + item.fileSrc + videoTimestamp}}" class='rotation-pic' autoplay="{{videoAtuoPlay}}" bindplay="playVideo" bindpause="pauseVideo" bindended="endVideo"></video>
           </swiper-item>
           <swiper-item wx:if="{{item.fileType == 1 && item.fileSrc != null}}">
             <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='imagesPreview' data-index='{{index}}'></image>
@@ -33,7 +33,22 @@
     <view class="describe-str" wx:if="{{info.describeStr}}">{{info.describeStr}}</view>
   </view>
   <view class="specs-info">
-    <view class="shop-preferential">优惠</view>
+    <!-- <view class="shop-coupon">
+      <view class="coupon">
+        <view class="title">畅享优惠</view>
+        <view class="title-label">无</view>
+      </view>
+    </view> -->
+    <view class="shop-coupon"  wx:if="{{couponList.length > 0}}">
+      <view class="coupon">
+        <view class="title" style="margin-bottom: 10px;">畅享优惠</view>
+      </view>
+      <view class="coupon" wx:for="{{couponList}}" wx:key="coupon">
+        <view class="name">{{item.name}}</view>
+        <view class="gain-true" bindtap="gianCoupon" data-id="{{item.id}}" wx:if="{{item.status}}">领取</view>
+        <view class="gain-false" wx:else>已领</view>
+      </view>
+    </view>
     <view class="goods-specs">
       <view class="specs-view" bindtap="powerDrawer" data-statu="open">
         规格
@@ -72,9 +87,6 @@
           <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-statu="close">确定</view>
         </view>
       </view>
-    </view>
-    <view class="specs-remark">备注
-      <textarea placeholder="请输入备注信息" placeholder-style="color: #cdcdcd;" maxlength="120" auto-height="true" fixed="true" value="{{remark}}" bindinput="inputRemark"></textarea>
     </view>
   </view>
 

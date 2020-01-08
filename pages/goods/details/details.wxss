@@ -57,7 +57,7 @@
   font-size: 18px;
 }
 
-.info-details > .price-details > .price-org{
+.info-details > .price-details > .price-org {
   display: inline-table;
   margin-left: 10px;
   font-size: 14px;
@@ -82,7 +82,7 @@
   top: -3px;
 }
 
-.info-details > .describe-str{
+.info-details > .describe-str {
   padding: 0px 20px;
   font-size: 14px;
   color: #cdcdcd;
@@ -96,11 +96,54 @@
   border-radius: 8px;
 }
 
-.shop-preferential {
+.shop-coupon {
   background-color: #fff;
   font-size: 14px;
   padding: 0px 10px 5px 10px;
   border-bottom: 1px #e6e6e6 solid;
+}
+
+.shop-coupon > .coupon > view {
+  display: inline-table;
+}
+
+.shop-coupon > .coupon > .title {
+  width: 50%;
+  text-align: left;
+}
+
+.shop-coupon > .coupon > .title-label {
+  width: 50%;
+  text-align: right;
+  color: #cdcdcd;
+}
+
+.shop-coupon > .coupon > .name {
+  width: 70%;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #ff6347;
+  height: 30px;
+}
+
+.shop-coupon > .coupon > .gain-true{
+  width: 40px;
+  margin-left: 10px;
+  text-align: center;
+  background-color: #f8ec08;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 3px 3px 3px 3px;
+}
+
+.shop-coupon > .coupon > .gain-false{
+  width: 40px;
+  margin-left: 10px;
+  text-align: center;
+  background-color: #cdcdcd;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 3px 3px 3px 3px;
 }
 
 .goods-specs {
@@ -123,6 +166,7 @@
 }
 
 .goods-specs > .specs-view > .specs-default > view {
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -203,7 +247,7 @@
   margin-left: 30px;
 }
 
-.goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-price-org{
+.goods-specs > .drawer_attr_box > .drawer_content > .specs-img .specs-price-org {
   display: inline-table;
   color: #ff6347;
   font-size: 14px;

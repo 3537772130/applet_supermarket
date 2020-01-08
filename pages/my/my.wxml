@@ -22,7 +22,7 @@
     </view>
   </view>
 
-  <view class="my-account">
+  <!-- <view class="my-account">
     <view class="account-element">
       <view class="element-img">
         <image src="/images/my/balance_{{filters.sub(color, 1, 7)}}.png"></image>
@@ -41,23 +41,27 @@
       </view>
       <view class="element-text" style="color: {{color}};">我的优惠券</view>
     </view>
-  </view>
+  </view> -->
 </view>
 
-<view wx:if="{{userInfo.userId}}">
-  <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
+<view class="business-menu" wx:if="{{isDealer}}">
+  <i-cell-group>
+    <i-cell title="派送订单" value="0个未处理" is-link url="/pages/my/order/delivery-order/delivery-order">
+      <i-icon type="clock_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="完成订单" is-link url="/pages/my/order/delivery-order/delivery-order">
+      <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+  </i-cell-group>
+</view>
+
+<view class="user-menu">
   <i-cell-group>
     <i-cell title="我的优惠券" is-link url="/pages/my/coupon/coupon">
       <i-icon type="coupons_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
-    <i-cell title="{{userInfo.gender == 1 ? '男':'女'}}" is-link url="/pages/dashboard/index"></i-cell>
-    <i-cell title="{{userInfo.mobile}}" is-link></i-cell>
-  </i-cell-group>
-</view>
-<view wx:else>
-  <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
-  <i-cell-group>
-    <i-cell title="{{userInfo.nickName}}" is-link></i-cell>
-    <i-cell title="{{userInfo.gender == 1 ? '男':'女'}}" is-link url="/pages/dashboard/index"></i-cell>
+    <i-cell title="我的订单" is-link url="/pages/my/order/my-order/my-order">
+      <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
   </i-cell-group>
 </view>

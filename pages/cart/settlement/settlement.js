@@ -1,11 +1,7 @@
 // pages/cart/settlement/settlement.js
 const app = getApp();
-let QQMapWX = require('../../../utils/qqmap-wx-jssdk.min')
-// 实例化API核心类
-let qqmapsdk = new QQMapWX({
-  key: 'O3MBZ-73E3F-GCZJU-J3MVE-SAPU7-GOB5J' // YU7BZ-EWRWJ-GXEFP-KILXN-NM7C7-IUF74
-})
-var idJson = ''
+const utils = require('../../../utils/appletUtil');
+var idList = ''
 
 Page({
 
@@ -19,7 +15,8 @@ Page({
     totalPrice: 0.00,
     site: {},
     coupon: {},
-    resultDistance: 0
+    distance: 0,
+    remark: '无'
   },
 
   /**
@@ -28,7 +25,8 @@ Page({
   onLoad: function (options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    idJson = options.json
+    var idJson = options.json
+    idList = JSON.parse(idJson)
     this.setData({
       goodsTotalPrice: parseFloat(options.totalPrice),
       totalPrice: parseFloat(options.totalPrice),
@@ -65,7 +63,9 @@ Page({
             list: res.data.data.list,
             totalPrice: totalPrice
           })
-          loadMapDistance(that)
+          if (that.data.site){
+            utils.loadMapDistance(that, that.data.site['lon'], that.data.site['lat'])
+          }
         }
       },
       complete: function () {
@@ -92,7 +92,7 @@ Page({
         that.setData({
           site: res.data
         })
-        loadMapDistance(that)
+        utils.loadMapDistance(that, that.data.site['lon'], that.data.site['lat'])
         wx.removeStorage({
           key: 'choose_site'
         })
@@ -110,6 +110,14 @@ Page({
         })
       },
     })
+    wx.getStorage({
+      key: 'input_remark',
+      success: function (res) {
+        that.setData({
+          remark: res.data
+        })
+      },
+    })
   },
 
   /**
@@ -123,7 +131,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.info('移除了备注的缓存')
+    wx.removeStorage({
+      key: 'input_remark'
+    })
   },
 
   /**
@@ -160,38 +171,58 @@ Page({
     wx.navigateTo({
       url: '/pages/cart/settlement/coupon/coupon?goodsTotalPrice=' + this.data.goodsTotalPrice,
     })
+  },
+  loadRemark: function(){
+    wx.navigateTo({
+      url: '/pages/cart/settlement/remark/remark',
+    })
+  },
+  subOrder: function(){
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    var couponId = null
+    if (this.data.coupon){
+      couponId = this.data.coupon['id']
+    }
+    //获取当前页面信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/sale/order/create',
+      method: 'POST',
+      data: {
+        cartIdList: idList,
+        address: this.data.site.id,
+        payType: this.data.payType,
+        couponId: couponId,
+        remark: this.data.remark,
+        distance: this.data.distance
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded', //post
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function (res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: res.data.data,
+          confirmText: '确定',
+          confirmColor: that.data.color,
+          showCancel: false,
+          success() {
+            if (res.data.code == '1') {
+              wx.redirectTo({
+                url: '/pages/cart/settlement/order/order?id=' + 1,
+              })
+            }
+          }
+        })
+      },
+      complete: function () {
+        app.hideLoading();
+      }
+    })
   }
 })
-
-var loadMapDistance = function(that){
-  // 起点经纬度
-  let latStart = that.data.site['lat']
-  let lonStart = that.data.site['lon']
-  // 终点经纬度
-  let latEnd = that.data.appletInfo['lat']
-  let lonEnd = that.data.appletInfo['lon']
-  // 获取两点的距离
-  qqmapsdk.calculateDistance({
-    to: [{
-      latitude: latStart,
-      longitude: lonStart
-    }, {
-      latitude: latEnd,
-      longitude: lonEnd
-    }],
-    success: function (res) {
-      console.log('两点之间的距离0：', res.result.elements[0].distance);
-      console.log('两点之间的距离1：', res.result.elements[1].distance);
-      console.log(res);
-      that.setData({
-        resultDistance: res.result.elements[1].distance
-      });
-    },
-    fail: function (res) {
-      console.log(res);
-    },
-    complete: function (res) {
-      console.log(res);
-    }
-  });
-}

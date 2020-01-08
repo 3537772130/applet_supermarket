@@ -1,18 +1,34 @@
-// pages/main/about-seller/about-seller.js
+// pages/cart/settlement/remark/remark.js
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    remark: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.setAppletColor(this)
+    wx.hideShareMenu()
+    var that = this
+    wx.getStorage({
+      key: 'input_remark',
+      success: function(res) {
+        var remark = res.data
+        if (remark = '无'){
+          remark = ''
+        }
+        that.setData({
+          remark: remark
+        })
+      },
+    })
   },
 
   /**
@@ -62,5 +78,23 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  inputRemark: function(event){
+    this.setData({
+      remark: event.detail.value
+    })
+  },
+  backOrder: function(){
+    var remark = this.data.remark
+    if (remark === '') {
+      remark = '无'
+    }
+    wx.setStorage({
+      key: 'input_remark',
+      data: remark,
+    })
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

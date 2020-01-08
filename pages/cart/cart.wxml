@@ -18,7 +18,7 @@
             </view>
           </view>
           <view class='goods-pic'>
-            <image src='{{path + goods.specsSrc + timestamp}}' bindtap="loadGoodsDetails" data-id="{{goods.id}}"></image>
+            <image src='{{path + goods.specsSrc + timestamp}}' bindtap="loadGoodsDetails" data-id="{{goods.goodsId}}"></image>
           </view>
           <view class='goods-text' style='width:{{width-155}}px;'>
             <view class='goods-name'>{{goods.goodsName}}</view>

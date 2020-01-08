@@ -1,0 +1,142 @@
+/* pages/cart/settlement/order/order.wxss */
+
+.order {
+  padding: 20px;
+}
+
+.order-title {
+  margin: auto;
+  width: 100%;
+  height: 30px;
+  float: left;
+  position: relative;
+  top: -60px;
+}
+
+.order-title > .load-img {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.order-title > .load-img > view {
+  margin: auto;
+  width: 120px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.order-title > .load-img > view > image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation-name: myfirst; /*动画的名称 */
+  animation-duration: 2000ms; /*动画从开始到结束的时间*/
+  animation-timing-function: linear; /*动画执行快慢的参数*/
+  animation-iteration-count: infinite; /*动画执行多少次的参数*//*以下是兼容ios所需，参数意义与上相同*/
+  -webkit-animation-name: myfirst;
+  -webkit-animation-duration: 2000ms;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes myfirst {
+  /*开始转的角度*/
+
+  from {
+    transform: rotate(0deg);
+  }/*结束的角度*/
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*兼容ios*/
+
+@-webkit-keyframes myfirst {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.order-status {
+  margin: auto;
+  width: 58px;
+  height: 58px;
+  line-height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: '幼圆';
+  letter-spacing: 3rpx;
+  background-color: #fff;
+  border: 1px #fff solid;
+  position: relative;
+  top: -70px;
+}
+
+.order-info {
+  margin: auto;
+  padding: 8px 0px;
+}
+
+.order-info > view {
+  display: inline-table;
+}
+
+.order-info > .label {
+  width: 20%;
+  font-size: 12px;
+  text-align: right;
+  color: #cdcdcd;
+}
+
+.order-info > .text {
+  width: 78%;
+  margin-left: 2%;
+  text-align: left;
+  font-size: 14px;
+}
+
+.order-info > .tel {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.order-info > .tel > view{
+  margin: auto;
+  display: inline-table;
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: '幼圆';
+}
+
+.order-info > .cancel {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.order-info > .cancel > view{
+  margin: auto;
+  display: inline-table;
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: '幼圆';
+  background-color: #cdcdcd;
+  border: 1px #cdcdcd solid;
+}

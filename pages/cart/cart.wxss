@@ -93,7 +93,7 @@
 }
 
 .goods-info>.goods-text>.goods-name {
-  height: 32px;
+  height: 35px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /*用来限制在一个块元素显示的文本的行数*/
