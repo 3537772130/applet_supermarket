@@ -13,12 +13,12 @@ Page({
   data: {
     openNav: true,
     site: {
-      'lon': 120.275495927,
-      'lat': 31.525915299
+      'lon': '110.47955',
+      'lat': '27.46544'
     },
     appletInfo: {
-      'lon': 120.2753334,
-      'lat': 31.527484388
+      'lon': '110.477810',
+      'lat': '27.464090'
     }
   },
 
@@ -110,19 +110,19 @@ Page({
 
     // 获取两点的距离
     qqmapsdk.calculateDistance({
-      to: [{
+      from: {
         latitude: latStart,
         longitude: lonStart
-      }, {
+      },
+      to: [{
         latitude: latEnd,
         longitude: lonEnd
       }],
       success: function(res) {
         console.log('两点之间的距离0：', res.result.elements[0].distance);
-        console.log('两点之间的距离1：', res.result.elements[1].distance);
         console.log(res);
         that.setData({
-          resultDistance: res.result.elements[1].distance + '米'
+          resultDistance: res.result.elements[0].distance + '米'
         });
       },
       fail: function(res) {

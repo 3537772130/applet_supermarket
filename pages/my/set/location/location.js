@@ -72,7 +72,7 @@ Page({
       title: '加载地图中',
     })
     wx.getLocation({
-      type: 'wgs84', //返回可以用于wx.openLocation的经纬度
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success(res) {
         wx.hideLoading()
         const latitude = res.latitude

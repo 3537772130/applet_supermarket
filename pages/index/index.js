@@ -26,8 +26,11 @@ Page({
           app.globalData.appletInfo = res.data.data
           app.setAppletColor(that);
           wx.switchTab({
-            url: '/pages/cart/cart',
+            url: '/pages/cart/cart'
           })
+          // wx.navigateTo({
+          //   url: '/pages/test/test'
+          // })
         } else {
           wx.navigateTo({
             url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data,

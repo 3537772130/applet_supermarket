@@ -290,38 +290,42 @@ Page({
     }
   },
   addCart: function() {
-    wx.showLoading({
-      title: '加载中',
-    })
-    var that = this
-    wx.request({
-      url: app.globalData.path + '/api/applet/user/cart/saveUserCartInfo',
-      data: {
-        goodsId: parseInt(this.data.info.id),
-        specsId: parseInt(this.data.specs.id),
-        amount: parseInt(this.data.specsNumber)
-      },
-      header: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode
-      },
-      success: function(res) {
-        if (res.data.code == '1') {
-          wx.showToast({
-            title: '加入成功',
-            icon: 'success'
-          })
-        } else {
-          wx.showToast({
-            title: '加入失败',
-            icon: 'warn'
-          })
+    if (app.globalData.isDealer) {
+      wx.showLoading({
+        title: '加载中',
+      })
+      var that = this
+      wx.request({
+        url: app.globalData.path + '/api/applet/user/cart/saveUserCartInfo',
+        data: {
+          goodsId: parseInt(this.data.info.id),
+          specsId: parseInt(this.data.specs.id),
+          amount: parseInt(this.data.specsNumber)
+        },
+        header: {
+          appletCode: app.globalData.appletCode,
+          wxCode: app.globalData.userInfo.wxCode
+        },
+        success: function (res) {
+          if (res.data.code == '1') {
+            wx.showToast({
+              title: '加入成功',
+              icon: 'success'
+            })
+          } else {
+            wx.showToast({
+              title: '加入失败',
+              icon: 'warn'
+            })
+          }
+        },
+        complete: function () {
+          wx.hideLoading();
         }
-      },
-      complete: function() {
-        wx.hideLoading();
-      }
-    })
+      })
+    } else {
+      app.bindMobileShowModal()
+    }
   },
   imagePreview(event) {
     var src = event.currentTarget.dataset.src

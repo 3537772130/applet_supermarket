@@ -128,26 +128,32 @@ module.exports = {
    * 加载地图距离
    */
   loadMapDistance: function (that, lonEnd, latEnd) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     // 起点经纬度
     let latStart = that.data.appletInfo['lat']
     let lonStart = that.data.appletInfo['lon']
 
     // 获取两点的距离
     qqmapsdk.calculateDistance({
-      to: [{
+      from: {
         latitude: latStart,
         longitude: lonStart
-      }, {
+      },
+      to: [{
         latitude: latEnd,
         longitude: lonEnd
       }],
       success: function (res) {
         console.log('两点之间的距离0：', res.result.elements[0].distance)
-        console.log('两点之间的距离1：', res.result.elements[1].distance)
         console.log(res)
         that.setData({
-          distance: res.result.elements[1].distance
+          distance: res.result.elements[0].distance
         })
+        // 获取运费
+        getOrderFreight(that)
       },
       fail: function (res) {
         console.log(res)
@@ -200,7 +206,8 @@ module.exports = {
       }
     };
     wx.request(opt);
-  }
+  },
+  
 }
 
 var callback = function(code) {
@@ -224,4 +231,37 @@ var notFound = function(code) {
       url: '/pages/error/error',
     })
   }
+}
+
+/**
+ * 获取运费
+ */
+var getOrderFreight = function (that) {
+  wx.request({
+    url: app.globalData.path + '/api/applet/user/cart/getOrderFreight',
+    data: {
+      distance: that.data.distance
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: app.globalData.userInfo.wxCode
+    },
+    success: function (res) {
+      if (res.data.code == '1') {
+        that.setData({
+          freight: parseFloat(res.data.data),
+          totalPrice: parseFloat(that.data.goodsTotalPrice - that.data.coupon.denomination + res.data.data),
+          isSub: true
+        })
+      } else {
+        that.setData({
+          isSub: false
+        })
+        app.showModal(res.data.data)
+      }
+    },
+    complete: function () {
+      wx.hideLoading();
+    }
+  })
 }

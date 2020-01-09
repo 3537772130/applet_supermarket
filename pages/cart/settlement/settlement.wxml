@@ -4,11 +4,11 @@
   <view class="settlement-heard" bindtap="chooseAddress" wx:if="{{site.id}}">
     <view class="heard-address">
       <view class="h-first">
-        <view class="f-def" wx:if="{{site.isDefault}}">默认</view>
         <view class="f-label" wx:if="{{site.label === 1}}">家</view>
         <view class="f-label" wx:if="{{site.label === 2}}">公司</view>
         <view class="f-label" wx:if="{{site.label === 3}}">学校</view>
         <view class="f-label" wx:if="{{site.label === 4}}">其他</view>
+        <view class="f-def" wx:if="{{site.isDefault}}">默认</view>
         <view class="f-region">{{site.region}}</view>
       </view>
       <view class="h-two">{{site.address}}</view>
@@ -27,7 +27,7 @@
       <i-icon type="enter" size="18" color="#80848f" />
     </view>
   </view>
-
+  
   <view class="paly-type">
     <view class="t-title">支付方式</view>
     <view class="t-name">
@@ -59,37 +59,41 @@
     <view class="data-item">
       <view class="item-title">商品金额</view>
       <view class="item-name">
-        <text>￥{{filters.toFix(goodsTotalPrice)}}</text>
+        <text style="color: #d81e06;">+ ￥{{filters.toFix(goodsTotalPrice)}}</text>
       </view>
     </view>
     <view class="data-item">
       <view class="item-title">运费</view>
       <view class="item-name">
-        <text style="color: #d81e06;">+ ￥{{filters.toFix(fare)}}</text>
+        <text style="color: #d81e06;">+ ￥{{filters.toFix(freight)}}</text>
       </view>
     </view>
     <view class="data-item">
       <view class="item-title">优惠券</view>
       <view class="item-name">
-        <text>{{coupon ? coupon.couponName:'无可用'}}</text>
-        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" wx:if="{{coupon}}"/>
+        <view class="coupon-name">
+          <view>{{coupon ? coupon.couponName:'无可用'}}</view>
+        </view>
+        <text style="color: #d81e06;" wx:if="{{coupon}}">- ￥{{filters.toFix(coupon.denomination)}}</text>
+        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" wx:if="{{coupon}}" />
       </view>
     </view>
     <view class="data-item" bindtap="loadRemark">
       <view class="item-title">备注</view>
       <view class="item-name">
         <text style="color: #cdcdcd;display: {{remark === '无' ? 'inline-table':'-webkit-box;'}};">{{remark}}</text>
-        <i-icon type="more" size="28" color="#00000" wx:if="{{remark === '无'}}"/>
+        <i-icon type="more" size="28" color="#00000" wx:if="{{remark === '无'}}" />
       </view>
     </view>
   </view>
-  
+
   <view class="but-menu">
     <view class="order-total-price">
-      ￥<text>{{filters.toFix(totalPrice)}}</text>
+      ￥
+      <text>{{filters.toFix(totalPrice)}}</text>
     </view>
     <view class="order-sub">
-      <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="subOrder" wx:if="{{site}}">提交订单</button>
+      <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="subOrder" wx:if="{{isSub}}">提交订单</button>
       <button style='background-color:#cdcdcd;border: 1px #cdcdcd solid;' wx:else>提交订单</button>
     </view>
   </view>

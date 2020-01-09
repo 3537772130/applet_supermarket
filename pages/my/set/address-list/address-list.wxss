@@ -40,7 +40,7 @@ page{
 
 .list-item > .item-content > .c-user > .u-text{
   display: inline-table;
-  margin-right: 10px;
+  margin-right: 5px;
   height: 20px;
   line-height: 20px;
   text-align: left;

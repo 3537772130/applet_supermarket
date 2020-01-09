@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "搜索商品",
+  "usingComponents": {
+    "i-icon": "../../../dist/icon/index"
+  }
+}

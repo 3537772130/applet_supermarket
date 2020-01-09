@@ -1,1 +1,134 @@
 /* pages/main/search/search.wxss */
+
+page {
+  background-color: #e6e6e6;
+}
+
+.search {
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  top: 0px;
+}
+
+.search > .heard {
+  height: 30px;
+  margin: 10px;
+}
+
+.search > .heard > .search {
+  width: 75%;
+  height: 30px;
+  margin-top: 10px;
+  padding-left: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  display: inline-table;
+}
+
+.search > .heard > .search  > view {
+  display: inline-table;
+}
+
+.search > .heard > .search  > .search-icon {
+  float: right;
+  width: 19%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px #fff solid;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.search > .heard > .search  > .search-icon:active {
+  background-color: #fff;
+}
+
+.search > .heard > .search > .search-input {
+  float: left;
+  width: 80%;
+  height: 30px;
+}
+
+.search > .heard > .search > .search-input > input {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  position: relative;
+}
+
+.search > .heard > .clear-name {
+  float: right;
+  width: 14%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 12px;
+  display: inline-table;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.goods-list {
+  margin-top: 60px;
+  padding: 0px 10px;
+}
+
+.goods-list > .goods-info {
+  height: 120px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px 10px 10px 0px;
+}
+
+.goods-list > .goods-info > .info-icon {
+  float: left;
+  width: 40%;
+  height: 120px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.goods-list > .goods-info > .info-icon > image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.goods-list > .goods-info > .info-details {
+  float: right;
+  width: 60%;
+  height: 120px;
+  text-align: left;
+}
+
+.goods-list > .goods-info > .info-details > .name {
+  height: 35px;
+  font-size: 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+}
+
+.goods-list > .goods-info > .info-details > .price-details {
+  height: 50px;
+  margin-top: 10px;
+}
+
+.goods-list > .goods-info > .info-details > .price-details > .price {
+  font-size: 18px;
+  color: #ff6347;
+}
+
+.goods-list > .goods-info > .info-details > .price-details > .price-org {
+  display: inline-table;
+  margin-left: 10px;
+  font-size: 14px;
+  text-decoration: line-through;
+}

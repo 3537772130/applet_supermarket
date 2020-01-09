@@ -8,19 +8,3 @@
 两点之间的距离：{{resultDistance}}
 <!--绑定点击事件-->
 <button bindtap="driving" disabled='{{openNav}}'>开始导航</button>
-<i-grid>
-  <i-grid-item i-class="item">
-    <i-spin custom>加载中...</i-spin>
-  </i-grid-item>
-  <i-grid-item i-class="item">
-    <i-spin custom>
-      <i-icon type="refresh" size="20" i-class="icon-load"></i-icon>
-      <view>Loading</view>
-    </i-spin>
-  </i-grid-item>
-  <i-grid-item i-class="item">
-    <i-spin custom>
-      <view class="loading"></view>
-    </i-spin>
-  </i-grid-item>
-</i-grid>

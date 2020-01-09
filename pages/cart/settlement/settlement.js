@@ -10,12 +10,13 @@ Page({
    */
   data: {
     playType: 2, //支付方式： 1线上支付   2货到付款
-    fare: 0.00,// 运费
+    freight: 0.00,// 运费
     goodsTotalPrice: 0.00,
     totalPrice: 0.00,
     site: {},
     coupon: {},
     distance: 0,
+    isSub: false,
     remark: '无'
   },
 
@@ -30,9 +31,10 @@ Page({
     this.setData({
       goodsTotalPrice: parseFloat(options.totalPrice),
       totalPrice: parseFloat(options.totalPrice),
-      fare: 0.00,
+      freight: 0.00,
       coupon: {},
-      site: {}
+      site: {},
+      isSub: false
     })
     var that = this
     wx.showLoading({
@@ -103,7 +105,7 @@ Page({
       success: function (res) {
         that.setData({
           coupon: res.data,
-          totalPrice: parseFloat(that.data.goodsTotalPrice) - parseFloat(res.data.denomination)
+          totalPrice: parseFloat(that.data.goodsTotalPrice) - parseFloat(res.data.denomination) + parseFloat(that.data.freight)
         })
         wx.removeStorage({
           key: 'choose_coupon'
@@ -187,7 +189,6 @@ Page({
     if (this.data.coupon){
       couponId = this.data.coupon['id']
     }
-    //获取当前页面信息
     wx.request({
       url: app.globalData.path + '/api/applet/sale/order/create',
       method: 'POST',
@@ -196,7 +197,7 @@ Page({
         address: this.data.site.id,
         payType: this.data.payType,
         couponId: couponId,
-        remark: this.data.remark,
+        orderRemark: this.data.remark,
         distance: this.data.distance
       },
       header: {
@@ -226,3 +227,4 @@ Page({
     })
   }
 })
+

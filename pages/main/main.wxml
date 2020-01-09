@@ -23,7 +23,7 @@
 
     <!-- 搜索栏 -->
     <view class='goods-search' wx:if='{{info.id == "goods-search"}}'>
-      <view class='s-case'>
+      <view class='s-case' bindtap="loadSearch">
         <i-icon type="search" size="24" color="#cdcdcd" />
         <view class='s-text'>搜索商品</view>
       </view>

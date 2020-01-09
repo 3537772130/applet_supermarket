@@ -1,2 +1,33 @@
 <!--pages/main/search/search.wxml-->
-<text>pages/main/search/search.wxml</text>
+<wxs module="filters" src="../../filter.wxs"></wxs>
+<view class="search" style="background-color: {{color}};">
+  <view class="heard">
+    <view class="search">
+      <view class="search-input">
+        <input placeholder="{{placeholder}}" focus="true" value="{{goodsName}}"  bindinput="inputGoodsName"></input>
+      </view>
+      <view class="search-icon" style="background-color: {{color}};" bindtap="searchGoodsName">
+        <i-icon type="search" size="20" color="#FFFFFF" />
+      </view>
+    </view>
+    <view class="clear-name" bindtap="clearGoodaName">清除</view>
+  </view>
+  <!-- <view class="history" wx:if="{{historyList.length > 0}}">
+    <view wx:for="{{historyList}}" wx:key="history">{{item}}</view>
+  </view> -->
+</view>
+
+<view class="goods-list" wx:if="{{list.length > 0}}">
+  <view class="goods-info" wx:for="{{list}}" wx:key="goods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
+    <view class="info-icon">
+      <image src="{{path + item.coverSrc + timestamp}}"></image>
+    </view>
+    <view class="info-details">
+      <view class="name">{{item.goodsName}}</view>
+      <view class="price-details" style="{{item.discount === 100 ? 'line-height: 50px;':''}}">
+        <label class="price" wx:if="{{item.discount !== 100}}">￥{{filters.toFix(item.minPrice*item.discount/100) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice*item.discount/100):'')}}</label>
+      <label class="price {{item.discount !== 100 ? 'price-org':''}}">￥{{filters.toFix(item.minPrice) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice):'')}}</label>
+      </view>
+    </view>
+  </view>
+</view>

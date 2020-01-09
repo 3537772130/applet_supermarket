@@ -45,7 +45,7 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    if (app.globalData.userInfo){
+    if (app.globalData.userInfo) {
       var that = this
       wx.showLoading({
         title: '加载中',
@@ -56,7 +56,7 @@ Page({
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode
         },
-        success: function (res) {
+        success: function(res) {
           if (res.data.code == '1') {
             var list = []
             for (var i = 0; i < res.data.data.length; i++) {
@@ -71,7 +71,7 @@ Page({
             })
           }
         },
-        complete: function () {
+        complete: function() {
           app.hideLoading();
         }
       })
@@ -113,8 +113,11 @@ Page({
 
   },
   loadMain: function() {
-    wx.switchTab({
-      url: '/pages/main/main',
+    // wx.switchTab({
+    //   url: '/pages/main/main',
+    // })
+    wx.navigateTo({
+      url: '/pages/main/search/search',
     })
   },
   onClickEdit: function() {

@@ -22,6 +22,7 @@
 }
 
 .settlement-heard > .heard-address > .h-first > .f-def {
+  float: left;
   display: inline-table;
   height: 12px;
   line-height: 12px;
@@ -34,6 +35,7 @@
 }
 
 .settlement-heard > .heard-address > .h-first > .f-label {
+  float: left;
   display: inline-table;
   height: 12px;
   line-height: 12px;
@@ -46,8 +48,15 @@
 }
 
 .settlement-heard > .heard-address > .h-first > .f-region {
-  display: inline-table;
+  float: left;
+  width: 70%;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
 }
 
 .settlement-heard > .heard-address > .h-two {
@@ -69,7 +78,7 @@
   margin-right: 5px;
 }
 
-.settlement-heard > .heard-address > .h-three > .t-name > text{
+.settlement-heard > .heard-address > .h-three > .t-name > text {
   font-size: 12px;
 }
 
@@ -93,31 +102,32 @@
 /**
 * 添加收货地址
 */
-.add-address{
+
+.add-address {
   height: 30px;
   line-height: 30px;
   padding: 10px 20px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   margin-bottom: 10px;
 }
 
-.add-address > .add-title{
+.add-address > .add-title {
   display: inline-table;
   width: 50%;
   font-size: 14px;
   color: #cdcdcd;
 }
 
-.add-address > .add-icon{
+.add-address > .add-icon {
   display: inline-table;
   width: 50%;
   text-align: right;
 }
 
-
 /**
 * 支付方式
 */
+
 .paly-type {
   height: 30px;
   padding: 10px 20px;
@@ -144,7 +154,7 @@
   font-size: 12px;
 }
 
-.paly-type > .t-name >text{
+.paly-type > .t-name >text {
   display: inline-table;
   margin-right: 10px;
 }
@@ -164,26 +174,27 @@
   text-align: center;
 }
 
-.goods-list > .goods-item > .item-img{
+.goods-list > .goods-item > .item-img {
   float: left;
   display: inline-table;
   width: 40%;
   text-align: center;
   /* margin-right: 3%; */
 }
-.goods-list > .goods-item > .item-img > image{
+
+.goods-list > .goods-item > .item-img > image {
   width: 100px;
   height: 100px;
   border: 1px #cdcdcd solid;
   border-radius: 5px;
 }
 
-.goods-list > .goods-item > .item-info{
+.goods-list > .goods-item > .item-info {
   display: inline-table;
   width: 60%;
 }
 
-.goods-list > .goods-item > .item-info > .info-name{
+.goods-list > .goods-item > .item-info > .info-name {
   text-align: left;
   font-size: 12px;
   height: 32px;
@@ -195,7 +206,7 @@
   white-space: normal !important;
 }
 
-.goods-list > .goods-item > .item-info > .info-specs{
+.goods-list > .goods-item > .item-info > .info-specs {
   height: 20px;
   line-height: 20px;
   font-size: 12px;
@@ -204,11 +215,11 @@
   text-align: left;
 }
 
-.goods-list > .goods-item > .item-info > .info-data{
+.goods-list > .goods-item > .item-info > .info-data {
   height: 50px;
 }
 
-.goods-list > .goods-item > .item-info > .info-data > .data-price{
+.goods-list > .goods-item > .item-info > .info-data > .data-price {
   display: inline-table;
   width: 40%;
   text-align: center;
@@ -216,7 +227,7 @@
   color: #d81e06;
 }
 
-.goods-list > .goods-item > .item-info > .info-data > .data-num{
+.goods-list > .goods-item > .item-info > .info-data > .data-num {
   display: inline-table;
   width: 60%;
   height: 50px;
@@ -225,7 +236,7 @@
   text-align: center;
 }
 
-.goods-list > .goods-remark{
+.goods-list > .goods-remark {
   font-size: 12px;
   color: #cdcdcd;
   padding-left: 20px;
@@ -264,7 +275,7 @@
   font-size: 12px;
 }
 
-.order-data > .data-item > .item-name > text{
+.order-data > .data-item > .item-name > text {
   display: inline-table;
   margin-right: 10px;
   font-size: 12px;
@@ -276,43 +287,60 @@
   white-space: normal !important;
 }
 
+.order-data > .data-item > .item-name > .coupon-name {
+  display: inline-table;
+  width: 50%;
+}
+
+.order-data > .data-item > .item-name > .coupon-name > view {
+  text-align: left;
+  color: #cdcdcd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
 /**
 * 底部菜单
 */
-.but-menu{
+
+.but-menu {
   width: 100%;
   height: 50px;
   line-height: 50px;
   padding: 0px 20px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   border-top: 1px #e6e6e6 solid;
   position: fixed;
   bottom: 0px;
   z-index: 99;
 }
 
-.but-menu > .order-total-price{
+.but-menu > .order-total-price {
   display: inline-table;
   width: 50%;
   font-size: 14px;
   color: #d81e06;
 }
 
-.but-menu > .order-total-price > text{
+.but-menu > .order-total-price > text {
   font-size: 18px;
   font-weight: bold;
 }
 
-.but-menu > .order-sub{
+.but-menu > .order-sub {
   display: inline-table;
   width: 50%;
   text-align: right;
 }
 
-.but-menu > .order-sub > button{
+.but-menu > .order-sub > button {
   width: 100px;
   height: 30px;
   line-height: 30px;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #fff;
 }

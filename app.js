@@ -93,7 +93,7 @@ App({
         content: '您还没有登录哟',
         confirmText: '马上登录',
         confirmColor: this.globalData.appletInfo.systemColor,
-        cancelText: '稍后再去',
+        cancelText: '我再看看',
         cancelColor: '#bfbfbf',
         success(res) {
           if (res.confirm) {

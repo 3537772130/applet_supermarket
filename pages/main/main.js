@@ -127,25 +127,9 @@ Page({
       }
     })
   },
-  handleChange({
-    detail
-  }) {
-    switch (detail.key) {
-      case 'tab2':
-        wx.navigateTo({
-          url: '/pages/main/group-buying-today/group-buying-today',
-        })
-        break;
-      case 'tab3':
-        wx.navigateTo({
-          url: '/pages/main/about-seller/about-seller',
-        })
-        break;
-    }
-  },
-  loadAboutSeller: function() {
+  loadSearch: function() {
     wx.navigateTo({
-      url: '/pages/main/about-seller/about-seller',
+      url: '/pages/main/search/search',
     })
   },
   loadGoodsDetails: function(event) {

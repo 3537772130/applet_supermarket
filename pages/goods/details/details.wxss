@@ -162,7 +162,7 @@
   display: inline-table;
   padding-left: 10px;
   color: #cdcdcd;
-  width: 250px;
+  width: 75%;
 }
 
 .goods-specs > .specs-view > .specs-default > view {
@@ -308,6 +308,7 @@
   height: 15px;
   line-height: 15px;
   text-align: center;
+  padding-bottom: 2px;
 }
 
 .goods-specs .specs-datas > .specs-text > .specs-number > .specs-number-input {
