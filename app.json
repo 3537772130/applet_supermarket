@@ -22,7 +22,7 @@
     "pages/my/set/location/location",
     "pages/my/coupon/coupon",
     "pages/my/coupon/details/details",
-    "pages/my/order/delivery-order/delivery-order",
+    "pages/my/order/business-order/business-order",
     "pages/my/order/my-order/my-order",
     "pages/test/test",
     "pages/logs/logs",

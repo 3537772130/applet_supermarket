@@ -1,38 +1,38 @@
-/* pages/my/order/my-order/my-order.wxss */
-page{
-  background-color: #FFFFFF;
+/* pages/my/order/delivery-order/delivery-order.wxss */
+
+page {
+  background-color: #e6e6e6;
 }
 
-.is-null{
+.is-null {
   width: 100%;
   text-align: center;
 }
 
-.is-null > image{
+.is-null > image {
   width: 168px;
   height: 168px;
   margin-top: 50px;
 }
 
-.is-null > view{
+.is-null > view {
   font-size: 16px;
   color: #cdcdcd;
 }
 
-.coupon-botton{
+.coupon-botton {
   width: 100%;
   height: 40px;
   line-height: 40px;
   text-align: center;
 }
 
-.coupon-botton > view{
+.coupon-botton > view {
   display: inline-table;
   margin-left: 5px;
   font-size: 14px;
   color: #cdcdcd;
 }
-
 
 .order-list {
   text-align: center;
@@ -76,7 +76,7 @@ page{
 }
 
 .order > .item > .region > .title {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .order > .item > .region > .address {

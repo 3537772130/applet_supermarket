@@ -9,12 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    playType: 2, //支付方式： 1线上支付   2货到付款
+    payType: 2, //支付方式： 1线上支付   2货到付款
     freight: 0.00,// 运费
     goodsTotalPrice: 0.00,
     totalPrice: 0.00,
     site: {},
-    coupon: {},
+    coupon: {
+      denomination: 0.00
+    },
     distance: 0,
     isSub: false,
     remark: '无'
@@ -194,32 +196,33 @@ Page({
       method: 'POST',
       data: {
         cartIdList: idList,
-        address: this.data.site.id,
+        addressId: this.data.site.id,
         payType: this.data.payType,
         couponId: couponId,
         orderRemark: this.data.remark,
         distance: this.data.distance
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded', //post
         appletCode: app.globalData.appletCode,
         wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
-        wx.showModal({
-          title: '温馨提示',
-          content: res.data.data,
-          confirmText: '确定',
-          confirmColor: that.data.color,
-          showCancel: false,
-          success() {
-            if (res.data.code == '1') {
-              wx.redirectTo({
-                url: '/pages/cart/settlement/order/order?id=' + 1,
-              })
-            }
-          }
-        })
+        if (res.data.code == 'S0000') {
+          wx.showLoading({
+            title: '下单成功',
+            mask: true
+          })
+          var id = res.data.result
+          updateUserCartStatus(id)
+          setTimeout(function () {
+            wx.hideLoading()
+            wx.redirectTo({
+              url: '/pages/cart/settlement/order/order?id=' + id,
+            })
+          }, 2000)
+        } else {
+          app.showModal(res.data.message)
+        }
       },
       complete: function () {
         app.hideLoading();
@@ -227,4 +230,17 @@ Page({
     })
   }
 })
+
+var updateUserCartStatus = function (orderId){
+  wx.request({
+    url: app.globalData.path + '/api/applet/order/editUserCartStatus',
+    data: {
+      id: orderId
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: app.globalData.userInfo.wxCode
+    }
+  })
+}
 

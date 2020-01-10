@@ -87,7 +87,7 @@ Page({
   },
   loadAddressList(){
     wx.showLoading({
-      title: '加载',
+      title: '加载中',
     })
     var that = this
     wx.request({

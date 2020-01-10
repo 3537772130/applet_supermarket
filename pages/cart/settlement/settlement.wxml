@@ -31,7 +31,7 @@
   <view class="paly-type">
     <view class="t-title">支付方式</view>
     <view class="t-name">
-      <text>{{playType === 1 ? '在线支付':'货到付款'}}</text>
+      <text>{{payType === 1 ? '在线支付':'货到付款'}}</text>
       <i-icon type="more" size="28" color="#00000" />
     </view>
   </view>
@@ -72,10 +72,10 @@
       <view class="item-title">优惠券</view>
       <view class="item-name">
         <view class="coupon-name">
-          <view>{{coupon ? coupon.couponName:'无可用'}}</view>
+          <view>{{coupon.denomination > 0 ? coupon.couponName:'无可用'}}</view>
         </view>
-        <text style="color: #d81e06;" wx:if="{{coupon}}">- ￥{{filters.toFix(coupon.denomination)}}</text>
-        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" wx:if="{{coupon}}" />
+        <text style="color: #d81e06;" wx:if="{{coupon.denomination > 0}}">- ￥{{filters.toFix(coupon.denomination)}}</text>
+        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" wx:if="{{coupon.denomination > 0}}" />
       </view>
     </view>
     <view class="data-item" bindtap="loadRemark">

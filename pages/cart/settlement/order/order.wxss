@@ -140,3 +140,22 @@
   background-color: #cdcdcd;
   border: 1px #cdcdcd solid;
 }
+
+.order-info > .sign-for {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.order-info > .sign-for > view{
+  margin: auto;
+  display: inline-table;
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: '幼圆';
+  background-color: #fd8403;
+  border: 1px #fd8403 solid;
+}

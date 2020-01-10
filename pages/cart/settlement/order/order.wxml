@@ -8,7 +8,10 @@
         <image src="/images/load_1296db.png"></image>
       </view>
     </view>
-    <view class="order-status">待接单</view>
+    <view class="order-status" wx:if="{{order.orderStatus === 1}}">待接单</view>
+    <view class="order-status" wx:if="{{order.orderStatus === 2}}">备货中</view>
+    <view class="order-status" wx:if="{{order.orderStatus === 4}}">配送中</view>
+    <view class="order-status" wx:if="{{order.orderStatus === 5}}">已送达</view>
   </view>
   <view class="order-info">
     <view class="label">订单编号</view>
@@ -16,21 +19,26 @@
   </view>
   <view class="order-info">
     <view class="label">下单时间</view>
-    <view class="text">{{order.gmtModified}}</view>
+    <view class="text">{{order.gmtCreated}}</view>
   </view>
   <view class="order-info">
     <view class="label">收货地址</view>
     <view class="text">{{order.detailAddr}}</view>
   </view>
-  <view class="order-info">
+  <view class="order-info" style="text-align: center;">
     <view class="tel">
-      <view style="background-color: {{color}};border: 1px {{color}} solid;">
+      <view style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="telBusiness">
         <i-icon type="interactive" size="18" color="#2c2c2c" />联系商家
       </view>
     </view>
-    <view class="cancel">
+    <view class="cancel" wx:if="{{order.orderStatus === 1}}" bindtap="cancelOrder">
       <view>
         <i-icon type="close" size="18" color="#2c2c2c" />取消订单
+      </view>
+    </view>
+    <view class="sign-for" wx:if="{{order.orderStatus === 5}}" bindtap="signForOrder">
+      <view>
+        <i-icon type="brush" size="18" color="#2c2c2c" />签收
       </view>
     </view>
   </view>

@@ -17,6 +17,10 @@ var filters = {
       return val.substring(sIndex, eIndex);
     }
     return;
+  },
+  split: function(val, index){
+    var list = val.split(' ')
+    return list[index]
   }
 }
 
@@ -24,5 +28,6 @@ module.exports = {
   toFix: filters.toFix,
   toFixCustom: filters.toFixCustom,
   toNumber: filters.toNumber,
-  sub: filters.sub
+  sub: filters.sub,
+  split: filters.split
 }

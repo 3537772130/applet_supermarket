@@ -1,4 +1,4 @@
-<!--pages/my/order/my-order/my-order.wxml-->
+<!--pages/my/order/delivery-order/delivery-order.wxml-->
 <wxs module="filters" src="../../../filter.wxs"></wxs>
 <view class="is-null" wx:if="{{isNull}}">
   <image src="/images/is_null.png"></image>

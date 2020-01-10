@@ -19,7 +19,7 @@ module.exports = {
               var src = '/api/applet/wechant/login'
               var loginCode = res.code
               var wxCode = ''
-              if (app.globalData.userInfo){
+              if (app.globalData.userInfo) {
                 loginCode = ''
                 wxCode = app.globalData.userInfo.wxCode
                 src = '/api/applet/wechant/loadUserInfo'
@@ -52,9 +52,15 @@ module.exports = {
                       userInfo: userInfo,
                       isDealer: info.data.isDealer
                     })
+                    if (info.data.isDealer){
+                      that.setData({
+                        waitOrderCount: info.data.waitOrderCount,
+                        deliveryOrderCount: info.data.deliveryOrderCount
+                      })
+                    }
                     if (info.code == '0') {
                       app.bindMobileShowModal()
-                    } 
+                    }
                   } else {
                     wx.navigateTo({
                       url: '/pages/error/error?code=' + info.code + '&msg=' + info.data
@@ -79,15 +85,15 @@ module.exports = {
   /**
    * 上传用户头像
    */
-  uploadAvatar:function(that){
+  uploadAvatar: function(that) {
     wx.chooseImage({
       success(res) {
         const file = res.tempFiles[0]
         var modal = ''
-        if (file['size'] > 3 * 1024 * 1024){
+        if (file['size'] > 3 * 1024 * 1024) {
           modal = '上传图片过大，仅支持 3M 以内的图片上传'
         }
-        if (modal !== ''){
+        if (modal !== '') {
           app.showModal(modal)
         } else {
           wx.showLoading({
@@ -116,7 +122,7 @@ module.exports = {
                 duration: 1500
               })
             },
-            complete: function () {
+            complete: function() {
               wx.hideLoading();
             }
           })
@@ -127,7 +133,7 @@ module.exports = {
   /**
    * 加载地图距离
    */
-  loadMapDistance: function (that, lonEnd, latEnd) {
+  loadMapDistance: function(that, lonEnd, latEnd) {
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -146,19 +152,21 @@ module.exports = {
         latitude: latEnd,
         longitude: lonEnd
       }],
-      success: function (res) {
+      success: function(res) {
         console.log('两点之间的距离0：', res.result.elements[0].distance)
         console.log(res)
         that.setData({
           distance: res.result.elements[0].distance
         })
-        // 获取运费
-        getOrderFreight(that)
+        if (that.data.freight != null) {
+          // 获取运费
+          getOrderFreight(that)
+        }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res)
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log(res)
       }
     })
@@ -166,7 +174,7 @@ module.exports = {
   /**
    * 加载地图路线
    */
-  loadMapRoute: function (that, lonEnd, latEnd){
+  loadMapRoute: function(that, lonEnd, latEnd) {
     // 起点经纬度
     let latStart = that.data.appletInfo['lat']
     let lonStart = that.data.appletInfo['lon']
@@ -178,7 +186,7 @@ module.exports = {
       method: 'GET',
       dataType: 'json',
       //请求成功回调
-      success: function (res) {
+      success: function(res) {
         let ret = res.data
         if (ret.status != 0) return; //服务异常处理
         let coors = ret.result.routes[0].polyline,
@@ -207,7 +215,7 @@ module.exports = {
     };
     wx.request(opt);
   },
-  
+
 }
 
 var callback = function(code) {
@@ -236,7 +244,7 @@ var notFound = function(code) {
 /**
  * 获取运费
  */
-var getOrderFreight = function (that) {
+var getOrderFreight = function(that) {
   wx.request({
     url: app.globalData.path + '/api/applet/user/cart/getOrderFreight',
     data: {
@@ -246,7 +254,7 @@ var getOrderFreight = function (that) {
       appletCode: app.globalData.appletCode,
       wxCode: app.globalData.userInfo.wxCode
     },
-    success: function (res) {
+    success: function(res) {
       if (res.data.code == '1') {
         that.setData({
           freight: parseFloat(res.data.data),
@@ -259,9 +267,10 @@ var getOrderFreight = function (that) {
         })
         app.showModal(res.data.data)
       }
+        app.hideLoading();
     },
-    complete: function () {
-      wx.hideLoading();
+    complete: function() {
+      
     }
   })
 }

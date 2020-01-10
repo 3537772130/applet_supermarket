@@ -46,10 +46,13 @@
 
 <view class="business-menu" wx:if="{{isDealer}}">
   <i-cell-group>
-    <i-cell title="派送订单" value="0个未处理" is-link url="/pages/my/order/delivery-order/delivery-order">
+    <i-cell title="待接订单" value="{{waitOrderCount}}个未处理" is-link url="/pages/my/order/business-order/business-order?status=1">
+      <i-icon type="time_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="派送订单" value="{{deliveryOrderCount}}个未处理" is-link url="/pages/my/order/business-order/business-order?status=2">
       <i-icon type="clock_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
-    <i-cell title="完成订单" is-link url="/pages/my/order/delivery-order/delivery-order">
+    <i-cell title="完成订单" is-link url="/pages/my/order/business-order/business-order?status=3">
       <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>
@@ -61,6 +64,9 @@
       <i-icon type="coupons_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
     <i-cell title="我的订单" is-link url="/pages/my/order/my-order/my-order">
+      <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="订单信息" is-link url="/pages/cart/settlement/order/order?id=1">
       <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>

@@ -10,7 +10,7 @@ Page({
     scrollTop: 0,
     list: [],
     page: 1,
-    pageSize: 10,
+    size: 10,
     totalCount: 0,
     isNull: false,
     hide: false
@@ -22,9 +22,10 @@ Page({
   onLoad: function (options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    wx.showLoading({
-      title: '加载中',
+    this.setData({
+      list: []
     })
+    queryOrderList(this)
   },
 
   /**
@@ -76,3 +77,43 @@ Page({
 
   }
 })
+
+var queryOrderList = function(that){
+  wx.showLoading({
+    title: '加载中',
+  })
+  wx.request({
+    url: app.globalData.path + '/api/applet/sale/order/page',
+    method: 'POST',
+    data: {
+      page: that.data.page,
+      size: that.data.size
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: app.globalData.userInfo.wxCode
+    },
+    success: function (res) {
+      if (res.data.code == 'S0000') {
+        var result = res.data.result
+        var list = that.data.list
+        var source = result.dataSource
+        for (var i = 0; i < source.length; i++){
+          list.push(source[i])
+        }
+        that.setData({
+          totalCount: result.totalCount,
+          list: list,
+          isNull: false
+        })
+      } else {
+        that.setData({
+          isNull: true
+        })
+      }
+    },
+    complete: function () {
+      app.hideLoading();
+    }
+  })
+}

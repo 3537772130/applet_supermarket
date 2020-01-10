@@ -293,7 +293,8 @@
 }
 
 .order-data > .data-item > .item-name > .coupon-name > view {
-  text-align: left;
+  text-align: right;
+  margin-right: 10px;
   color: #cdcdcd;
   overflow: hidden;
   text-overflow: ellipsis;

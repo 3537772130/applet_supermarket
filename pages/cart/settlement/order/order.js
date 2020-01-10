@@ -1,6 +1,7 @@
 // pages/cart/settlement/order/order.js
 const app = getApp();
 const utils = require('../../../../utils/appletUtil');
+var index;
 
 Page({
 
@@ -12,10 +13,11 @@ Page({
       lon: 120.275495927,
       lat: 31.525915299,
       orderNo: 'SDF20190107134153123456',
-      gmtModified: '2019-01-07 14:36:51',
+      gmtCreated: '2019-01-07 14:36:51',
       detailAddr: '江苏省无锡市滨湖区经贸路天竺花苑85号楼1903室',
       status: 0
-    }
+    },
+    loadNum: 1
   },
 
   /**
@@ -26,8 +28,12 @@ Page({
     app.setAppletColor(this)
     this.setData({
       order: {
-        id: options.id
+        orderId: options.id
       }
+    })
+    wx.showLoading({
+      title: '加载中',
+      mask: true
     })
     this.initInfo()
   },
@@ -44,9 +50,9 @@ Page({
    */
   onShow: function() {
     var that = this
-    setInterval(function() {
+    index = setInterval(function() {
       that.initInfo()
-    }, 10 * 1000)
+    }, 30 * 1000)
   },
 
   /**
@@ -60,7 +66,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    console.info('销毁定时器')
+    clearInterval(index)
   },
 
   /**
@@ -85,38 +92,135 @@ Page({
   },
   initInfo: function() {
     var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
     //获取当前页面信息
     wx.request({
-      url: app.globalData.path + '/api/applet/user/order/loadOrderReadyInfo',
+      url: app.globalData.path + '/api/applet/order/queryOrderInfo',
       data: {
-        id: that.data.order.id
+        id: that.data.order.orderId
       },
       header: {
         appletCode: app.globalData.appletCode,
         wxCode: app.globalData.userInfo.wxCode
       },
       success: function(res) {
-        if (res.data.code == '1') {
-          var coupon = res.data.data.coupon
-          var totalPrice = that.data.goodsTotalPrice
-          if (coupon) {
-            totalPrice = parseFloat(that.data.goodsTotalPrice) - parseFloat(res.data.data.coupon.denomination)
-          }
+        if (res.data.code === '1') {
           that.setData({
-            site: res.data.data.address,
-            coupon: coupon,
-            list: res.data.data.list,
-            totalPrice: totalPrice
+            order: res.data.data
           })
-          utils.loadMapDistance(that, that.data.site['lon'], that.data.site['lat'])
+          if (that.data.loadNum === 1) {
+            that.data.loadNum = 2
+            setData(that)
+          }
+        } else {
+          wx.showLoading({
+            title: res.data.data,
+            mask: true
+          })
+          setTimeout(function() {
+            wx.hideLoading()
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 2000)
         }
       },
       complete: function() {
         app.hideLoading();
+      }
+    })
+  },
+  telBusiness: function() {
+    wx.makePhoneCall({
+      phoneNumber: app.globalData.appletInfo.telephone,
+    })
+  },
+  cancelOrder: function() {
+    var that = this
+    wx.showModal({
+      title: '温馨提示',
+      content: '确定取消订单吗？',
+      success(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '正在取消',
+            mask: true
+          })
+          //获取当前页面信息
+          wx.request({
+            url: app.globalData.path + '/api/applet/order/cancelOrder',
+            data: {
+              id: that.data.order.orderId
+            },
+            header: {
+              appletCode: app.globalData.appletCode,
+              wxCode: app.globalData.userInfo.wxCode
+            },
+            success: function(res) {
+              wx.showModal({
+                title: '温馨提示',
+                content: res.data.data,
+                confirmText: '确定',
+                confirmColor: that.data.color,
+                showCancel: false,
+                success() {
+                  if (res.data.code == '1') {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  } else {
+                    wx.showLoading({
+                      title: '加载中',
+                      mask: true
+                    })
+                    that.initInfo()
+                  }
+                }
+              })
+            },
+            complete: function() {
+              wx.hideLoading();
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  signForOrder: function() {
+    var that = this
+    wx.showLoading({
+      title: '正在签收',
+      mask: true
+    })
+    //获取当前页面信息
+    wx.request({
+      url: app.globalData.path + '/api/applet/order/signForOrder',
+      data: {
+        id: that.data.order.orderId
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function(res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: res.data.data,
+          confirmText: '确定',
+          confirmColor: that.data.color,
+          showCancel: false,
+          success() {
+            if (res.data.code == '1') {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
+        })
+      },
+      complete: function() {
+        wx.hideLoading();
       }
     })
   }
@@ -153,6 +257,5 @@ var setData = function(that) {
       }
     ]
   })
-
   utils.loadMapRoute(that, that.data.order['lon'], that.data.order['lat'])
 }
