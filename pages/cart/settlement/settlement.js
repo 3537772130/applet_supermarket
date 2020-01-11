@@ -207,35 +207,39 @@ Page({
         wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
+        wx.hideLoading()
         if (res.data.code == 'S0000') {
           wx.showLoading({
             title: '下单成功',
             mask: true
           })
           var id = res.data.result
-          updateUserCartStatus(id)
           setTimeout(function () {
             wx.hideLoading()
             wx.redirectTo({
               url: '/pages/cart/settlement/order/order?id=' + id,
             })
-          }, 2000)
+          }, 1500)
+          updateUserCartStatus(id)
         } else {
           app.showModal(res.data.message)
         }
       },
-      complete: function () {
+      fail: function () {
         app.hideLoading();
       }
     })
   }
 })
 
-var updateUserCartStatus = function (orderId){
+/**
+ * 更新用户购物车信息
+ */
+var updateUserCartStatus = function (orderId) {
   wx.request({
     url: app.globalData.path + '/api/applet/order/editUserCartStatus',
     data: {
-      id: orderId
+      id: parseInt(orderId)
     },
     header: {
       appletCode: app.globalData.appletCode,
@@ -243,4 +247,3 @@ var updateUserCartStatus = function (orderId){
     }
   })
 }
-

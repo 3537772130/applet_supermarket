@@ -2,11 +2,17 @@
 var filters = {
   // 保留两位小数
   toFix: function(val) {
-    return val.toFixed(2)
+    if (val) {
+      return val.toFixed(2)
+    }
+    return 0.00
   },
   // 自定义小数位长度
   toFixCustom: function(val, length) {
-    return val.toFixed(length)
+    if (val) {
+      return val.toFixed(length)
+    }
+    return 0.00
   },
   // 转化为数值
   toNumber: function(val) {
@@ -18,9 +24,14 @@ var filters = {
     }
     return;
   },
-  split: function(val, index){
-    var list = val.split(' ')
-    return list[index]
+  split: function(val, index) {
+    if (val) {
+      if (val != '') {
+        var list = val.split(' ')
+        return list[index]
+      }
+    }
+    return ''
   }
 }
 

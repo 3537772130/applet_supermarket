@@ -292,7 +292,7 @@ Page({
   addCart: function() {
     if (app.globalData.isDealer) {
       wx.showLoading({
-        title: '加载中',
+        title: '正在加入',
       })
       var that = this
       wx.request({
@@ -307,6 +307,7 @@ Page({
           wxCode: app.globalData.userInfo.wxCode
         },
         success: function (res) {
+          wx.hideLoading();
           if (res.data.code == '1') {
             wx.showToast({
               title: '加入成功',
@@ -319,7 +320,7 @@ Page({
             })
           }
         },
-        complete: function () {
+        fail: function () {
           wx.hideLoading();
         }
       })
@@ -353,6 +354,11 @@ Page({
   gianCoupon: function(event) {
     var id = event.currentTarget.dataset.id
     userGainCoupon(this, id)
+  },
+  telBusiness: function () {
+    wx.makePhoneCall({
+      phoneNumber: app.globalData.appletInfo.telephone,
+    })
   }
 })
 
@@ -418,7 +424,7 @@ var loadGoodsDetails = function(that, id) {
 var userGainCoupon = function(that, id) {
   if (app.globalData.userInfo) {
     wx.showLoading({
-      title: '加载中',
+      title: '领取中',
       mask: true
     })
     //加载小程序信息

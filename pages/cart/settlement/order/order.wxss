@@ -65,7 +65,7 @@
   }
 }
 
-.order-status {
+.order-title > .order-status {
   margin: auto;
   width: 58px;
   height: 58px;
@@ -80,6 +80,25 @@
   border: 1px #fff solid;
   position: relative;
   top: -70px;
+}
+
+.order > .details{
+  height: 20px;
+  text-align: right;
+  font-size: 12px;
+  position: relative;
+  top: -30px;
+}
+
+.order > .details > view{
+  display: inline-table;
+  height: 20px;
+  line-height: 20px;
+}
+
+.order > .details > view > label{
+  position: relative;
+  top: 2px;
 }
 
 .order-info {

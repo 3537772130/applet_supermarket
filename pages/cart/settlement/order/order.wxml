@@ -1,17 +1,24 @@
 <!--pages/cart/settlement/order/order.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
 <!--地图容器-->
 <map id="myMap" style="width: 100%; height: 350px;" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" include-points="{{points}}" show-location="true" enable-3D="true" show-compass="true" show-location></map>
 <view class="order">
   <view class="order-title">
     <view class="load-img">
       <view>
-        <image src="/images/load_1296db.png"></image>
+        <image src="/images/load_{{filters.sub(color,1,8)}}.png"></image>
       </view>
     </view>
     <view class="order-status" wx:if="{{order.orderStatus === 1}}">待接单</view>
     <view class="order-status" wx:if="{{order.orderStatus === 2}}">备货中</view>
     <view class="order-status" wx:if="{{order.orderStatus === 4}}">配送中</view>
     <view class="order-status" wx:if="{{order.orderStatus === 5}}">已送达</view>
+  </view>
+  <view class="details">
+    <view bindtap="loadDetails" data-id="{{order.orderId}}">
+      <i-icon type="prompt" size="18" color="{{color}}" />
+      <label style="color: {{color}};">详情</label>
+    </view>
   </view>
   <view class="order-info">
     <view class="label">订单编号</view>

@@ -1,7 +1,6 @@
 // pages/cart/settlement/order/order.js
 const app = getApp();
 const utils = require('../../../../utils/appletUtil');
-var index;
 
 Page({
 
@@ -9,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    setInter: '',
     order: {
       lon: 120.275495927,
       lat: 31.525915299,
@@ -35,7 +35,7 @@ Page({
       title: '加载中',
       mask: true
     })
-    this.initInfo()
+    initInfo(this)
   },
 
   /**
@@ -50,8 +50,9 @@ Page({
    */
   onShow: function() {
     var that = this
-    index = setInterval(function() {
-      that.initInfo()
+    this.data.setInter = setInterval(function() {
+      console.info('定时器30秒刷新一次订单...')
+      initInfo(that)
     }, 30 * 1000)
   },
 
@@ -67,7 +68,7 @@ Page({
    */
   onUnload: function() {
     console.info('销毁定时器')
-    clearInterval(index)
+    clearInterval(this.data.setInter)
   },
 
   /**
@@ -90,48 +91,9 @@ Page({
   onShareAppMessage: function() {
 
   },
-  initInfo: function() {
-    var that = this
-    //获取当前页面信息
-    wx.request({
-      url: app.globalData.path + '/api/applet/order/queryOrderInfo',
-      data: {
-        id: that.data.order.orderId
-      },
-      header: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode
-      },
-      success: function(res) {
-        if (res.data.code === '1') {
-          that.setData({
-            order: res.data.data
-          })
-          if (that.data.loadNum === 1) {
-            that.data.loadNum = 2
-            setData(that)
-          }
-        } else {
-          wx.showLoading({
-            title: res.data.data,
-            mask: true
-          })
-          setTimeout(function() {
-            wx.hideLoading()
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 2000)
-        }
-      },
-      complete: function() {
-        app.hideLoading();
-      }
-    })
-  },
   telBusiness: function() {
     wx.makePhoneCall({
-      phoneNumber: app.globalData.appletInfo.telephone,
+      phoneNumber: this.data.telephone,
     })
   },
   cancelOrder: function() {
@@ -172,7 +134,7 @@ Page({
                       title: '加载中',
                       mask: true
                     })
-                    that.initInfo()
+                    initInfo(that)
                   }
                 }
               })
@@ -223,18 +185,67 @@ Page({
         wx.hideLoading();
       }
     })
+  },
+  loadDetails: function (event) {
+    var id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/my/order/my-order/details/details?orderId=' + id,
+    })
   }
 })
 
-var setData = function(that) {
+var initInfo = function(that) {
+  //获取当前页面信息
+  wx.request({
+    url: app.globalData.path + '/api/applet/order/queryOrderInfo',
+    data: {
+      id: that.data.order.orderId
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: app.globalData.userInfo.wxCode
+    },
+    success: function (res) {
+      if (res.data.code === '1') {
+        var data = res.data.data
+        that.setData({
+          order: data.order,
+          telephone: data.appletInfo.telephone
+        })
+        if (that.data.loadNum === 1) {
+          that.data.loadNum = 2
+          setPageData(that, data.appletInfo)
+        }
+      } else {
+        wx.showLoading({
+          title: res.data.data,
+          mask: true
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 2000)
+      }
+    },
+    complete: function () {
+      app.hideLoading();
+    }
+  })
+}
+
+var setPageData = function(that, appletInfo) {
   that.setData({
-    longitude: that.data.appletInfo['lon'],
-    latitude: that.data.appletInfo['lat'],
+    longitude: appletInfo['lon'],
+    latitude: appletInfo['lat'],
+    scale: 18,
     markers: [{
         id: 0,
-        longitude: that.data.appletInfo['lon'],
-        latitude: that.data.appletInfo['lat'],
-        iconPath: '/images/location_1296db.png',
+        longitude: appletInfo['lon'],
+        latitude: appletInfo['lat'],
+        // iconPath: '/images/location_1296db.png',
+        iconPath: that.data.path + appletInfo.appletLogo,
         width: 25,
         height: 25
       },
@@ -242,14 +253,15 @@ var setData = function(that) {
         id: 1,
         longitude: that.data.order['lon'],
         latitude: that.data.order['lat'],
-        iconPath: '/images/location_e5270f.png',
+        // iconPath: '/images/location_e5270f.png',
+        iconPath: that.data.userInfo.avatarUrl,
         width: 25,
         height: 25
       }
     ],
     points: [{
-        longitude: that.data.appletInfo['lon'],
-        latitude: that.data.appletInfo['lat']
+        longitude: appletInfo['lon'],
+        latitude: appletInfo['lat']
       },
       {
         longitude: that.data.order['lon'],
@@ -257,5 +269,5 @@ var setData = function(that) {
       }
     ]
   })
-  utils.loadMapRoute(that, that.data.order['lon'], that.data.order['lat'])
+  utils.loadMapRoute(that, appletInfo)
 }

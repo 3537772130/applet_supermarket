@@ -26,7 +26,7 @@ Page({
           app.globalData.appletInfo = res.data.data
           app.setAppletColor(that);
           wx.switchTab({
-            url: '/pages/cart/cart'
+            url: '/pages/my/my'
           })
           // wx.navigateTo({
           //   url: '/pages/test/test'

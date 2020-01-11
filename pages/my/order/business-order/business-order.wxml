@@ -8,23 +8,30 @@
   <scroll-view scroll-y="true" style="height: {{height}}px;" bindscrolltolower="lower">
     <view class="order-list">
       <view class="order" wx:for="{{list}}" wx:key="item">
+        <image class="new" src="/images/new_{{filters.sub(color, 1, 8)}}.png"></image>
         <view class="item">
-          <view class="order-no">订单：{{item.orderNo}}</view>
+          <label class="order-no">no.{{item.orderNo}}</label>
+          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 0}}">已取消</label>
+          <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 1}}">待接单</label>
+          <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 2}}">备货中</label>
+          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已取消</label>
+          <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 4}}">配送中</label>
+          <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 5}}">已送达</label>
+          <label class="status" style="color: #f4ea29;" wx:if="{{item.orderStatus === 6}}">已签收</label>
+        </view>
+        <view class="left">
+          <view>
+            <label>{{item.receiverName}}</label>
+            <label>{{filters.sub(item.receiverPhone, 0, 3) + '****' + filters.sub(item.receiverPhone, 7, 11)}}</label>
+          </view>
+          <view>{{filters.split(item.detailAddr, 1)}}</view>
+          <view class="address">{{filters.split(item.detailAddr, 0)}}</view>
+        </view>
+        <view class="right">
           <view class="amount">￥{{filters.toFix(item.totalAmount+item.carriersFee-item.ticketAmount)}}</view>
+          <view class="load" style="background-color: {{color}};" bindtap="loadDetails" data-id="{{item.orderId}}">查看详情</view>
         </view>
-        <view class="item">
-          <view style="width: 35%;">{{item.receiverName}}</view>
-          <view style="width: 65%;">{{filters.sub(item.receiverPhone, 0, 3) + '****' + filters.sub(item.receiverPhone, 7, 11)}}</view>
-        </view>
-        <view class="item" style="height: 60px;">
-          <view class="region">
-            <view class="title">{{filters.split(item.detailAddr, 1)}}</view>
-            <view class="address">{{filters.split(item.detailAddr, 0)}}</view>
-          </view>
-          <view class="details">
-            <view style="background-color: {{color}};">查看详情</view>
-          </view>
-        </view>
+        <view class="time">{{item.gmtCreated}}</view>
       </view>
     </view>
     <view class="coupon-botton">

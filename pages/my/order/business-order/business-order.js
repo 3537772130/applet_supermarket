@@ -40,11 +40,12 @@ Page({
       title: title
     })
     this.setData({
-      page: 1,
-      list: [],
       status: parseInt(options.status)
     })
-    queryOrderList(this)
+    wx.setStorage({
+      key: 'order_status',
+      data: options.status,
+    })
   },
 
   /**
@@ -58,7 +59,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this
+    this.setData({
+      page: 1,
+      list: []
+    })
+    wx.getStorage({
+      key: 'order_status',
+      success: function(res) {
+        that.setData({
+          status: parseInt(res.data)
+        })
+      },
+    })
+   
+    queryOrderList(this)
   },
 
   /**
@@ -100,7 +115,7 @@ Page({
       this.setData({
         page: this.data.page + 1
       })
-      this.queryCouponList()
+      queryOrderList(this)
     } else {
       this.setData({
         hide: true
@@ -112,6 +127,12 @@ Page({
         })
       }, 2000);
     }
+  },
+  loadDetails: function(event){
+    var id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/my/order/business-order/details/details?orderId=' + id,
+    })
   }
 })
 
@@ -152,7 +173,7 @@ var queryOrderList = function(that) {
       }
     },
     complete: function() {
-      app.hideLoading();
+      wx.hideLoading();
     }
   })
 }

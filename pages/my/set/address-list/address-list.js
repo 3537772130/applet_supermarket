@@ -126,6 +126,7 @@ Page({
     wx.showModal({
       title: '温馨提示',
       content: '确定删除收货人为【' + name + '】的地址吗？',
+      confirmColor: that.data.appletInfo.systemColor,
       success(res) {
         if (res.confirm) {
           wx.showLoading({

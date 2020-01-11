@@ -44,7 +44,7 @@
       <view class="item-info">
         <view class="info-name">{{item.goodsName}}</view>
         <view class="info-specs">
-          <text>规格：{{item.specsText}}</text>
+          <text style="color: #0790f9;">{{item.specsText}}</text>
         </view>
         <view class="info-data">
           <view class="data-price">￥{{filters.toFix((item.sellPrice * item.discount) / 100 * item.amount)}}</view>

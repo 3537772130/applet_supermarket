@@ -92,7 +92,7 @@
 
   <view style="height: 80px;"></view>
   <view class="specs-menu">
-    <view class="menu-element" style="width: 25%;">
+    <view class="menu-element" style="width: 25%;" bindtap="telBusiness">
       <view class="element-img">
         <image src="/images/tel_bus.png"></image>
       </view>

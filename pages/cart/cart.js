@@ -45,6 +45,9 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
+    this.setData({
+      cartList: []
+    })
     if (app.globalData.userInfo) {
       var that = this
       wx.showLoading({
@@ -232,6 +235,7 @@ Page({
     wx.showModal({
       title: '温馨提示',
       content: '确定删除商品【' + name + '】吗？',
+      confirmColor: that.data.appletInfo.systemColor,
       success(res) {
         if (res.confirm) {
           var ifCheckAll = true;

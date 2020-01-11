@@ -1,9 +1,5 @@
 /* pages/my/order/delivery-order/delivery-order.wxss */
 
-page {
-  background-color: #e6e6e6;
-}
-
 .is-null {
   width: 100%;
   text-align: center;
@@ -43,62 +39,97 @@ page {
   width: 90%;
   background-color: #fff;
   border-radius: 8px;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px;
+  border: 1px #e6e6e6 solid;
+  box-shadow: 0px 3px 6px #b2b2b2;
+}
+
+.order > .new {
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 0px 8px 0px 0px;
+  position: relative;
+  top: -10px;
+  right: -11px;
+  z-index: 99;
 }
 
 .order > .item {
-  height: 30px;
-  line-height: 30px;
-  text-align: left;
-}
-
-.order > .item > view {
-  display: inline-table;
-  width: 50%;
+  width: 100%;
   font-size: 14px;
+  text-align: left;
+  border-bottom: 1px #e6e6e6 solid;
+  margin-bottom: 5px;
 }
 
 .order > .item > .order-no {
-  width: 70%;
+  display: inline-table;
+  width: 65%;
 }
 
-.order > .item > .amount {
-  width: 30%;
-  font-size: 18px;
-  color: #ff6347;
+.order > .item > .status {
+  display: inline-table;
+  width: 20%;
+  text-align: right;
 }
 
-.order > .item > .region {
+.order > .left {
   float: left;
-  width: 75%;
-  height: 60px;
-}
-
-.order > .item > .region > .title {
+  width: 65%;
   font-size: 14px;
 }
 
-.order > .item > .region > .address {
+.order > .left > view {
+  height: 25px;
+  line-height: 25px;
   font-size: 12px;
+  text-align: left;
+}
+
+.order > .left > .address {
+  height: 30px;
   line-height: normal;
 }
 
-.order > .item > .details {
-  float: right;
-  width: 25%;
-  height: 60px;
-  line-height: 60px;
+.order > .left > view > label {
+  display: inline-table;
+  margin-right: 10px;
+}
+
+.order > .right {
+  float: left;
+  width: 35%;
+}
+
+.order > .right > view {
+  height: 40px;
+  line-height: 40px;
   text-align: center;
 }
 
-.order > .item > .details > view {
+.order > .right > .amount {
+  font-size: 18px;
+  color: red;
+}
+
+.order > .right > .load {
   display: inline-table;
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
+  padding: 0px 10px;
   font-size: 12px;
   color: #fff;
   border-radius: 5px;
-  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.order > .time {
+  float: left;
+  width: 100%;
+  text-align: right;
+  font-size: 12px;
+  border-top: 1px #e6e6e6 solid;
+  padding-top: 5px;
+  margin-top: 5px;
 }

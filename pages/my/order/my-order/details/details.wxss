@@ -1,127 +1,77 @@
-/* pages/cart/settlement/settlement.wxss */
-@import "/pages/style.wxss";
+/* pages/my/order/my-order/details/details.wxss */
 
-.settlement-heard {
-  margin-bottom: 10px;
-  padding: 20px 20px 10px 20px;
+page {
+  background-color: #e6e6e6;
+}
+
+/**
+* 收货地址
+*/
+
+.address {
   background-color: #fff;
-  height: 70px;
+  margin-bottom: 10px;
+  padding: 10px 10px;
+  border-radius: 0px 0px 10px 10px;
 }
 
-.settlement-heard > .heard-address {
+.address > .order-no {
   float: left;
-  display: inline-table;
-  width: 85%;
-  height: 70px;
-}
-
-.settlement-heard > .heard-address > .h-first {
-  height: 15px;
-  line-height: 15px;
-  font-size: 10px;
-}
-
-.settlement-heard > .heard-address > .h-first > .f-def {
-  float: left;
-  display: inline-table;
-  height: 12px;
-  line-height: 12px;
-  padding: 0px 5px;
-  color: #fff;
-  background-color: #d81e06;
-  text-align: center;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-
-.settlement-heard > .heard-address > .h-first > .f-label {
-  float: left;
-  display: inline-table;
-  height: 12px;
-  line-height: 12px;
-  padding: 0px 5px;
-  color: #fff;
-  background-color: #1296db;
-  text-align: center;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-
-.settlement-heard > .heard-address > .h-first > .f-region {
-  float: left;
-  width: 70%;
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  white-space: normal !important;
-}
-
-.settlement-heard > .heard-address > .h-two {
-  height: 30px;
-  line-height: 30px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.settlement-heard > .heard-address > .h-three {
-  display: inline-table;
+  width: 100%;
   font-size: 12px;
   height: 20px;
   line-height: 20px;
 }
 
-.settlement-heard > .heard-address > .h-three > .t-name {
-  display: inline-table;
-  margin-right: 5px;
+.address > .left {
+  float: left;
+  width: 75%;
+  height: 70px;
 }
 
-.settlement-heard > .heard-address > .h-three > .t-name > text {
+.address > .left > .people {
+  height: 20px;
+  line-height: 20px;
+}
+
+.address > .left > .people > view {
+  display: inline-table;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.address > .left > .title {
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.address > .left > .details {
+  height: 30px;
   font-size: 12px;
 }
 
-.settlement-heard > .heard-address > .h-three > .t-mobile {
-  display: inline-table;
-}
-
-.settlement-heard > .heard-icon {
-  float: left;
-  display: inline-table;
-  width: 15%;
+.address > .right {
+  float: right;
+  width: 25%;
   height: 70px;
-  text-align: right;
+  text-align: center;
 }
 
-.settlement-heard > .heard-icon > i-icon {
-  position: relative;
-  top: 15px;
-}
-
-/**
-* 添加收货地址
-*/
-
-.add-address {
+.address > .right > view {
+  display: inline-table;
   height: 30px;
   line-height: 30px;
-  padding: 10px 20px;
-  background-color: #fff;
-  margin-bottom: 10px;
+  padding: 0px 10px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
-.add-address > .add-title {
-  display: inline-table;
-  width: 50%;
+.address > .remark {
   font-size: 14px;
-  color: #cdcdcd;
-}
-
-.add-address > .add-icon {
-  display: inline-table;
-  width: 50%;
-  text-align: right;
+  color: red;
 }
 
 /**
@@ -137,7 +87,7 @@
 }
 
 .paly-type > .t-title {
-  display: inline-table;
+  float: left;
   width: 50%;
   height: 30px;
   line-height: 30px;
@@ -146,7 +96,7 @@
 }
 
 .paly-type > .t-name {
-  display: inline-table;
+  float: right;
   width: 50%;
   text-align: right;
   height: 30px;
@@ -220,15 +170,15 @@
 
 .goods-list > .goods-item > .item-info > .info-data > .data-price {
   display: inline-table;
-  width: 40%;
+  width: 60%;
   text-align: center;
   font-size: 14px;
-  color: #d81e06;
+  color: red;
 }
 
 .goods-list > .goods-item > .item-info > .info-data > .data-num {
   display: inline-table;
-  width: 60%;
+  width: 40%;
   height: 50px;
   line-height: 50px;
   font-size: 12px;
@@ -247,7 +197,7 @@
 
 .order-data {
   padding: 10px 20px;
-  margin-bottom: 80px;
+  margin-bottom: 110px;
   border-radius: 10px;
   background-color: #fff;
 }
@@ -309,9 +259,6 @@
 
 .but-menu {
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0px 20px;
   background-color: #fff;
   border-top: 1px #e6e6e6 solid;
   position: fixed;
@@ -320,24 +267,38 @@
 }
 
 .but-menu > .order-total-price {
+  font-size: 12px;
+  color: red;
+  height: 50px;
+  line-height: 50px;
+  text-indent: 10px;
+}
+.but-menu > .order-total-price > view{
   display: inline-table;
-  width: 50%;
-  font-size: 14px;
-  color: #d81e06;
 }
 
-.but-menu > .order-total-price > text {
+.but-menu > .order-total-price > view > text {
   font-size: 18px;
   font-weight: bold;
 }
 
-.but-menu > .order-sub {
-  display: inline-table;
-  width: 50%;
-  text-align: right;
+.but-menu > .order-total-price > .tel-buyer{
+  font-size: 12px;
+  color: #0790f9;
 }
 
-.but-menu > .order-sub > button {
+.but-menu > .order-sub {
+  text-align: right;
+  height: 50px;
+}
+
+.but-menu > .order-sub > view{
+  display: inline-table;
+  width: 50%;
+  text-align: center;
+}
+
+.but-menu > .order-sub > view > button {
   width: 100px;
   height: 30px;
   line-height: 30px;

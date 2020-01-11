@@ -80,7 +80,7 @@ App({
         success(res) {
           if (res.confirm) {
             wx.navigateTo({
-              url: '/pages/my/set/set',
+              url: '/pages/my/set/mobile/mobile',
             })
           } else if (res.cancel) {
             console.log('用户点击取消')

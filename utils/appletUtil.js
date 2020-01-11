@@ -174,10 +174,14 @@ module.exports = {
   /**
    * 加载地图路线
    */
-  loadMapRoute: function(that, lonEnd, latEnd) {
+  loadMapRoute: function (that, appletInfo) {
     // 起点经纬度
-    let latStart = that.data.appletInfo['lat']
-    let lonStart = that.data.appletInfo['lon']
+    let latStart = appletInfo['lat']
+    let lonStart = appletInfo['lon']
+
+    // 终点的经纬度
+    let latEnd = that.data.order['lat']
+    let lonEnd = that.data.order['lon']
 
     //网络请求设置
     let opt = {

@@ -26,7 +26,9 @@
     "pages/my/order/my-order/my-order",
     "pages/test/test",
     "pages/logs/logs",
-    "pages/error/error"
+    "pages/error/error",
+    "pages/my/order/business-order/details/details",
+    "pages/my/order/my-order/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",
