@@ -6,7 +6,7 @@
   <view class="order-title">
     <view class="load-img">
       <view>
-        <image src="/images/load_{{filters.sub(color,1,8)}}.png"></image>
+        <image src="/images/load/load_{{filters.sub(color,1,8)}}.png"></image>
       </view>
     </view>
     <view class="order-status" wx:if="{{order.orderStatus === 1}}">待接单</view>
@@ -15,7 +15,7 @@
     <view class="order-status" wx:if="{{order.orderStatus === 5}}">已送达</view>
   </view>
   <view class="details">
-    <view bindtap="loadDetails" data-id="{{order.orderId}}">
+    <view bindtap="loadDetails" data-id="{{order.id}}">
       <i-icon type="prompt" size="18" color="{{color}}" />
       <label style="color: {{color}};">详情</label>
     </view>
@@ -26,7 +26,7 @@
   </view>
   <view class="order-info">
     <view class="label">下单时间</view>
-    <view class="text">{{order.gmtCreated}}</view>
+    <view class="text">{{order.createTime}}</view>
   </view>
   <view class="order-info">
     <view class="label">收货地址</view>

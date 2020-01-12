@@ -46,14 +46,17 @@
 
 <view class="business-menu" wx:if="{{isDealer}}">
   <i-cell-group>
-    <i-cell title="待接订单" value="{{waitOrderCount}}个未处理" is-link url="/pages/my/order/business-order/business-order?status=1">
-      <i-icon type="time_fill" size="24" color="{{color}}" slot="icon" />
+    <i-cell title="待接订单" value="{{order.waitCount}}个未处理" is-link url="/pages/my/order/store-order/store-order?status=1">
+      <i-icon type="time" size="24" color="{{color}}" slot="icon" />
     </i-cell>
-    <i-cell title="派送订单" value="{{deliveryOrderCount}}个未处理" is-link url="/pages/my/order/business-order/business-order?status=2">
-      <i-icon type="clock_fill" size="24" color="{{color}}" slot="icon" />
+    <i-cell title="准备订单" value="{{order.acceptCount}}个未处理" is-link url="/pages/my/order/store-order/store-order?status=2">
+      <i-icon type="accessory" size="24" color="{{color}}" slot="icon" />
     </i-cell>
-    <i-cell title="完成订单" is-link url="/pages/my/order/business-order/business-order?status=3">
-      <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
+    <i-cell title="派送订单" value="{{order.deliverCount}}个未处理" is-link url="/pages/my/order/store-order/store-order?status=4">
+      <i-icon type="clock" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="完成订单" value="已累计完成{{order.finishCount}}单" is-link url="/pages/my/order/store-order/store-order?status=5">
+      <i-icon type="createtask" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>
 </view>

@@ -54,8 +54,7 @@ module.exports = {
                     })
                     if (info.data.isDealer){
                       that.setData({
-                        waitOrderCount: info.data.waitOrderCount,
-                        deliveryOrderCount: info.data.deliveryOrderCount
+                        order: info.data.order
                       })
                     }
                     if (info.code == '0') {
@@ -174,23 +173,55 @@ module.exports = {
   /**
    * 加载地图路线
    */
-  loadMapRoute: function (that, appletInfo) {
+  loadMapRoute: function (that) {
     // 起点经纬度
-    let latStart = appletInfo['lat']
-    let lonStart = appletInfo['lon']
+    let lonStart = that.data.order['appletLon']
+    let latStart = that.data.order['appletLat']
 
     // 终点的经纬度
-    let latEnd = that.data.order['lat']
     let lonEnd = that.data.order['lon']
+    let latEnd = that.data.order['lat']
+
+    that.setData({
+      longitude: lonStart,
+      latitude: latStart,
+      scale: 18,
+      markers: [{
+        id: 0,
+        longitude: lonStart,
+        latitude: latStart,
+        iconPath: that.data.path + that.data.order['appletLogo'] + that.data.timestamp,
+        width: 25,
+        height: 25
+      },
+      {
+        id: 1,
+        longitude: lonEnd,
+        latitude: latEnd,
+        iconPath: that.data.path + that.data.order['avatarUrl'] + that.data.timestamp,
+        width: 25,
+        height: 25
+      }
+      ],
+      points: [{
+        longitude: lonStart,
+        latitude: latStart
+      },
+      {
+        longitude: lonEnd,
+        latitude: latEnd
+      }
+      ]
+    })
 
     //网络请求设置
-    let opt = {
+    wx.request({
       //WebService请求地址，from为起点坐标，to为终点坐标，开发key为必填
       url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${latStart},${lonStart}&to=${latEnd},${lonEnd}&key=${qqmapsdk.key}`,
       method: 'GET',
       dataType: 'json',
       //请求成功回调
-      success: function(res) {
+      success: function (res) {
         let ret = res.data
         if (ret.status != 0) return; //服务异常处理
         let coors = ret.result.routes[0].polyline,
@@ -216,8 +247,7 @@ module.exports = {
           }]
         })
       }
-    };
-    wx.request(opt);
+    });
   },
 
 }

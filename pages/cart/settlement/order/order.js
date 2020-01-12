@@ -28,8 +28,9 @@ Page({
     app.setAppletColor(this)
     this.setData({
       order: {
-        orderId: options.id
-      }
+        id: options.id
+      },
+      loadNum: 1
     })
     wx.showLoading({
       title: '加载中',
@@ -93,7 +94,7 @@ Page({
   },
   telBusiness: function() {
     wx.makePhoneCall({
-      phoneNumber: this.data.telephone,
+      phoneNumber: this.data.order.appletTelephone,
     })
   },
   cancelOrder: function() {
@@ -186,7 +187,7 @@ Page({
       }
     })
   },
-  loadDetails: function (event) {
+  loadDetails: function(event) {
     var id = event.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/my/order/my-order/details/details?orderId=' + id,
@@ -199,29 +200,27 @@ var initInfo = function(that) {
   wx.request({
     url: app.globalData.path + '/api/applet/order/queryOrderInfo',
     data: {
-      id: that.data.order.orderId
+      id: that.data.order.id
     },
     header: {
       appletCode: app.globalData.appletCode,
       wxCode: app.globalData.userInfo.wxCode
     },
-    success: function (res) {
+    success: function(res) {
       if (res.data.code === '1') {
-        var data = res.data.data
         that.setData({
-          order: data.order,
-          telephone: data.appletInfo.telephone
+          order: res.data.data
         })
         if (that.data.loadNum === 1) {
           that.data.loadNum = 2
-          setPageData(that, data.appletInfo)
+          utils.loadMapRoute(that)
         }
       } else {
         wx.showLoading({
           title: res.data.data,
           mask: true
         })
-        setTimeout(function () {
+        setTimeout(function() {
           wx.hideLoading()
           wx.navigateBack({
             delta: 1
@@ -229,45 +228,8 @@ var initInfo = function(that) {
         }, 2000)
       }
     },
-    complete: function () {
+    complete: function() {
       app.hideLoading();
     }
   })
-}
-
-var setPageData = function(that, appletInfo) {
-  that.setData({
-    longitude: appletInfo['lon'],
-    latitude: appletInfo['lat'],
-    scale: 18,
-    markers: [{
-        id: 0,
-        longitude: appletInfo['lon'],
-        latitude: appletInfo['lat'],
-        // iconPath: '/images/location_1296db.png',
-        iconPath: that.data.path + appletInfo.appletLogo,
-        width: 25,
-        height: 25
-      },
-      {
-        id: 1,
-        longitude: that.data.order['lon'],
-        latitude: that.data.order['lat'],
-        // iconPath: '/images/location_e5270f.png',
-        iconPath: that.data.userInfo.avatarUrl,
-        width: 25,
-        height: 25
-      }
-    ],
-    points: [{
-        longitude: appletInfo['lon'],
-        latitude: appletInfo['lat']
-      },
-      {
-        longitude: that.data.order['lon'],
-        latitude: that.data.order['lat']
-      }
-    ]
-  })
-  utils.loadMapRoute(that, appletInfo)
 }

@@ -13,7 +13,6 @@ Page({
     order: {
       receiverPhone: ''
     },
-    coupon: {},
     list: {}
   },
 
@@ -32,7 +31,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByBusiness',
+      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByStore',
       data: {
         orderId: parseInt(that.data.orderId)
       },
@@ -45,7 +44,6 @@ Page({
           var data = res.data.data
           that.setData({
             order: data.order,
-            coupon: data.coupon,
             list: data.list
           })
         } else {
@@ -80,13 +78,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (this.data.status === '3'){
+    if (this.data.status === '3') {
       var that = this
       wx.getStorage({
         key: 'input_remark',
-        success: function (res) {
+        success: function(res) {
           var denialReason = res.data
-          if (denialReason != '无'){
+          if (denialReason != '无') {
             that.setData({
               denialReason: denialReason
             })
@@ -149,21 +147,80 @@ Page({
       })
     } else {
       updateStatus(that, status)
-    } 
+    }
   },
-  telBusiness: function () {
+  telBusiness: function() {
     wx.makePhoneCall({
       phoneNumber: this.data.order.receiverPhone,
+    })
+  },
+  loadRoute: function() {
+    var that = this
+    var order = this.data.order
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success: function(res) { //因为这里得到的是你当前位置的经纬度
+        var latitude = res.latitude
+        var longitude = res.longitude
+
+        var siteList = []
+        if (order.orderStatus === 4) {
+          siteList = [{
+            id: 0,
+            longitude: longitude,
+            latitude: latitude
+          }, {
+            id: 1,
+            longitude: order.lon,
+            latitude: order.lat,
+            callout: {
+              content: split(order.detailAddr, 0),
+              borderRadius: 5,
+              padding: 5,
+              display: 'ALWAYS'
+            }
+          }]
+        } else {
+          siteList = [{
+            id: 0,
+            longitude: longitude,
+            latitude: latitude
+          }, {
+            id: 1,
+            longitude: order.appletLon,
+            latitude: order.appletLat,
+            iconPath: that.data.path + order.appletLogo + that.data.timestamp,
+            width: 25,
+            height: 25,
+            callout: {
+              content: order.appletName,
+              borderRadius: 5,
+              padding: 5
+            }
+          }]
+        }
+        wx.setStorage({
+          key: 'map_list_data',
+          data: siteList,
+        })
+        wx.hideLoading()
+        wx.navigateTo({
+          url: '/pages/my/order/store-order/order-map/order-map',
+        })
+      }
     })
   }
 })
 
-var updateStatus = function (that, status){
+var updateStatus = function(that, status) {
   wx.showLoading({
     title: '加载中',
   })
   wx.request({
-    url: app.globalData.path + '/api/applet/order/updateOrderByBusiness',
+    url: app.globalData.path + '/api/applet/order/updateOrderStatusByStore',
     data: {
       id: parseInt(that.data.orderId),
       status: parseInt(status),
@@ -173,14 +230,14 @@ var updateStatus = function (that, status){
       appletCode: app.globalData.appletCode,
       wxCode: app.globalData.userInfo.wxCode
     },
-    success: function (res) {
+    success: function(res) {
       wx.showModal({
         title: '温馨提示',
         content: res.data.data,
         confirmText: '确定',
         confirmColor: that.data.appletInfo.systemColor,
         showCancel: false,
-        success: function () {
+        success: function() {
           if (res.data.code === '1') {
             wx.navigateBack({
               delta: 1
@@ -189,8 +246,19 @@ var updateStatus = function (that, status){
         }
       })
     },
-    complete: function () {
+    complete: function() {
       wx.hideLoading();
     }
   })
+}
+
+
+var split = function(val, index) {
+  if (val) {
+    if (val != '') {
+      var list = val.split(' ')
+      return list[index]
+    }
+  }
+  return ''
 }

@@ -1,8 +1,11 @@
 <!--pages/my/order/my-order/details/details.wxml-->
 <wxs module="filters" src="../../../../filter.wxs"></wxs>
 <view class="address">
-  <!-- <view class="order-no">订单号：{{order.orderNo}}</view>
-  <view class="left">
+  <view class="order-no">
+    <label>订单号：</label>
+    <label style="font-size: 14px;">{{order.orderNo}}</label>
+  </view>
+  <view class="item">
     <view class="people">
       <view>{{order.receiverName}}</view>
       <view>{{order.receiverPhone === '' ? '': filters.sub(order.receiverPhone, 0, 3) + '****' + filters.sub(order.receiverPhone, 7, 11)}}</view>
@@ -10,13 +13,19 @@
     <view class="title">{{filters.split(order.detailAddr, 1)}}</view>
     <view class="details">{{filters.split(order.detailAddr, 0)}}</view>
   </view>
-  <view class="right">
-    <view style="background-color: {{color}};">查看路线</view>
-  </view> -->
-  <view class="remark">
-    <label style="color: #000000;font-size: 12px;">备注：</label>{{order.orderRemark}}
+  <view class="status">
+    <label style="color: red;" wx:if="{{order.orderStatus === 0}}">已取消</label>
+    <label style="color: #0790f9;" wx:if="{{order.orderStatus === 1}}">待接单</label>
+    <label style="color: #0790f9;" wx:if="{{order.orderStatus === 2}}">备货中</label>
+    <label style="color: red;" wx:if="{{order.orderStatus === 3}}">已拒绝</label>
+    <label style="color: #0790f9;" wx:if="{{order.orderStatus === 4}}">配送中</label>
+    <label style="color: #0e932e;" wx:if="{{order.orderStatus === 5}}">已送达</label>
+    <label style="color: #f4ea29;" wx:if="{{order.orderStatus === 6}}">已签收</label>
   </view>
-  <!-- <view style="display: inline-table;" wx:else> </view> -->
+  <view class="remark">
+    <label style="color: #000000;font-size: 12px;">备　注：</label>
+    <label>{{order.orderRemark}}</label>
+  </view>
 </view>
 
 <view class="paly-type">
@@ -63,9 +72,9 @@
     <view class="item-title">优惠券</view>
     <view class="item-name">
       <view class="coupon-name">
-        <view>{{coupon.denomination > 0 ? coupon.couponName:''}}</view>
+        <view>{{order.ticketAmount > 0 ? order.couponName:''}}</view>
       </view>
-      <text style="color: red;">-￥{{filters.toFix(coupon.denomination)}}</text>
+      <text style="color: red;">-￥{{filters.toFix(order.ticketAmount)}}</text>
     </view>
   </view>
 </view>
@@ -75,18 +84,8 @@
     <view style="width: 60%;">
       <label style="color: #000;">实际金额：</label>
       <label style="color: red;">￥</label>
-      <text style="color: red;">{{filters.toFix(order.totalAmount + order.carriersFee - coupon.denomination)}}</text>
+      <text style="color: red;">{{filters.toFix(order.totalAmount + order.carriersFee - order.ticketAmount)}}</text>
     </view>
-    <view class="tel-buyer" bindtap="telBusiness">联系买家</view>
+    <view class="tel-buyer" bindtap="telBusiness">联系商家</view>
   </view>
-  <!-- <view class="order-sub">
-    <view>
-      <button style='background-color:#cdcdcd;border: 1px #cdcdcd solid;' bindtap="updateOrderStatus" data-status="3">取消订单</button>
-    </view>
-    <view>
-      <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="updateOrderStatus" data-status="2" wx:if="{{order.orderStatus == 1}}">接受订单</button>
-      <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="updateOrderStatus" data-status="4" wx:if="{{order.orderStatus == 2}}">开始配送</button>
-      <button style='background-color:{{color}};border: 1px {{color}} solid;' bindtap="updateOrderStatus" data-status="5" wx:if="{{order.orderStatus == 4}}">订单送达</button>
-    </view>
-  </view> -->
 </view>

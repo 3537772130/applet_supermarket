@@ -16,17 +16,10 @@ page {
 }
 
 .address > .order-no {
-  float: left;
   width: 100%;
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-}
-
-.address > .left {
-  float: left;
-  width: 75%;
-  height: 70px;
 }
 
 .address > .left > .people {
@@ -36,41 +29,38 @@ page {
 
 .address > .left > .people > view {
   display: inline-table;
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 10px;
 }
 
 .address > .left > .title {
   height: 20px;
   line-height: 20px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .address > .left > .details {
-  height: 30px;
+  height: 20px;
+  line-height: 20px;
   font-size: 12px;
 }
 
 .address > .right {
   float: right;
-  width: 25%;
-  height: 70px;
+  font-size: 12px;
   text-align: center;
+  position: relative;
+  top: -80px;
+  right: 10px;
 }
 
-.address > .right > view {
-  display: inline-table;
-  height: 30px;
-  line-height: 30px;
-  padding: 0px 10px;
-  font-size: 12px;
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 10px;
+.address > .right > image{
+  width: 40px;
+  height: 40px;
 }
 
 .address > .remark {
-  font-size: 14px;
+  font-size: 12px;
   color: red;
 }
 
@@ -102,6 +92,8 @@ page {
   height: 30px;
   line-height: 30px;
   font-size: 12px;
+  position: relative;
+  top: -10px;
 }
 
 .paly-type > .t-name >text {

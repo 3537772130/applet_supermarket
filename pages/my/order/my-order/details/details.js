@@ -30,7 +30,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByBusiness',
+      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByUser',
       data: {
         orderId: parseInt(that.data.orderId)
       },
@@ -39,6 +39,7 @@ Page({
         wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
+        wx.hideLoading();
         if (res.data.code == '1') {
           var data = res.data.data
           that.setData({
@@ -47,12 +48,21 @@ Page({
             list: data.list,
             telephone: data.telephone
           })
+          if (data.order.orderStatus === 3){
+            wx.showModal({
+              title: '拒绝原因',
+              content: data.order.reason,
+              confirmText: '确定',
+              confirmColor: that.data.color,
+              showCancel: false
+            })
+          }
         } else {
           wx.showModal({
             title: '温馨提示',
             content: res.data.data,
             confirmText: '确定',
-            confirmColor: that.data.appletInfo.systemColor,
+            confirmColor: that.data.color,
             showCancel: false,
             success: function () {
               wx.navigateBack({
@@ -62,8 +72,8 @@ Page({
           })
         }
       },
-      complete: function () {
-        app.hideLoading();
+      fail: function () {
+        wx.hideLoading();
       }
     })
   },
@@ -118,7 +128,7 @@ Page({
   },
   telBusiness: function () {
     wx.makePhoneCall({
-      phoneNumber: this.data.telephone,
+      phoneNumber: this.data.order.appletTelephone,
     })
   }
 })

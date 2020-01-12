@@ -16,62 +16,46 @@ page {
 }
 
 .address > .order-no {
-  float: left;
   width: 100%;
   font-size: 12px;
   height: 20px;
   line-height: 20px;
 }
 
-.address > .left {
-  float: left;
-  width: 75%;
-  height: 70px;
-}
-
-.address > .left > .people {
+.address > .item > .people {
   height: 20px;
   line-height: 20px;
 }
 
-.address > .left > .people > view {
+.address > .item > .people > view {
   display: inline-table;
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 10px;
 }
 
-.address > .left > .title {
+.address > .item > .title {
   height: 20px;
   line-height: 20px;
-  font-size: 14px;
-}
-
-.address > .left > .details {
-  height: 30px;
   font-size: 12px;
 }
 
-.address > .right {
+.address > .item > .details {
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.address > .status{
   float: right;
-  width: 25%;
-  height: 70px;
-  text-align: center;
-}
-
-.address > .right > view {
-  display: inline-table;
-  height: 30px;
-  line-height: 30px;
-  padding: 0px 10px;
-  font-size: 12px;
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 10px;
+  font-size: 16px;
+  font-family: '幼圆';
+  position: relative;
+  top: -50px;
+  right: 10px;
 }
 
 .address > .remark {
-  font-size: 14px;
-  color: red;
+  font-size: 12px;
 }
 
 /**

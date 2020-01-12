@@ -8,13 +8,13 @@ Page({
   },
   onLoad: function () {
     wx.hideShareMenu()
+  },
+  onShow: function () {
+    var that = this
     wx.showLoading({
       title: '正在跳转页面',
       mask: true
     })
-  },
-  onShow: function () {
-    var that = this
     //加载小程序信息
     wx.request({
       url: app.globalData.path + '/api/applet/getAppletInfo',

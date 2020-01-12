@@ -62,6 +62,7 @@ Page({
     var that = this
     this.setData({
       page: 1,
+      pageSize: 10,
       list: []
     })
     wx.getStorage({
@@ -131,7 +132,7 @@ Page({
   loadDetails: function(event){
     var id = event.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/my/order/business-order/details/details?orderId=' + id,
+      url: '/pages/my/order/store-order/details/details?orderId=' + id,
     })
   }
 })
@@ -140,8 +141,16 @@ var queryOrderList = function(that) {
   wx.showLoading({
     title: '加载中',
   })
+  var status = parseInt(that.data.status)
+  var pathUrl = app.globalData.path + '/api/applet/order/querySaleOrderByStoreToPage'
+  if (status != 5){
+    pathUrl = app.globalData.path + '/api/applet/order/querySaleOrderByStore'
+    that.setData({
+      pageSize: 1000
+    })
+  }
   wx.request({
-    url: app.globalData.path + '/api/applet/order/querySaleOrderByBusiness',
+    url: pathUrl,
     data: {
       orderStatus: that.data.status,
       page: that.data.page,

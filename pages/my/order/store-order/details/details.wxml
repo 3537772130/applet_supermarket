@@ -10,11 +10,14 @@
     <view class="title">{{filters.split(order.detailAddr, 1)}}</view>
     <view class="details">{{filters.split(order.detailAddr, 0)}}</view>
   </view>
-  <view class="right">
-    <view style="background-color: {{color}};">查看路线</view>
+  <view class="right" bindtap="loadRoute" data-id="{{order.id}}" wx:if="{{order.orderStatus != 5 && order.orderStatus != 6}}">
+    <image src="/images/nav/nav_{{filters.sub(color,1,8)}}.png"></image>
+    <view style="color: {{color}};" wx:if="{{order.orderStatus === 4}}">送货路线</view>
+    <view style="color: {{color}};" wx:else>取货路线</view>
   </view>
   <view class="remark">
-    <label style="color: #000000;font-size: 12px;">备注：</label>{{order.orderRemark}}
+    <label style="color: #000000;font-size: 12px;">备注：</label>
+    <label>{{order.orderRemark}}</label>
   </view>
   <!-- <view style="display: inline-table;" wx:else> </view> -->
 </view>
@@ -63,9 +66,9 @@
     <view class="item-title">优惠券</view>
     <view class="item-name">
       <view class="coupon-name">
-        <view>{{coupon.denomination > 0 ? coupon.couponName:''}}</view>
+        <view>{{order.ticketAmount > 0 ? order.couponName:''}}</view>
       </view>
-      <text style="color: red;">-￥{{filters.toFix(coupon.denomination)}}</text>
+      <text style="color: red;">-￥{{filters.toFix(order.ticketAmount)}}</text>
     </view>
   </view>
 </view>
@@ -75,11 +78,11 @@
     <view style="width: 60%;">
       <label style="color: #000;">实际金额：</label>
       <label style="color: red;">￥</label>
-      <text style="color: red;">{{filters.toFix(order.totalAmount + order.carriersFee - coupon.denomination)}}</text>
+      <text style="color: red;">{{filters.toFix(order.totalAmount + order.carriersFee - order.ticketAmount)}}</text>
     </view>
     <view class="tel-buyer" bindtap="telBusiness">联系买家</view>
   </view>
-  <view class="order-sub">
+  <view class="order-sub" wx:if="{{order.orderStatus != 5 && order.orderStatus != 6}}">
     <view>
       <button style='background-color:#cdcdcd;border: 1px #cdcdcd solid;' bindtap="updateOrderStatus" data-status="3">取消订单</button>
     </view>

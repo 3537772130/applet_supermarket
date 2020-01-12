@@ -8,30 +8,32 @@
   <scroll-view scroll-y="true" style="height: {{height}}px;" bindscrolltolower="lower">
     <view class="order-list">
       <view class="order" wx:for="{{list}}" wx:key="item">
+        <image wx:if="{{!item.userSeeStatus}}" class="new" src="/images/new_{{filters.sub(color, 1, 8)}}.png"></image>
         <view class="item">
           <label class="order-no">no.{{item.orderNo}}</label>
           <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 0}}">已取消</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 1}}">待接单</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 2}}">备货中</label>
-          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已取消</label>
+          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已拒绝</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 4}}">配送中</label>
           <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 5}}">已送达</label>
           <label class="status" style="color: #f4ea29;" wx:if="{{item.orderStatus === 6}}">已签收</label>
         </view>
         <view class="left">
-          <view>
-            <label>{{item.receiverName}}</label>
-            <label>{{filters.sub(item.receiverPhone, 0, 3) + '****' + filters.sub(item.receiverPhone, 7, 11)}}</label>
+          <view class="logo">
+            <image src="{{path + item.appletLogo + timestamp}}"></image>
           </view>
-          <view>{{filters.split(item.detailAddr, 1)}}</view>
-          <view class="address">{{filters.split(item.detailAddr, 0)}}</view>
+          <view class="name">{{item.appletName}}</view>
         </view>
         <view class="right">
-          <view class="amount">￥{{filters.toFix(item.totalAmount+item.carriersFee-item.ticketAmount)}}</view>
-          <view class="load" style="background-color: {{color}};" bindtap="loadDetailsList" data-id="{{item.orderId}}" wx:if="{{item.orderStatus === 0 || item.orderStatus === 3 || item.orderStatus === 5 || item.orderStatus === 6}}">查看详情</view>
-          <view class="load" style="background-color: {{color}};" bindtap="loadDetails" data-id="{{item.orderId}}" wx:else>查看信息</view>
+          <view class="amount">
+            <label style="font-size: 14px;">￥</label>
+            <label>{{filters.toFix(item.totalAmount+item.carriersFee-item.ticketAmount)}}</label>
+          </view>
+          <view class="load" style="background-color: {{color}};" bindtap="loadDetailsList" data-id="{{item.id}}" wx:if="{{item.orderStatus === 0 || item.orderStatus === 3 || item.orderStatus === 5 || item.orderStatus === 6}}">查看详情</view>
+          <view class="load" style="background-color: {{color}};" bindtap="loadDetails" data-id="{{item.id}}" wx:else>查看信息</view>
         </view>
-        <view class="time">{{item.gmtCreated}}</view>
+        <view class="time">{{item.userSeeTime}}</view>
       </view>
     </view>
     <view class="coupon-botton">

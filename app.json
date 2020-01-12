@@ -22,13 +22,14 @@
     "pages/my/set/location/location",
     "pages/my/coupon/coupon",
     "pages/my/coupon/details/details",
-    "pages/my/order/business-order/business-order",
+    "pages/my/order/store-order/store-order",
+    "pages/my/order/store-order/details/details",
+    "pages/my/order/store-order/order-map/order-map",
     "pages/my/order/my-order/my-order",
+    "pages/my/order/my-order/details/details",
     "pages/test/test",
     "pages/logs/logs",
-    "pages/error/error",
-    "pages/my/order/business-order/details/details",
-    "pages/my/order/my-order/details/details"
+    "pages/error/error"
   ],
   "window": {
     "backgroundTextStyle": "light",

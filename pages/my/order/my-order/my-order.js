@@ -10,7 +10,7 @@ Page({
     scrollTop: 0,
     list: [],
     page: 1,
-    size: 10,
+    pageSize: 10,
     totalCount: 0,
     isNull: false,
     hide: false
@@ -22,15 +22,6 @@ Page({
   onLoad: function(options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    this.setData({
-      page: 1,
-      list: []
-    })
-    if (app.globalData.bindStatus) {
-      queryOrderList(this)
-    } else {
-      app.bindMobileShowModal()
-    }
   },
 
   /**
@@ -44,7 +35,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      page: 1,
+      list: []
+    })
+    if (app.globalData.bindStatus) {
+      queryOrderList(this)
+    } else {
+      app.bindMobileShowModal()
+    }
   },
 
   /**
@@ -82,7 +81,7 @@ Page({
 
   },
   lower(e) {
-    if (this.data.page * this.data.size <= this.data.totalCount) {
+    if (this.data.page * this.data.pageSize <= this.data.totalCount) {
       this.setData({
         page: this.data.page + 1
       })
@@ -118,29 +117,30 @@ var queryOrderList = function(that) {
     title: '加载中',
   })
   wx.request({
-    url: app.globalData.path + '/api/applet/sale/order/page',
-    method: 'POST',
+    url: app.globalData.path + '/api/applet/order/querySaleOrderByUser',
     data: {
       page: that.data.page,
-      size: that.data.size
+      pageSize: that.data.pageSize
     },
     header: {
       appletCode: app.globalData.appletCode,
       wxCode: app.globalData.userInfo.wxCode
     },
     success: function(res) {
-      if (res.data.code == 'S0000') {
-        var result = res.data.result
-        var list = that.data.list
-        var source = result.dataSource
-        for (var i = 0; i < source.length; i++) {
-          list.push(source[i])
+      if (res.data.code == '1') {
+        var totalCount = res.data.data.totalCount
+        if (totalCount > 0) {
+          var list = that.data.list
+          var dataSource = res.data.data.dataSource
+          for (var i = 0; i < dataSource.length; i++) {
+            list.push(dataSource[i])
+          }
+          that.setData({
+            totalCount: totalCount,
+            list: list,
+            isNull: false
+          })
         }
-        that.setData({
-          totalCount: result.totalCount,
-          list: list,
-          isNull: false
-        })
       } else {
         that.setData({
           isNull: true
