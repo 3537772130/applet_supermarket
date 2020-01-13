@@ -16,8 +16,8 @@
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 2}}">备货中</label>
           <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已拒绝</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 4}}">配送中</label>
-          <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 5}}">已送达</label>
-          <label class="status" style="color: #f4ea29;" wx:if="{{item.orderStatus === 6}}">已签收</label>
+          <label class="status" style="color: #f4ea29;" wx:if="{{item.orderStatus === 5}}">待签收</label>
+          <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 6}}">已签收</label>
         </view>
         <view class="left">
           <view class="logo">
@@ -30,7 +30,7 @@
             <label style="font-size: 14px;">￥</label>
             <label>{{filters.toFix(item.totalAmount+item.carriersFee-item.ticketAmount)}}</label>
           </view>
-          <view class="load" style="background-color: {{color}};" bindtap="loadDetailsList" data-id="{{item.id}}" wx:if="{{item.orderStatus === 0 || item.orderStatus === 3 || item.orderStatus === 5 || item.orderStatus === 6}}">查看详情</view>
+          <view class="load" style="background-color: {{color}};" bindtap="loadDetailsList" data-id="{{item.id}}" wx:if="{{item.orderStatus === 0 || item.orderStatus === 3 || item.orderStatus === 6}}">查看详情</view>
           <view class="load" style="background-color: {{color}};" bindtap="loadDetails" data-id="{{item.id}}" wx:else>查看信息</view>
         </view>
         <view class="time">{{item.userSeeTime}}</view>

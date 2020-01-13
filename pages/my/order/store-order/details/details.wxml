@@ -12,8 +12,7 @@
   </view>
   <view class="right" bindtap="loadRoute" data-id="{{order.id}}" wx:if="{{order.orderStatus != 5 && order.orderStatus != 6}}">
     <image src="/images/nav/nav_{{filters.sub(color,1,8)}}.png"></image>
-    <view style="color: {{color}};" wx:if="{{order.orderStatus === 4}}">送货路线</view>
-    <view style="color: {{color}};" wx:else>取货路线</view>
+    <view style="color: {{color}};">送货路线</view>
   </view>
   <view class="remark">
     <label style="color: #000000;font-size: 12px;">备注：</label>

@@ -6,7 +6,7 @@
       <swiper autoplay='{{autoPlay}}' circular='true' interval='5000' style='height: 400px;' bindchange="carouselChage">
         <block wx:for='{{fileList}}' wx:key='file' wx:for-index="index">
           <swiper-item wx:if="{{item.fileType == 2 && item.fileSrc != null}}">
-            <video src="{{path + item.fileSrc + videoTimestamp}}" class='rotation-pic' autoplay="{{videoAtuoPlay}}" bindplay="playVideo" bindpause="pauseVideo" bindended="endVideo"></video>
+            <video src="{{path + item.fileSrc + videoTimestamp}}" class='rotation-pic' autoplay="{{videoAtuoPlay}}" bindplay="playVideo" bindpause="pauseVideo" bindended="endVideo" binderror="errorVideo"></video>
           </swiper-item>
           <swiper-item wx:if="{{item.fileType == 1 && item.fileSrc != null}}">
             <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='imagesPreview' data-index='{{index}}'></image>
@@ -31,64 +31,113 @@
       <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
     </view>
     <view class="describe-str" wx:if="{{info.describeStr}}">{{info.describeStr}}</view>
-  </view>
-  <view class="specs-info">
-    <!-- <view class="shop-coupon">
-      <view class="coupon">
-        <view class="title">畅享优惠</view>
-        <view class="title-label">无</view>
-      </view>
-    </view> -->
-    <view class="shop-coupon"  wx:if="{{couponList.length > 0}}">
-      <view class="coupon">
-        <view class="title" style="margin-bottom: 10px;">畅享优惠</view>
-      </view>
-      <view class="coupon" wx:for="{{couponList}}" wx:key="coupon">
-        <view class="name">{{item.name}}</view>
-        <view class="gain-true" bindtap="gianCoupon" data-id="{{item.id}}" wx:if="{{item.status}}">领取</view>
-        <view class="gain-false" wx:else>已领</view>
-      </view>
-    </view>
-    <view class="goods-specs">
-      <view class="specs-view" bindtap="powerDrawer" data-statu="open">
-        规格
-        <view class="specs-default">
-          <view>{{specs.specsText + ' * ' + specsNumber}}</view>
-        </view>
-        <view class="specs-more">···</view>
-      </view>
-      <!--mask-->
-      <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
-      <!--content-->
-      <!--使用animation属性指定需要执行的动画-->
-      <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
-        <!--drawer content-->
-        <view class="drawer_content">
-          <view class="specs-img">
-            <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;" bindtap="imagePreview" data-src="{{specs.specsSrc}}"></image>
-            <view class="specs-price" wx:if="{{info.discount !== 100}}">￥{{filters.toFix(specs.sellPrice*info.discount/100)}}</view>
-            <view class="specs-price {{info.discount !== 100 ? 'specs-price-org':''}}">￥{{filters.toFix(specs.sellPrice)}}</view>
-            <view class="specs-divider"></view>
+    <view class="specs-info">
+      <view class="goods-specs">
+        <view class="specs-view" bindtap="powerDrawer" data-statu="open">
+          规格
+          <view class="specs-default">
+            <view>{{specs.specsText + ' * ' + specsNumber}}</view>
           </view>
-          <view class="specs-datas">
-            <view class="specs-title">规格：</view>
-            <view class="specs-data" wx:for="{{specsList}}" wx:key='specs' wx:for-index="index" style="{{chooseSpecsIndex == index ? 'border: 1px ' + color + ' solid;color: ' + color + ';':''}}" bindtap="chooseSpecsData" data-index="{{index}}">{{item.specsText}}</view>
-            <view class="specs-text">数量：
-              <view class="specs-number">
-                <view class="specs-number-operation" bindtap="reduceSpecsNumber">-</view>
-                <view class="specs-number-input">{{specsNumber}}</view>
-                <view class="specs-number-operation" bindtap="addSpecsNumber">+</view>
+          <view class="specs-more">···</view>
+        </view>
+        <!--mask-->
+        <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+        <!--content-->
+        <!--使用animation属性指定需要执行的动画-->
+        <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+          <!--drawer content-->
+          <view class="drawer_content">
+            <view class="specs-img">
+              <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;" bindtap="imagePreview" data-src="{{specs.specsSrc}}"></image>
+              <view class="specs-price" wx:if="{{info.discount !== 100}}">￥{{filters.toFix(specs.sellPrice*info.discount/100)}}</view>
+              <view class="specs-price {{info.discount !== 100 ? 'specs-price-org':''}}">￥{{filters.toFix(specs.sellPrice)}}</view>
+              <view class="specs-divider"></view>
+            </view>
+            <view class="specs-datas">
+              <view class="specs-title">规格：</view>
+              <view class="specs-data" wx:for="{{specsList}}" wx:key='specs' wx:for-index="index" style="{{chooseSpecsIndex == index ? 'border: 1px ' + color + ' solid;color: ' + color + ';':''}}" bindtap="chooseSpecsData" data-index="{{index}}">{{item.specsText}}</view>
+              <view class="specs-text">数量：
+                <view class="specs-number">
+                  <view class="specs-number-operation" bindtap="reduceSpecsNumber">-</view>
+                  <view class="specs-number-input">{{specsNumber}}</view>
+                  <view class="specs-number-operation" bindtap="addSpecsNumber">+</view>
+                </view>
+              </view>
+              <view class="specs-text" style="margin-bottom: 40px;">合计：
+                <view class="specs-number" style="color: #ff6347;">￥{{filters.toFix(countPrice)}}</view>
               </view>
             </view>
-            <view class="specs-text" style="margin-bottom: 40px;">合计：
-              <view class="specs-number" style="color: #ff6347;">￥{{filters.toFix(countPrice)}}</view>
-            </view>
+            <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-statu="close">确定</view>
           </view>
-          <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-statu="close">确定</view>
         </view>
       </view>
     </view>
   </view>
+
+  <view class="shop-coupon" wx:if="{{couponList.length > 0}}">
+    <view class="title">畅享优惠</view>
+    <view class="coupon-list">
+      <view class="coupon" wx:for="{{couponList}}" wx:key="coupon">
+        <view bindtap="gianCoupon" data-id="{{item.id}}">
+          <view class="front">
+            <label>￥</label>
+            <label class="num">{{item.denomination}}</label>
+            <label class="icon">
+              <i-icon type="integral_fill" size="18" color="#81642e" />
+            </label>
+            <label wx:if="{{item.couponType === 1}}">通用</label>
+            <label wx:if="{{item.couponType === 2}}">满减</label>
+          </view>
+          <view class="center"></view>
+          <view class="behind">领取</view>
+        </view>
+      </view>
+      <view class="remark">部分折扣商品不参与优惠券活动</view>
+    </view>
+  </view>
+
+  <view class="comment">
+    <i-cell-group>
+      <i-cell i-class="load" title="商品评论" is-link url="/pages/goods/comment/comment?goodsId={{info.id}}"></i-cell>
+    </i-cell-group>
+  </view>
+
+  <view class="recommend" wx:if="{{recommendGoodsList.length > 0}}">
+    <view class="title">推荐商品</view>
+    <view class="r-goods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
+      <view class="g-item">
+        <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png"></image>
+        <view class="image">
+          <image src="/images/naughty.png"></image>
+        </view>
+        <view class="name">搭嘎是打发斯蒂芬</view>
+        <view class="price">
+          <label style="font-size: 12px;">￥</label>
+          <label>{{filters.toFix(99.99)}}</label>
+          <label> - {{filters.toFix(102.0)}}</label>
+        </view>
+        <view class="sell">已售56件</view>
+      </view>
+    </view>
+    <view class="r-goods" wx:for="{{recommendGoodsList}}" wx:key="recommendGoods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
+      <view class="g-item">
+        <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
+        <view class="image">
+          <image src="{{path + item.coverSrc + timestamp}}"></image>
+        </view>
+        <view class="name">{{item.goodsName}}</view>
+        <view class="price">
+          <label style="font-size: 12px;">￥</label>
+          <label>{{filters.toFix(item.minPrice*item.discount/100)}}</label>
+          <label wx:if="{{item.minPrice != item.maxPrice}}"> - {{filters.toFix(item.maxPrice*item.discount/100)}}</label>
+        </view>
+        <view class="sell" wx:if="{{item.sellCount < 100}}">已售{{item.sellCount}}件</view>
+        <view class="sell" wx:else>已畅销{{item.sellCount}}件</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="but-part">~ 已经到底啦 ~</view>
 
   <view style="height: 80px;"></view>
   <view class="specs-menu">

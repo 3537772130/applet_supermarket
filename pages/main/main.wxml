@@ -24,7 +24,7 @@
     <!-- 搜索栏 -->
     <view class='goods-search' wx:if='{{info.id == "goods-search"}}'>
       <view class='s-case' bindtap="loadSearch">
-        <i-icon type="search" size="24" color="#cdcdcd" />
+        <i-icon type="search" size="16" color="#cdcdcd" />
         <view class='s-text'>搜索商品</view>
       </view>
     </view>
@@ -46,8 +46,8 @@
     </view>
     <!-- 分类栏(三排) -->
     <view class='type-frame' wx:if='{{info.id == "type-frame-three"}}'>
-      <block wx:for='{{info.list}}' wx:key='info'>
-        <view class='type-details' style="width: 32%;" bindtap='loadGoodsType' data-id='{{item.typeId}}'>
+      <block wx:for='{{info.list}}' wx:key='info' wx:for-index="index">
+        <view class='type-details' style="width: 32%;" bindtap='loadGoodsType' data-index='{{index}}'>
           <view class='type-pic'>
             <image src='{{path + item.icon + timestamp}}'></image>
           </view>
@@ -57,8 +57,8 @@
     </view>
     <!-- 分类栏(四排) -->
     <view class='type-frame' wx:if='{{info.id == "type-frame-four"}}'>
-      <block wx:for='{{info.list}}' wx:key='info'>
-        <view class='type-details' bindtap='{{item.event}}' data-id='{{item.typeId}}'>
+      <block wx:for='{{info.list}}' wx:key='info' wx:for-index="index">
+        <view class='type-details' bindtap='loadGoodsType' data-index='{{index}}'>
           <view class='type-pic'>
             <image src='{{path + item.icon + timestamp}}'></image>
           </view>

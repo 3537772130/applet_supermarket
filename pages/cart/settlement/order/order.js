@@ -112,7 +112,7 @@ Page({
           wx.request({
             url: app.globalData.path + '/api/applet/order/cancelOrder',
             data: {
-              id: that.data.order.orderId
+              id: that.data.order.id
             },
             header: {
               appletCode: app.globalData.appletCode,
@@ -160,7 +160,7 @@ Page({
     wx.request({
       url: app.globalData.path + '/api/applet/order/signForOrder',
       data: {
-        id: that.data.order.orderId
+        id: that.data.order.id
       },
       header: {
         appletCode: app.globalData.appletCode,

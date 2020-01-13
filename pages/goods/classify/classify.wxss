@@ -2,6 +2,190 @@
 @import "/pages/weui.wxss";
 @import "/pages/style.wxss";
 
+page {
+  background-color: #fff;
+}
+
+/**
+* 头部
+*/
+.bg-image{
+  height: 130px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 10px;
+}
+
+.heard {
+  width: 100%;
+  padding: 20px 10px 10px 10px;
+  color: #fff;
+  height: 100px;
+  background-color: #707070;
+  opacity: 0.5;
+  position: absolute;
+  top: 0px;
+  z-index: 98;
+}
+
+.logo {
+  width: 30%;
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  z-index: 99;
+}
+
+.logo > image {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+}
+
+.heard > .content {
+  float: right;
+  width: 70%;
+}
+
+.heard > .content > .simple {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.heard > .content > .name {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.heard > .content > .introduce {
+  font-size: 12px;
+  height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+}
+
+.distance {
+  width: 100%;
+  font-size: 12px;
+  color: #fff;
+  position: absolute;
+  z-index: 99;
+  top: 102px;
+  padding-left: 32%;
+}
+
+.distance > view{
+  display: inline-table;
+  height: 20px;
+  line-height: 20px;
+  padding: 0px 5px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/**
+* 优惠券
+*/
+.coupon-list{
+  padding: 0px 10px 10px 10px;
+}
+
+.coupon-list > .coupon{
+  display: inline-table;
+  width: 50%;
+  text-align: center;
+}
+
+.coupon-list > .coupon > view{
+  display: inline-table;
+  width: 125px;
+}
+
+.coupon-list > .coupon > view > view{
+  float: left;
+  display: inline-table;
+  font-size: 12px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #f3ca7e;
+  color: #81642e;
+}
+
+.coupon-list > .coupon > view > .front{
+  width: 85px;
+  text-align: right;
+  padding-right: 5px;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.coupon-list > .coupon > view > .front > .num{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.coupon-list > .coupon > view > .front > .icon{
+  position: relative;
+  top: -2px;
+}
+
+.coupon-list > .coupon > view > .center{
+  width: 5px;
+  height: 17px;
+  position: relative;
+  top: 5px;
+}
+
+.coupon-list > .coupon > view > .behind{
+  width: 30px;
+  text-align: center;
+  border-radius: 0px 3px 3px 0px;
+  padding-top: 2px;
+}
+
+.coupon-list > .remark{
+  width: 100%;
+  height: 25px;
+  font-size: 12px;
+  color: #cdcdcd;
+}
+
+/**
+* 搜索
+*/
+
+.search{
+  width: 100%;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.search > view{
+  display: inline-table;
+  width: 80%;
+  height: 26px;
+  line-height: 26px;
+  font-size: 12px;
+  text-align: center;
+  color: #cdcdcd;
+  border: 1px #cdcdcd solid;
+  border-radius: 13px;
+}
+
 /**
 * 商品分类-滑动吸顶
 */
@@ -9,7 +193,7 @@
 .type-tab {
   width: 80px;
   font-size: 14px;
-  background-color: #eee;
+  background-color: #f0f0f0;
   padding-top: 35px;
   float: left;
 }
@@ -58,19 +242,19 @@
   text-align: center;
 }
 
-.goods-list .i-sticky-goods>.goods-pic{
+.goods-list .i-sticky-goods>.goods-pic {
   width: 100%;
   text-align: center;
 }
 
-.goods-list .i-sticky-goods>.goods-pic>image{
+.goods-list .i-sticky-goods>.goods-pic>image {
   width: 80px;
   height: 80px;
   border-radius: 5px;
   border: 1px #e6e6e6 solid;
 }
 
-.goods-list .i-sticky-goods>.goods-text{
+.goods-list .i-sticky-goods>.goods-text {
   margin: auto;
   width: 80px;
   height: 37px;
@@ -84,14 +268,14 @@
   white-space: normal !important;
 }
 
-.goods-list .i-sticky-goods>.goods-price{
+.goods-list .i-sticky-goods>.goods-price {
   height: 20px;
   font-size: 12px;
   color: #ff6347;
   -webkit-line-clamp: 1;
 }
 
-.i-sticky-title{
+.i-sticky-title {
   background-color: blue;
   color: #fff;
 }

@@ -166,42 +166,42 @@ Page({
         var latitude = res.latitude
         var longitude = res.longitude
 
-        var siteList = []
-        if (order.orderStatus === 4) {
-          siteList = [{
-            id: 0,
-            longitude: longitude,
-            latitude: latitude
-          }, {
-            id: 1,
-            longitude: order.lon,
-            latitude: order.lat,
-            callout: {
-              content: split(order.detailAddr, 0),
-              borderRadius: 5,
-              padding: 5,
-              display: 'ALWAYS'
-            }
-          }]
-        } else {
-          siteList = [{
-            id: 0,
-            longitude: longitude,
-            latitude: latitude
-          }, {
-            id: 1,
-            longitude: order.appletLon,
-            latitude: order.appletLat,
-            iconPath: that.data.path + order.appletLogo + that.data.timestamp,
-            width: 25,
-            height: 25,
-            callout: {
-              content: order.appletName,
-              borderRadius: 5,
-              padding: 5
-            }
-          }]
-        }
+        var siteList = [{
+          id: 0,
+          longitude: longitude,
+          latitude: latitude
+        }, {
+          id: 1,
+          longitude: order.lon,
+          latitude: order.lat,
+          callout: {
+            content: split(order.detailAddr, 0),
+            borderRadius: 5,
+            padding: 5,
+            display: 'ALWAYS'
+          }
+        }]
+        // if (order.orderStatus === 4) {
+          
+        // } else {
+        //   siteList = [{
+        //     id: 0,
+        //     longitude: longitude,
+        //     latitude: latitude
+        //   }, {
+        //     id: 1,
+        //     longitude: order.appletLon,
+        //     latitude: order.appletLat,
+        //     iconPath: that.data.path + order.appletLogo + that.data.timestamp,
+        //     width: 25,
+        //     height: 25,
+        //     callout: {
+        //       content: order.appletName,
+        //       borderRadius: 5,
+        //       padding: 5
+        //     }
+        //   }]
+        // }
         wx.setStorage({
           key: 'map_list_data',
           data: siteList,

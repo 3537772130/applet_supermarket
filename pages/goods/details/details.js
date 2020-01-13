@@ -178,6 +178,12 @@ Page({
       videoAtuoPlay: false
     })
   },
+  errorVideo: function(){
+    this.setData({
+      autoPlay: true,
+      videoAtuoPlay: false
+    })
+  },
   carouselChage: function(e) {
     this.setData({
       carouselIndex: parseInt(e.detail.current) + 1
@@ -306,7 +312,7 @@ Page({
           appletCode: app.globalData.appletCode,
           wxCode: app.globalData.userInfo.wxCode
         },
-        success: function (res) {
+        success: function(res) {
           wx.hideLoading();
           if (res.data.code == '1') {
             wx.showToast({
@@ -320,7 +326,7 @@ Page({
             })
           }
         },
-        fail: function () {
+        fail: function() {
           wx.hideLoading();
         }
       })
@@ -355,9 +361,14 @@ Page({
     var id = event.currentTarget.dataset.id
     userGainCoupon(this, id)
   },
-  telBusiness: function () {
+  telBusiness: function() {
     wx.makePhoneCall({
       phoneNumber: app.globalData.appletInfo.telephone,
+    })
+  },
+  loadGoodsDetails: function (event) {
+    wx.navigateTo({
+      url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
     })
   }
 })
@@ -390,13 +401,24 @@ var loadGoodsDetails = function(that, id) {
     },
     success: function(res) {
       if (res.data.code == '1') {
+        var fileList = res.data.data.fileList
+        var autoPlay = true
+        for (var i = 0; i < fileList.length; i++) {
+          if (fileList[i].fileType === 2) {
+            autoPlay = false
+            break
+          }
+        }
+
         that.setData({
           info: res.data.data.info,
           fileList: res.data.data.fileList,
           specsList: res.data.data.specsList,
           couponList: res.data.data.couponList,
+          recommendGoodsList: res.data.data.recommendGoodsList,
           specs: res.data.data.specsList[0],
-          countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100
+          countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100,
+          autoPlay: autoPlay
         })
         wx.setNavigationBarTitle({
           title: res.data.data.info.goodsName //页面标题为路由参数

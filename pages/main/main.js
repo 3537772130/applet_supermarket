@@ -35,7 +35,7 @@ Page({
   onShow: function() {
     app.setAppletColor(this)
     var biColor = '';
-    switch (app.globalData.appletInfo.systemColor) {
+    switch (this.data.appletInfo.systemColor) {
       case '#1afa29':
         biColor = 'top, #7CCD7C, #1afa29, #C1FFC1'
         break;
@@ -138,8 +138,8 @@ Page({
   },
   loadGoodsType: function(event) {
     wx.setStorage({
-      key: 'typeId',
-      data: event.currentTarget.dataset.id
+      key: 'type_index',
+      data: event.currentTarget.dataset.index
     })
     wx.switchTab({
       url: '/pages/goods/classify/classify'

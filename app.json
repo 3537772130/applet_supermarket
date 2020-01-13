@@ -29,7 +29,8 @@
     "pages/my/order/my-order/details/details",
     "pages/test/test",
     "pages/logs/logs",
-    "pages/error/error"
+    "pages/error/error",
+    "pages/goods/comment/comment"
   ],
   "window": {
     "backgroundTextStyle": "light",
