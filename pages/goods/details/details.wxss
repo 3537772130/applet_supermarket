@@ -248,6 +248,7 @@
 .recommend > .r-goods > .g-item {
   display: inline-table;
   width: 120px;
+  position: relative;
 }
 
 .recommend > .r-goods > .g-item > .icon {
@@ -255,12 +256,12 @@
   width: 40px;
   height: 40px;
   border-radius: 0px 8px 0px 0px;
-  position: relative;
-  top: 40px;
+  position: absolute;
+  right: 0px;
   z-index: 0;
 }
 
-.recommend > .r-goods > .g-item > .image{
+.recommend > .r-goods > .g-item > .image {
   display: inline-table;
   width: 100%;
 }

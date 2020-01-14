@@ -9,8 +9,9 @@ page {
 /**
 * 头部
 */
-.bg-image{
-  height: 130px;
+
+.bg-image {
+  height: 180px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -19,9 +20,9 @@ page {
 
 .heard {
   width: 100%;
+  height: 150px;
   padding: 20px 10px 10px 10px;
   color: #fff;
-  height: 100px;
   background-color: #707070;
   opacity: 0.5;
   position: absolute;
@@ -33,7 +34,7 @@ page {
   width: 30%;
   text-align: center;
   position: absolute;
-  top: 20px;
+  top: 50px;
   z-index: 99;
 }
 
@@ -45,11 +46,13 @@ page {
 
 .heard > .content {
   float: right;
-  width: 70%;
+  width: 65%;
+  margin-top: 10px;
+  padding-right: 5%;
 }
 
 .heard > .content > .simple {
-  font-size: 14px;
+  font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -59,7 +62,7 @@ page {
 }
 
 .heard > .content > .name {
-  font-size: 12px;
+  font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -70,12 +73,12 @@ page {
 
 .heard > .content > .introduce {
   font-size: 12px;
-  height: 35px;
+  height: 55px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   white-space: normal !important;
 }
 
@@ -84,12 +87,12 @@ page {
   font-size: 12px;
   color: #fff;
   position: absolute;
+  top: 147px;
   z-index: 99;
-  top: 102px;
   padding-left: 32%;
 }
 
-.distance > view{
+.distance > view {
   display: inline-table;
   height: 20px;
   line-height: 20px;
@@ -101,22 +104,23 @@ page {
 /**
 * 优惠券
 */
-.coupon-list{
+
+.coupon-list {
   padding: 0px 10px 10px 10px;
 }
 
-.coupon-list > .coupon{
+.coupon-list > .coupon {
   display: inline-table;
   width: 50%;
   text-align: center;
 }
 
-.coupon-list > .coupon > view{
+.coupon-list > .coupon > view {
   display: inline-table;
   width: 125px;
 }
 
-.coupon-list > .coupon > view > view{
+.coupon-list > .coupon > view > view {
   float: left;
   display: inline-table;
   font-size: 12px;
@@ -126,38 +130,38 @@ page {
   color: #81642e;
 }
 
-.coupon-list > .coupon > view > .front{
+.coupon-list > .coupon > view > .front {
   width: 85px;
   text-align: right;
   padding-right: 5px;
   border-radius: 3px 0px 0px 3px;
 }
 
-.coupon-list > .coupon > view > .front > .num{
+.coupon-list > .coupon > view > .front > .num {
   font-size: 16px;
   font-weight: bold;
 }
 
-.coupon-list > .coupon > view > .front > .icon{
+.coupon-list > .coupon > view > .front > .icon {
   position: relative;
   top: -2px;
 }
 
-.coupon-list > .coupon > view > .center{
+.coupon-list > .coupon > view > .center {
   width: 5px;
   height: 17px;
   position: relative;
   top: 5px;
 }
 
-.coupon-list > .coupon > view > .behind{
+.coupon-list > .coupon > view > .behind {
   width: 30px;
   text-align: center;
   border-radius: 0px 3px 3px 0px;
   padding-top: 2px;
 }
 
-.coupon-list > .remark{
+.coupon-list > .remark {
   width: 100%;
   height: 25px;
   font-size: 12px;
@@ -168,13 +172,13 @@ page {
 * 搜索
 */
 
-.search{
+.search {
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   text-align: center;
 }
 
-.search > view{
+.search > view {
   display: inline-table;
   width: 80%;
   height: 26px;

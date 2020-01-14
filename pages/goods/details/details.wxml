@@ -104,21 +104,6 @@
 
   <view class="recommend" wx:if="{{recommendGoodsList.length > 0}}">
     <view class="title">推荐商品</view>
-    <view class="r-goods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
-      <view class="g-item">
-        <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png"></image>
-        <view class="image">
-          <image src="/images/naughty.png"></image>
-        </view>
-        <view class="name">搭嘎是打发斯蒂芬</view>
-        <view class="price">
-          <label style="font-size: 12px;">￥</label>
-          <label>{{filters.toFix(99.99)}}</label>
-          <label> - {{filters.toFix(102.0)}}</label>
-        </view>
-        <view class="sell">已售56件</view>
-      </view>
-    </view>
     <view class="r-goods" wx:for="{{recommendGoodsList}}" wx:key="recommendGoods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
       <view class="g-item">
         <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>

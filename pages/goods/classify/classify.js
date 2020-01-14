@@ -134,8 +134,8 @@ Page({
           element: 'top-part',
           pageTop: 0,
           scrollTop: 0,
-          typePostion1: 0,
-          typePostion1: 0
+          // typePostion1: 0,
+          // typePostion1: 0
         })
       }
     }
@@ -150,10 +150,10 @@ Page({
   //goods scroll-view滚动执行方式
   onChangeScroll(event) {
     var that = this;
-    var scrollTop = event.detail.scrollTop + that.data.topPartHeight + 10
+    var scrollTop = event.detail.scrollTop + that.data.topPartHeight
     this.setData({
       scrollTop: scrollTop,
-      pageTop: this.data.topPartHeight + 10
+      pageTop: this.data.topPartHeight
     })
     if (scrollTop % 2 == 0) {
       var typeList = that.data.classifyInfo[0].typeList
