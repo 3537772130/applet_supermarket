@@ -13,7 +13,9 @@ Page({
    */
   data: {
     userInfo: null,
-    wxInfo: null
+    wxInfo: null,
+    notice: null,
+    noticeUnreadCount: 0
   },
 
   /**

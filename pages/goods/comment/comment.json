@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "发表评论",
+  "usingComponents": {
+    "i-icon": "../../../dist/icon/index",
+    "i-action-sheet": "../../../dist/action-sheet/index"
+  }
 }

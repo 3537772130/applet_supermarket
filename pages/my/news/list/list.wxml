@@ -1,0 +1,47 @@
+<!--pages/my/news/list/list.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
+<view class="is-null" wx:if="{{isNull}}">
+  <image src="/images/is_null.png"></image>
+  <view>空空如也</view>
+</view>
+<view wx:else>
+  <view wx:if="{{type === 1}}">
+    <view class="system-news" wx:for="{{list}}" wx:key="news" bindtap="loadSystemDetails" data-index="{{index}}">
+      <view class="left">
+        <view class="heard">
+          <view class="title">
+            <view>{{item.noticeTitle}}</view>
+          </view>
+          <view class="time">{{item.relationTime}}</view>
+        </view>
+        <view class="content">{{item.noticeContent}}</view>
+      </view>
+      <view class="right">
+        <i-icon type="remind" size="26" color="#cdcdcd" />
+      </view>
+      <image wx:if="{{item.relationStatus === 0}}" class="new" src="/images/new/new_{{filters.sub(color, 1, 8)}}.png"></image>
+    </view>
+  </view>
+
+  <view wx:if="{{type === 2}}">
+    <view class="comment-news" wx:for="{{list}}" wx:key="news" wx:or-index="index" bindtap="loadCommentDetails" data-index="{{index}}">
+      <image class="goods-pic" src="{{path + item.goodsPic + timestamp}}" bindtap="loadGoodsDetails" data-id="{{item.goodsId}}"></image>
+      <view class="medio">
+        <view class="name">{{item.goodsName}}</view>
+        <view class="content">{{item.commentContent}}</view>
+        <view class="time">
+          {{item.relationTime}}
+          <label>提到了你</label>
+        </view>
+      </view>
+      <view class="right">
+        <i-icon type="remind" size="26" color="#cdcdcd" />
+      </view>
+      <image wx:if="{{item.relationStatus === 0}}" class="new" src="/images/new/new_{{filters.sub(color, 1, 8)}}.png"></image>
+    </view>
+  </view>
+  <view class="news-botton" wx:if="{{ifMore}}">
+    <i-icon type="refresh" size="20" color="#cdcdcd" />
+    <view>没有更多了</view>
+  </view>
+</view>

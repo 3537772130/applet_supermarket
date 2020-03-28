@@ -1,7 +1,7 @@
 <!--pages/my/my.wxml-->
 <wxs module="filters" src="../filter.wxs"></wxs>
 <view class="page">
-  <view class="my-heard">
+  <view class="my-heard" style="{{notice ? '' : 'padding-bottom: 10px;'}}">
     <view class="heard-content" style="background-color: {{color}};">
       <view class="heard-img">
         <image src="{{userInfo.avatarUrl + timestamp}}"></image>
@@ -17,12 +17,12 @@
       </view>
     </view>
     <image class="heard-set" src="/images/my/set.png" bindtap="loadSet"></image>
-    <view class="heard-notice">
-      <i-notice-bar icon="systemprompt" color="{{color}}" loop>东方故事大概是多少分割</i-notice-bar>
+    <view class="heard-notice" wx:if="{{notice}}">
+      <i-notice-bar icon="systemprompt" color="{{color}}" loop>{{notice.noticeContent}}</i-notice-bar>
     </view>
   </view>
 
-  <!-- <view class="my-account">
+  <view class="my-account">
     <view class="account-element">
       <view class="element-img">
         <image src="/images/my/balance_{{filters.sub(color, 1, 7)}}.png"></image>
@@ -41,7 +41,7 @@
       </view>
       <view class="element-text" style="color: {{color}};">我的优惠券</view>
     </view>
-  </view> -->
+  </view>
 </view>
 
 <view class="business-menu" wx:if="{{isDealer}}">
@@ -55,7 +55,7 @@
     <i-cell title="派送订单" value="{{order.deliverCount}}个未处理" is-link url="/pages/my/order/store-order/store-order?status=4">
       <i-icon type="clock" size="24" color="{{color}}" slot="icon" />
     </i-cell>
-    <i-cell title="完成订单" value="已累计完成{{order.finishCount}}单" is-link url="/pages/my/order/store-order/store-order?status=5">
+    <i-cell title="完成订单" value="累计完成{{order.finishCount}}单" is-link url="/pages/my/order/store-order/store-order?status=5">
       <i-icon type="createtask" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>
@@ -68,6 +68,17 @@
     </i-cell>
     <i-cell title="我的订单" is-link url="/pages/my/order/my-order/my-order">
       <i-icon type="createtask_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="消息通知" value="{{noticeUnreadCount > 0 ? noticeUnreadCount + '条未读' : ''}}" is-link url="/pages/my/news/news">
+      <i-icon type="systemprompt_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+  </i-cell-group>
+</view>
+
+<view class="user-menu">
+  <i-cell-group>
+    <i-cell title="账户设置" is-link url="/pages/my/set/set">
+      <i-icon type="setup_fill" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>
 </view>

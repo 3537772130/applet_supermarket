@@ -21,10 +21,13 @@
   font-size: 12px;
   color: #fff;
   background-color: #8a8a8a;
+  border-top: 1rpx #fff solid;
+  border-bottom: 1rpx #fff solid;
+  border-left: 1rpx #fff solid;
   border-radius: 10px 0px 0px 10px;
-  float: right;
-  position: relative;
-  top: -50px;
+  position: absolute;
+  top: 350px;
+  right: 0px;
   z-index: 999;
 }
 
@@ -65,7 +68,7 @@
 }
 
 .info-details > .name-details {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
   padding: 10px 20px 0px 20px;
 }
@@ -74,7 +77,7 @@
   display: inline-table;
   color: #fff;
   background-color: #ff6347;
-  margin: 0px 10px;
+  margin-right: 10px;
   padding: 0px 5px;
   font-family: '幼圆';
   font-size: 12px;
@@ -96,7 +99,7 @@
 
 .goods-specs {
   background-color: #fff;
-  border-top: 1px #e6e6e6 solid;
+  border-top: 1rpx #e6e6e6 solid;
   padding-top: 5px;
 }
 
@@ -216,11 +219,91 @@
 .comment {
   margin-top: 5px;
   border-radius: 8px;
+  background-color: #fff;
+  padding-bottom: 10px;
 }
 
 .comment .load {
   padding: 8px 15px;
   border-radius: 8px;
+}
+
+.comment .load .i-cell-text {
+  font-size: 16px;
+}
+
+.comment > .list {
+  margin: 10px;
+  /* padding-bottom: 10px;
+  border-bottom: 1rpx #cdcdcd solid; */
+}
+
+.comment > .list > .title {
+  width: 100%;
+  height: 40px;
+}
+
+.comment > .list > .title > .avatar {
+  float: left;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1rpx #cdcdcd solid;
+  margin-right: 10px;
+}
+
+.comment > .list > .title > .name {
+  float: left;
+  width: 110px;
+  font-size: 14px;
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.comment > .list > .title > .time {
+  float: right;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.comment > .list > .content {
+  padding-left: 50px;
+  padding-right: 10px
+}
+
+.comment > .list > .content > .text {
+  margin-top: 5px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  white-space: normal !important;
+}
+
+.comment > .list > .content > .pic{
+  width: 100%;
+  margin-top: 10px;
+}
+
+.comment > .list > .content > .pic > image{
+  display: inline-table;
+  width: 30%;
+  height: 90px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+
+.comment > .list > .content > .pic > .interval{
+  display: inline-table;
+  width: 4%;
+  height: 90px;
 }
 
 /**
@@ -290,7 +373,6 @@
   width: 120px;
   font-size: 14px;
   color: red;
-  height: 20px;
   line-height: 20px;
   text-align: left;
   overflow: hidden;
@@ -308,7 +390,7 @@
   height: 20px;
   line-height: 20px;
   text-align: left;
-  border-bottom: 1px #cdcdcd solid;
+  border-bottom: 1rpx #cdcdcd solid;
 }
 
 /**

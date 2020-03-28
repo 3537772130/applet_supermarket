@@ -66,18 +66,21 @@
         </view>
       </block>
     </view>
-    
+
     <!-- 推荐商品(双排) -->
     <view class='goods-palace-module' wx:if='{{info.id == "goods-two-row"}}'>
       <view class='goods-module'>
         <block wx:for='{{info.list}}' wx:key='info'>
           <view class='goods-details' bindtap='loadGoodsDetails' data-id='{{item.goodsId}}'>
             <view class='goods-pic'>
-              <image src='{{path + item.goodsIcon + timestamp}}'></image>
+              <view>
+                <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
+                <image class="goods-icon" src='{{path + item.goodsIcon + timestamp}}'></image>
+              </view>
             </view>
             <view class='goods-text goods-price'>
-              ￥{{filters.toFix(item.minPrice)}}
-              <block wx:if='{{item.maxPrice > item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
+              ￥{{filters.toFix((item.minPrice*item.discount)/100)}}
+              <block wx:if='{{item.maxPrice > item.minPrice}}'> - {{filters.toFix((item.maxPrice*item.discount)/100)}}</block>
             </view>
             <view class='goods-text goods-name'>{{item.name}}</view>
           </view>
@@ -90,11 +93,14 @@
         <block wx:for='{{info.list}}' wx:key='info'>
           <view class='goods-details' style="width: 33.3%;" bindtap='loadGoodsDetails' data-id='{{item.goodsId}}'>
             <view class='goods-pic'>
-              <image src='{{path + item.goodsIcon + timestamp}}' style="width: 95px;height: 95px;"></image>
+              <view style="width: 95px;height: 95px;">
+                <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
+                <image class="goods-icon" src='{{path + item.goodsIcon + timestamp}}' style="width: 95px;height: 95px;"></image>
+              </view>
             </view>
             <view class='goods-text goods-price'>
-              ￥{{filters.toFix(item.minPrice)}}
-              <block wx:if='{{item.maxPrice > 0 && item.maxPrice != item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
+              ￥{{filters.toFix((item.minPrice*item.discount)/100)}}
+              <block wx:if='{{item.maxPrice > item.minPrice}}'> - {{filters.toFix((item.maxPrice*item.discount)/100)}}</block>
             </view>
             <view class='goods-text goods-name'>{{item.name}}</view>
           </view>
@@ -108,12 +114,15 @@
           <block wx:for='{{info.list}}' wx:key='info'>
             <view class='goods-details' bindtap='loadGoodsDetails' data-id='{{item.goodsId}}'>
               <view class='goods-pic'>
-                <image src='{{path + item.goodsIcon + timestamp}}'></image>
+                <view>
+                  <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
+                  <image class="goods-icon" src='{{path + item.goodsIcon + timestamp}}'></image>
+                </view>
               </view>
               <view class='goods-text goods-price'>
-                ￥{{filters.toFix(item.minPrice)}}
-                <block wx:if='{{item.maxPrice > 0 && item.maxPrice != item.minPrice}}'> - {{filters.toFix(item.maxPrice)}}</block>
-              </view>
+              ￥{{filters.toFix((item.minPrice*item.discount)/100)}}
+              <block wx:if='{{item.maxPrice > item.minPrice}}'> - {{filters.toFix((item.maxPrice*item.discount)/100)}}</block>
+            </view>
               <view class='goods-text goods-name'>{{item.name}}</view>
             </view>
           </block>

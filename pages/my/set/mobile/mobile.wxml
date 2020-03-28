@@ -41,7 +41,7 @@
         </view>
       </view>
       <view class="form-item" wx:if="{{mobileStatus == '0'}}">
-        <view style="height: 20px;"></view>
+        <!-- <view style="height: 20px;"></view> -->
         <view class="item-label">推荐号码</view>
         <view class="item-input">
           <input name="rmdMobile" type="number" maxlength="11" placeholder="推荐手机号码(选填)"></input>

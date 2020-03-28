@@ -1,0 +1,5 @@
+/* pages/my/news/news.wxss */
+
+page {
+  background-color: #fff;
+}

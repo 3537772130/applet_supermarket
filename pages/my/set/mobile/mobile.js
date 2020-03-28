@@ -108,6 +108,9 @@ Page({
     })
     var that = this
     if (event.detail.value.length == 11) {
+      wx.showLoading({
+        title: '正在检测',
+      })
       wx.request({
         url: app.globalData.path + '/api/applet/user/checkMobile',
         data: {
@@ -123,6 +126,9 @@ Page({
           if (res.data.code == '-1') {
             app.showModal(res.data.data)
           }
+        },
+        complete: function () {
+          wx.hideLoading();
         }
       })
     } else {

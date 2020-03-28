@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "消息列表",
+  "usingComponents": {
+    "i-icon": "../../../../dist/icon/index"
+  }
+}

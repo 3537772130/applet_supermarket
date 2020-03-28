@@ -1,0 +1,57 @@
+<!--pages/goods/comment/details/details.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
+<view bindtap="cancelReply" style="height: {{height}}px;">
+  <view class="comment">
+    <view class="title">
+      <image class="avatar" src="{{path + info.avatarUrl + timestamp}}"></image>
+      <view class="name">{{info.nickName}}</view>
+      <!-- <view class="time">{{filters.getTimeBeforeStr(info.commentTime)}}</view> -->
+    </view>
+    <view class="content">
+      <view class="text">{{info.commentContent}}</view>
+      <view class="pic">
+        <image src="{{path + info.commentImg1}}" wx:if="{{info.commentImg1}}"></image>
+        <view class="interval" wx:if="{{info.commentImg1}}"></view>
+        <image src="{{path + info.commentImg2}}" wx:if="{{info.commentImg2}}"></image>
+        <view class="interval" wx:if="{{info.commentImg2}}"></view>
+        <image src="{{path + info.commentImg3}}" wx:if="{{info.commentImg3}}"></image>
+      </view>
+    </view>
+    <view class="reply">
+      <view class="left">
+        <label>{{filters.getTimeBeforeStr(info.commentTime)}}</label>
+        <label class="del" bindtap="deleteInfo">{{userInfo.userId != info.commentUserId ? '' : ' 删除'}}</label>
+      </view>
+      <view class="right">
+        <i-icon type="message" size="24" color="#cdcdcd" bindtap="editReply" data-id="" data-name="{{info.nickName}}"/>
+      </view>
+    </view>
+    <view class="reply-list" wx:if="{{list.length > 0}}">
+      <view class="reply" wx:for="{{list}}" wx:key="reply">
+        <view class="avatar">
+          <image src="{{path + item.replyAvatarUrl + timestamp}}"></image>
+        </view>
+        <view class="info">
+          <view class="user">
+            <view class="name" bindtap="editReply" data-id="{{item.replyUserId}}" data-name="{{item.replyNickName}}">{{item.replyNickName}}</view>
+            <view class="time">{{item.replyTime}}</view>
+          </view>
+          <view class="content">
+            <label wx:if="{{item.aimUserId}}">回复
+              <label class="aim-name" bindtap="editReply" data-id="{{item.aimUserId}}" data-name="{{item.aimNickName}}">{{item.aimNickName}}</label>：</label>{{item.replyContent}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="edit" style="display: {{ifEdit}};">
+  <view class="box">
+    <view class="content">
+      <textarea placeholder="{{contentPlaceholder}}" placeholder-style="font-size: 14px;" maxlength="200" auto-focus="{{autoFocus}}" fixed="true" adjust-position="true" show-confirm-bar="{{false}}" cursor-spacing="15" value="{{reply.replyContent}}" bindinput="inputContent"></textarea>
+    </view>
+    <view class="send">
+      <button style="{{sendColor}}" bindtap="sendReply">发送</button>
+    </view>
+  </view>
+</view>

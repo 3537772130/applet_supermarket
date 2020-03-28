@@ -1,3 +1,4 @@
 <!--pages/my/order/store-order/map/map.wxml-->
 <!--地图容器-->
 <map id="myMap" style="width: 100%; height: {{height}}px;" longitude="{{longitude}}" latitude="{{latitude}}" polyline="{{polyline}}" markers="{{markers}}" include-points="{{points}}" show-location="true" enable-3D="true" show-compass="true" enable-traffic="true" enable-3D="true" show-location></map>
+<view class="navigation" bindtap="startNavigation">导航</view>

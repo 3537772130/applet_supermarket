@@ -30,7 +30,12 @@
     "pages/test/test",
     "pages/logs/logs",
     "pages/error/error",
-    "pages/goods/comment/comment"
+    "pages/goods/comment/comment",
+    "pages/goods/comment/list/list",
+    "pages/goods/comment/details/details",
+    "pages/my/news/news",
+    "pages/my/news/list/list",
+    "pages/my/news/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",

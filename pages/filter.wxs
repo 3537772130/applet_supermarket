@@ -16,13 +16,13 @@ var filters = {
   },
   // 转化为数值
   toNumber: function(val) {
-    return parseInt(val);
+    return parseInt(val)
   },
   sub: function(val, sIndex, eIndex) {
     if (val && val != undefined && val.length != 0) {
       return val.substring(sIndex, eIndex);
     }
-    return;
+    return
   },
   split: function(val, index) {
     if (val) {
@@ -32,6 +32,53 @@ var filters = {
       }
     }
     return ''
+  },
+  getTimeBeforeStr: function(val){
+    if (val){
+      var oldTime = getDate(val).getTime()
+      var nowTime = getDate().getTime()
+      var time = nowTime - oldTime
+      var second = parseInt(time / 1000)
+      // console.log('获得秒', second)
+      if (second < 60 * 2) {
+        return '1分钟前'
+      } else {
+        var minute = parseInt((time / 1000) / 60)
+        // console.log('获得分钟', minute)
+        if (minute < 60) {
+          return minute + '分钟前'
+        } else if (minute < (60 * 2)) {
+          return '1小时前'
+        } else {
+          var hour = parseInt((time / 1000) / (60 * 60))
+          // console.log('获得小时', hour)
+          if (hour < 24) {
+            return hour + '小时前'
+          } else if (hour < (24 * 2)) {
+            return '1天前'
+          } else {
+            var day = parseInt((time / 1000) / (60 * 60 * 24))
+            if (day < 31) {
+              return day + '天前'
+            } else if (day < (31 * 2)) {
+              return '1个月前'
+            } else {
+              var month = parseInt((time / 1000) / (60 * 60 * 24 * 31))
+              if (month < 12) {
+                return month + '个月前'
+              } else if (month < (12 * 2)) {
+                return '1年前'
+              } else {
+                var year = parseInt((time / 1000) / (60 * 60 * 24 * 31 * 12))
+                return year + '年前'
+              }
+            }
+          }
+        }
+      }
+    } else {
+      return ''
+    }
   }
 }
 
@@ -40,5 +87,6 @@ module.exports = {
   toFixCustom: filters.toFixCustom,
   toNumber: filters.toNumber,
   sub: filters.sub,
-  split: filters.split
+  split: filters.split,
+  getTimeBeforeStr: filters.getTimeBeforeStr
 }

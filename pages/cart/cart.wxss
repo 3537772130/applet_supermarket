@@ -83,6 +83,7 @@
 .goods-info>.goods-pic>image {
   width: 100px;
   height: 100px;
+  border: 1px #e6e6e6 solid;
   border-radius: 5px;
 }
 
@@ -109,10 +110,15 @@
 .goods-info>.goods-text>.goods-data>.data-text {
   display: inline-block;
   color: #b2b2b2;
-  margin-top: 3px;
   margin-right: 5px;
-  padding: 0px 5px;
+  padding: 0px 10px;
   border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
 }
 
 .goods-info>.data-remark {
@@ -275,5 +281,5 @@
 }
 
 .cart-bottom>.settlement-false {
-  background-color: #bfbfbf;
+  background-color: #cdcdcd;
 }

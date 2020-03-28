@@ -1,1 +1,78 @@
 /* pages/goods/comment/comment.wxss */
+
+.comment {
+  height: 100%;
+  padding: 10px 15px;
+}
+
+.comment > .goods-name {
+  font-size: 14px;
+}
+
+.comment > .title{
+  font-size: 14px;
+  color: dimgrey;
+  margin: 20px 0px 0px 0px;
+}
+
+.comment > .comment-text {
+  margin-top: 10px;
+}
+
+.comment > .comment-text > textarea {
+  width: 95%;
+  height: 110px;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+
+.upload-pic {
+  width: 100%;
+  text-align: left;
+}
+
+.upload-pic > .pic-list {
+  height: 100px;
+  margin: 10px 0px;
+  text-align: center;
+}
+
+.upload-pic > .pic-list > view {
+  float: left;
+}
+
+.upload-pic > .pic-list > .pic {
+  width: 31%;
+  height: 90px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+
+.upload-pic > .pic-list > .pic > .icon{
+  position: relative;
+  top: 32px;
+}
+
+.upload-pic > .pic-list > .pic > image {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-pic > .pic-list > .interval {
+  width: 2%;
+  height: 90px;
+}
+
+.comment > .sub {
+  margin-top: 20px;
+}
+
+.comment > .sub > button{
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 5px;
+}

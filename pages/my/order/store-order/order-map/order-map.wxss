@@ -1,1 +1,16 @@
 /* pages/my/order/store-order/map/map.wxss */
+.navigation{
+  width: 80%;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 10%;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 5px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px #e6e6e6 solid;
+  position: fixed;
+  bottom: 50px;
+  z-index: 99;
+}

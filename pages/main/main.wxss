@@ -58,7 +58,7 @@
   text-align: center;
 }
 
-.s-case > i-icon{
+.s-case > i-icon {
   position: relative;
   top: -1px;
 }
@@ -73,7 +73,7 @@
 * 普通居中标题模块
 */
 
-.divider-title{
+.divider-title {
   width: 100%;
   height: 50px;
   line-height: 50px;
@@ -81,7 +81,7 @@
   text-align: center;
 }
 
-.divider-title>.i-divider{
+.divider-title>.i-divider {
   width: 100%;
   height: 48px;
   color: #ed3f14;
@@ -93,7 +93,7 @@
   justify-content: center;
 }
 
-.divider-title>.i-divider>.i-divider-content{
+.divider-title>.i-divider>.i-divider-content {
   background-color: #fff;
   font-weight: bold;
   position: relative;
@@ -104,7 +104,7 @@
   height: 45px;
 }
 
-.divider-title>.i-divider>.i-divider-line{
+.divider-title>.i-divider>.i-divider-line {
   position: absolute;
   left: 0;
   width: 90%;
@@ -113,7 +113,6 @@
   background: #cdcdcd;
   top: 50%;
 }
-
 
 /**
 * 带图片的标题模块
@@ -164,20 +163,18 @@
   -webkit-text-fill-color: transparent;
 }
 
-
 /**
 * 图片标题
 */
-.img-title{
+
+.img-title {
   height: 120px;
 }
 
-.img-title > image{
+.img-title > image {
   width: 100%;
   height: 120px;
 }
-
-
 
 /**
 * 商品-滑动通用模块
@@ -232,7 +229,7 @@
   border-radius: 5px;
 }
 
-.goods-scroll .goods-details>.goods-text{
+.goods-scroll .goods-details>.goods-text {
   margin: auto;
   width: 110px;
   height: 20px;
@@ -250,7 +247,7 @@
   margin-bottom: 10px;
 }
 
-.goods-scroll .goods-details>.goods-price{
+.goods-scroll .goods-details>.goods-price {
   color: #ff6347;
   font-size: 12px;
   position: relative;
@@ -301,7 +298,7 @@
   width: 100%;
 }
 
-.goods-palace-module>.goods-rotation-chart{
+.goods-palace-module>.goods-rotation-chart {
   width: 100%;
   margin: 10px 0px;
 }
@@ -309,7 +306,7 @@
 .goods-module>.goods-details {
   margin: auto;
   width: 50%;
-  display: inline-block;
+  display: inline-block; 
 }
 
 .goods-module>.goods-details>.goods-pic {
@@ -318,10 +315,29 @@
   text-align: center;
 }
 
-.goods-module>.goods-details>.goods-pic>image {
+.goods-module>.goods-details>.goods-pic>view {
+  display: inline-table;
   width: 110px;
   height: 110px;
   margin: 10px 10px 0px 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.goods-module>.goods-details>.goods-pic>view>.icon{
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 0px 5px 0px 0px;
+  position: absolute;
+  right: 0px;
+  z-index: 0;
+}
+
+.goods-module>.goods-details>.goods-pic>view>.goods-icon {
+  width: 110px;
+  height: 110px;
+  /* margin: 10px 10px 0px 10px; */
   border-radius: 5px;
 }
 
@@ -353,14 +369,14 @@
   -webkit-line-clamp: 1;
 }
 
-.goods-module>.goods-details>.group-goods-price{
+.goods-module>.goods-details>.group-goods-price {
   color: #ff6347;
   font-size: 14px;
   height: 30px;
   line-height: 30px;
 }
 
-.goods-module>.goods-details>.group-goods-price>image{
+.goods-module>.goods-details>.group-goods-price>image {
   display: inline-block;
   width: 35px;
   height: 20px;
@@ -368,7 +384,7 @@
   margin-top: 5px;
 }
 
-.goods-module>.goods-details>.group-goods-price>text{
+.goods-module>.goods-details>.group-goods-price>text {
   margin-left: 5px;
   position: relative;
   top: -3px;
@@ -378,34 +394,35 @@
 * 标题
 * 图片滑动模块
 */
+
 .image-scroll-module {
   width: 100%;
   background-color: #fff;
   padding-top: 5px;
 }
 
-.image-module{
+.image-module {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
 }
 
-.image-scroll{
+.image-scroll {
   overflow: hidden;
 }
 
-.image-pack{
+.image-pack {
   display: inline-block;
   margin: 5px;
 }
 
-.image-pack>image{
+.image-pack>image {
   margin: 0px 3px 0px 3px;
   border-radius: 5px;
   box-shadow: 3px 3px 6px #b2b2b2;
 }
 
-.image-fill{
+.image-fill {
   width: 10px;
   background-color: #fff;
   display: inline-block;
@@ -414,28 +431,33 @@
 /**
 * 商品类型 - 宫格模块
 */
-.type-frame{
+
+.type-frame {
   background-color: #fff;
   padding: 10px;
 }
-.type-frame .type-details{
+
+.type-frame .type-details {
   width: 25%;
   margin: auto;
   display: inline-block;
 }
-.type-details>.type-pic{
+
+.type-details>.type-pic {
   margin: auto;
   width: 100%;
   height: 70px;
   text-align: center;
 }
-.type-details>.type-pic>image{
+
+.type-details>.type-pic>image {
   width: 60px;
   height: 60px;
   border-radius: 30px;
   margin-top: 10px;
 }
-.type-details>.type-text{
+
+.type-details>.type-text {
   margin: auto;
   width: 60px;
   height: 20px;
@@ -450,11 +472,11 @@
 * 普通图片模块
 */
 
-.ordinary-image-module{
+.ordinary-image-module {
   width: 100%;
   margin-bottom: 0px;
 }
 
-.ordinary-image-module>image{
+.ordinary-image-module>image {
   width: 100%;
 }

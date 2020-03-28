@@ -75,7 +75,7 @@
           <view>{{coupon.denomination > 0 ? coupon.couponName:'无可用'}}</view>
         </view>
         <text style="color: #d81e06;" wx:if="{{coupon.denomination > 0}}">- ￥{{filters.toFix(coupon.denomination)}}</text>
-        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" wx:if="{{coupon.denomination > 0}}" />
+        <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" />
       </view>
     </view>
     <view class="data-item" bindtap="loadRemark">

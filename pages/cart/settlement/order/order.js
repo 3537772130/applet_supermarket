@@ -10,11 +10,12 @@ Page({
   data: {
     setInter: '',
     order: {
-      lon: 120.275495927,
-      lat: 31.525915299,
-      orderNo: 'SDF20190107134153123456',
-      gmtCreated: '2019-01-07 14:36:51',
-      detailAddr: '江苏省无锡市滨湖区经贸路天竺花苑85号楼1903室',
+      id: '',
+      lon: '',
+      lat: '',
+      orderNo: '',
+      gmtCreated: '',
+      detailAddr: '',
       status: 0
     },
     loadNum: 1
@@ -26,10 +27,10 @@ Page({
   onLoad: function(options) {
     wx.hideShareMenu()
     app.setAppletColor(this)
+    var order = this.data.order
+    order.id = options.id
     this.setData({
-      order: {
-        id: options.id
-      },
+      order: order,
       loadNum: 1
     })
     wx.showLoading({
@@ -127,6 +128,8 @@ Page({
                 showCancel: false,
                 success() {
                   if (res.data.code == '1') {
+                    console.info('销毁定时器')
+                    clearInterval(that.data.setInter)
                     wx.navigateBack({
                       delta: 1
                     })
@@ -175,8 +178,10 @@ Page({
           showCancel: false,
           success() {
             if (res.data.code == '1') {
-              wx.navigateBack({
-                delta: 1
+              console.info('销毁定时器')
+              clearInterval(that.data.setInter)
+              wx.redirectTo({
+                url: '/pages/my/order/my-order/details/details?orderId=' + that.data.order.id,
               })
             }
           }
@@ -188,6 +193,8 @@ Page({
     })
   },
   loadDetails: function(event) {
+    console.info('销毁定时器')
+    clearInterval(this.data.setInter)
     var id = event.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/my/order/my-order/details/details?orderId=' + id,

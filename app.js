@@ -11,6 +11,7 @@ App({
   },
   globalData: {
     path: 'http://192.168.0.102:8082',
+    // path: 'http://182.92.172.103:2275',
     appletCode: 'AC20190826164605485187',
     appletInfo: null,
     userInfo: null,

@@ -21,3 +21,4 @@
     </view>
   </view>
 </view>
+<view class="no-coupon" bindtap="chooseCoupon" data-index="-1">不使用优惠券</view>

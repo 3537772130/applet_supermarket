@@ -10,14 +10,14 @@
       <view class="order" wx:for="{{list}}" wx:key="item">
         <image wx:if="{{!item.storeSeeStatus}}" class="new" src="/images/new/new_{{filters.sub(color, 1, 8)}}.png"></image>
         <view class="item">
-          <label class="order-no">no.{{item.orderNo}}</label>
+          <label class="order-no">NO.{{item.orderNo}}</label>
           <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 0}}">已取消</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 1}}">待接单</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 2}}">备货中</label>
           <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已取消</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 4}}">配送中</label>
           <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 5}}">已送达</label>
-          <label class="status" style="color: #f4ea29;" wx:if="{{item.orderStatus === 6}}">已签收</label>
+          <label class="status" wx:if="{{item.orderStatus === 6}}">已签收</label>
         </view>
         <view class="left">
           <view>

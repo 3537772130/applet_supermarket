@@ -21,10 +21,22 @@ Page({
   onLoad: function (options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-
     this.setData({
       orderId: options.orderId
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     var that = this
     wx.showLoading({
       title: '加载中',
@@ -42,13 +54,21 @@ Page({
         wx.hideLoading();
         if (res.data.code == '1') {
           var data = res.data.data
+          var specsList = data.specsList
+          var saleQtyCount = 0
+          for (var i = 0; i < specsList.length; i++) {
+            saleQtyCount += specsList[i].saleQty
+          }
           that.setData({
             order: data.order,
             coupon: data.coupon,
-            list: data.list,
+            goodsList: data.goodsList,
+            specsList: specsList,
+            goodsIdList: data.goodsIdList,
+            saleQtyCount: saleQtyCount,
             telephone: data.telephone
           })
-          if (data.order.orderStatus === 3){
+          if (data.order.orderStatus === 3) {
             wx.showModal({
               title: '拒绝原因',
               content: data.order.reason,
@@ -76,20 +96,6 @@ Page({
         wx.hideLoading();
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
   },
 
   /**
@@ -129,6 +135,19 @@ Page({
   telBusiness: function () {
     wx.makePhoneCall({
       phoneNumber: this.data.order.appletTelephone,
+    })
+  }, 
+  loadGoodsDetails: function (event) {
+    wx.navigateTo({
+      url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
+    })
+  },
+  playComment: function(event){
+    var orderId = this.data.orderId
+    var goodsId = event.currentTarget.dataset.id
+    var goodsName = event.currentTarget.dataset.name
+    wx.navigateTo({
+      url: '/pages/goods/comment/comment?orderId=' + orderId + '&goodsId=' + goodsId + '&goodsName=' + goodsName,
     })
   }
 })

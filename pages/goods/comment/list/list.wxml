@@ -1,0 +1,37 @@
+<!--pages/goods/comment/list/list.wxml-->
+<wxs module="filters" src="../../../filter.wxs"></wxs>
+<view class="is-null" wx:if="{{isNull}}">
+  <image src="/images/is_null.png"></image>
+  <view>空空如也</view>
+</view>
+<view wx:else>
+  <view class="comment">
+    <view class="list" wx:for="{{list}}" wx:key="comment">
+      <view class="title">
+        <image class="avatar" src="{{path + item.avatarUrl + timestamp}}"></image>
+        <view class="name">{{item.nickName}}</view>
+        <!-- <view class="time">{{filters.getTimeBeforeStr(item.commentTime)}}</view> -->
+      </view>
+      <view class="content">
+        <view class="text">{{item.commentContent}}</view>
+        <view class="pic">
+          <image src="{{path + item.commentImg1}}" wx:if="{{item.commentImg1}}"></image>
+          <view class="interval" wx:if="{{item.commentImg1}}"></view>
+          <image src="{{path + item.commentImg2}}" wx:if="{{item.commentImg2}}"></image>
+          <view class="interval" wx:if="{{item.commentImg2}}"></view>
+          <image src="{{path + item.commentImg3}}" wx:if="{{item.commentImg3}}"></image>
+        </view>
+      </view>
+      <view class="reply-count">
+        <view class="left">{{filters.getTimeBeforeStr(item.commentTime)}} · {{item.replyCount}}条互动</view>
+        <view class="right" bindtap="loadDetails" data-id="{{item.id}}">
+          <i-icon type="message" size="24" color="#cdcdcd" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="load-more" wx:if="{{ifMore}}">
+    <i-icon type="refresh" size="20" color="#cdcdcd" />
+    <view>没有更多了</view>
+  </view>
+</view>

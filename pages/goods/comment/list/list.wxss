@@ -1,0 +1,130 @@
+/* pages/goods/comment/list/list.wxss */
+
+page {
+  background-color: #fff;
+}
+
+.is-null {
+  width: 100%;
+  text-align: center;
+}
+
+.is-null > image {
+  width: 168px;
+  height: 168px;
+  margin-top: 50px;
+}
+
+.is-null > view {
+  font-size: 16px;
+  color: #cdcdcd;
+}
+
+.load-more {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.load-more > view {
+  display: inline-table;
+  margin-left: 5px;
+  font-size: 14px;
+  color: #cdcdcd;
+}
+
+.comment {
+  margin-top: 5px;
+  border-radius: 8px;
+  background-color: #fff;
+  padding-bottom: 10px;
+}
+
+.comment > .list {
+  margin: 10px;
+  /* padding-bottom: 10px;
+  border-bottom: 1rpx #cdcdcd solid; */
+}
+
+.comment > .list > .title {
+  width: 100%;
+  height: 40px;
+}
+
+.comment > .list > .title > .avatar {
+  float: left;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1rpx #cdcdcd solid;
+  margin-right: 10px;
+}
+
+.comment > .list > .title > .name {
+  float: left;
+  width: 110px;
+  font-size: 14px;
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.comment > .list > .title > .time {
+  float: right;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.comment > .list > .content {
+  padding-left: 50px;
+  padding-right: 10px
+}
+
+.comment > .list > .content > .text {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.comment > .list > .content > .pic {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.comment > .list > .content > .pic > image {
+  display: inline-table;
+  width: 30%;
+  height: 90px;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+
+.comment > .list > .content > .pic > .interval {
+  display: inline-table;
+  width: 3%;
+  height: 90px;
+}
+
+.comment > .list > .reply-count {
+  font-size: 12px;
+  padding-left: 50px;
+  margin: 5px 0px;
+}
+
+.comment > .list > .reply-count > view {
+  display: inline-table;
+  width: 50%;
+}
+
+.comment > .list > .reply-count > .left {
+  color: #cdcdcd;
+}
+
+.comment > .list > .reply-count > .right {
+  width: 45%;
+  text-align: right;
+}

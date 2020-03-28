@@ -42,9 +42,16 @@ Page({
       success: function(res) {
         if (res.data.code == '1') {
           var data = res.data.data
+          var specsList = data.specsList
+          var saleQtyCount = 0
+          for (var i = 0; i < specsList.length; i++) {
+            saleQtyCount += specsList[i].saleQty
+          }
           that.setData({
             order: data.order,
-            list: data.list
+            goodsList: data.goodsList,
+            specsList: specsList,
+            saleQtyCount: saleQtyCount
           })
         } else {
           wx.showModal({

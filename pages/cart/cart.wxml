@@ -23,12 +23,12 @@
           <view class='goods-text' style='width:{{width-155}}px;'>
             <view class='goods-name'>{{goods.goodsName}}</view>
             <view class='goods-data'>
-              <view class="data-text">规格：{{goods.specsText}}</view>
+              <view class="data-text">{{goods.specsText}}</view>
             </view>
             <view class='goods-value'>
               <view class='value-price'>￥{{filters.toFix(goods.sellPrice * goods.discount / 100 * goods.amount)}}</view>
               <view class='value-count'>
-                <view wx:if='{{!ifEdit}}'>数量：{{goods.amount}} × {{filters.toFix(goods.sellPrice * goods.discount / 100)}}</view>
+                <view wx:if='{{!ifEdit}}'> × {{goods.amount}}</view>
                 <view wx:else>
                   <text class="opt-amount" style="background-color: {{color}};" bindtap='editGoodsAmount' data-id='{{goods.id}}' data-op='reduce'>-</text>
                   <text style="width: 18px;">{{goods.amount}}</text>

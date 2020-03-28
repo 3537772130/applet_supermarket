@@ -107,14 +107,30 @@ page {
 */
 
 .goods-list {
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
+.goods-list > .info-name {
+  text-align: left;
+  font-size: 14px;
+  height: 38px;
+  padding: 0px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+}
+
 .goods-list > .goods-item {
   text-align: center;
+  height: 90px;
+  margin-top: 10px;
+  border-bottom: 1px #e6e6e6 solid;
 }
 
 .goods-list > .goods-item > .item-img {
@@ -126,8 +142,8 @@ page {
 }
 
 .goods-list > .goods-item > .item-img > image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border: 1px #cdcdcd solid;
   border-radius: 5px;
 }
@@ -137,33 +153,20 @@ page {
   width: 60%;
 }
 
-.goods-list > .goods-item > .item-info > .info-name {
-  text-align: left;
-  font-size: 12px;
-  height: 32px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  white-space: normal !important;
-}
-
 .goods-list > .goods-item > .item-info > .info-specs {
   font-size: 12px;
   color: #cdcdcd;
-  padding-left: 10px;
   text-align: left;
 }
 
 .goods-list > .goods-item > .item-info > .info-data {
   height: 50px;
+  text-align: left;
 }
 
 .goods-list > .goods-item > .item-info > .info-data > .data-price {
   display: inline-table;
   width: 60%;
-  text-align: center;
   font-size: 14px;
   color: red;
 }
@@ -174,7 +177,6 @@ page {
   height: 50px;
   line-height: 50px;
   font-size: 12px;
-  text-align: center;
 }
 
 .goods-list > .goods-remark {
@@ -230,7 +232,7 @@ page {
 
 .order-data > .data-item > .item-name > .coupon-name {
   display: inline-table;
-  width: 50%;
+  width: 65%;
 }
 
 .order-data > .data-item > .item-name > .coupon-name > view {

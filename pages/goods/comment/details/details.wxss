@@ -1,0 +1,217 @@
+/* pages/goods/comment/details/details.wxss */
+
+page {
+  background-color: #fff;
+}
+
+.comment {
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  padding-bottom: 10px;
+}
+
+.comment > .title {
+  width: 100%;
+  height: 40px;
+}
+
+.comment > .title > .avatar {
+  float: left;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1rpx #cdcdcd solid;
+  margin-right: 10px;
+}
+
+.comment > .title > .name {
+  float: left;
+  width: 110px;
+  font-size: 14px;
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.comment > .title > .time {
+  float: right;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.comment > .content {
+  padding-left: 50px;
+  padding-right: 10px;
+}
+
+.comment > .content > .text {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.comment > .content > .pic {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.comment > .content > .pic > image {
+  display: inline-table;
+  width: 30%;
+  height: 90px;
+  border: 1px #f4f4f4 solid;
+  border-radius: 5px;
+}
+
+.comment > .content > .pic > .interval {
+  display: inline-table;
+  width: 3%;
+  height: 90px;
+}
+
+.comment > .reply {
+  font-size: 12px;
+  padding-left: 50px;
+  margin: 5px 0px;
+}
+
+.comment > .reply > view {
+  display: inline-table;
+  width: 50%;
+}
+
+.comment > .reply > .left {
+  color: #cdcdcd;
+}
+
+.comment > .reply > .left > .del {
+  margin-left: 10px;
+  color: #6fc2f7;
+}
+
+.comment > .reply > .right {
+  width: 45%;
+  text-align: right;
+}
+
+/**
+* 回复内容
+*/
+
+.reply-list {
+  background-color: #f4f4f4;
+  margin: 10px 0px;
+  padding: 10px 10px;
+}
+
+.reply-list > .reply {
+  margin-bottom: 10px;
+}
+
+.reply-list > .reply > .avatar {
+  float: left;
+  width: 40px;
+  display: inline-table;
+  text-align: center;
+  position: relative;
+  left: -5px;
+}
+
+.reply-list > .reply > .avatar > image {
+  width: 36px;
+  height: 36px;
+  border: 1rpx #fff solid;
+  border-radius: 5px;
+}
+
+.reply-list > .reply > .info {
+  margin-left: 40px;
+}
+
+.reply-list > .reply > .info > .user {
+  font-size: 14px;
+}
+
+.reply-list > .reply > .info > .user > .name {
+  float: left;
+  width: 50%;
+  height: 20px;
+  color: #6fc2f7;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.reply-list > .reply > .info > .user > .time {
+  float: left;
+  width: 50%;
+  height: 16px;
+  font-size: 12px;
+  text-align: right;
+  position: relative;
+  top: 4px;
+}
+
+.reply-list > .reply > .info > .content {
+  font-size: 14px;
+  padding-top: 25px;
+}
+
+.reply-list > .reply > .info .aim-name {
+  color: #6fc2f7;
+}
+
+/**
+* 编辑发送内容
+*/
+
+.edit {
+  width: 100%;
+  height: 50px;
+  background-color: #f4f4f4;
+  position: fixed;
+  bottom: 0px;
+}
+
+.edit > .box {
+  padding: 10px;
+}
+
+.edit > .box > .content {
+  width: 80%;
+  display: inline-table;
+}
+
+.edit > .box > .content > textarea {
+  width: 100%;
+  height: 25px;
+  padding-top: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.edit > .box > .send {
+  width: 20%;
+  height: 30px;
+  text-align: center;
+  display: inline-table;
+  position: relative;
+  top: -10px;
+}
+
+.edit > .box > .send > button {
+  font-size: 12px;
+  width: 40px;
+  height: 30px;
+  color: #cdcdcd;
+  padding: 0px;
+}

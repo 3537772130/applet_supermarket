@@ -1,2 +1,32 @@
 <!--pages/goods/comment/comment.wxml-->
-<text>pages/goods/comment/comment.wxml</text>
+<view class="comment">
+  <view class="goods-name">{{goodsName}}</view>
+  <view class="title">编辑评论(必填)</view>
+  <view class="comment-text">
+    <textarea placeholder="说说妳的看法" placeholder-style="font-size: 14px;" focus="true" fixed="true" maxlength="200" name="commentContent" bindinput="inputContent"></textarea>
+  </view>
+  <view class="title"> 上传图片</view>
+  <view class="upload-pic">
+    <view class="pic-list">
+      <view class="pic" bindtap="operationImage" data-id="1">
+        <image src="{{path + info.commentImg1 + timestamp}}" wx:if="{{info.commentImg1}}"></image>
+        <i-icon type="add" size="24" color="#e6e6e6" class="icon" wx:else/>
+      </view>
+      <view class="interval"></view>
+      <view class="pic" bindtap="operationImage" data-id="2">
+        <image src="{{path + info.commentImg2 + timestamp}}" wx:if="{{info.commentImg2}}"></image>
+        <i-icon type="add" size="24" color="#e6e6e6" class="icon" wx:else/>
+      </view>
+      <view class="interval"></view>
+      <view class="pic" bindtap="operationImage" data-id="3">
+        <image src="{{path + info.commentImg3 + timestamp}}" wx:if="{{info.commentImg3}}"></image>
+        <i-icon type="add" size="24" color="#e6e6e6" class="icon" wx:else/>
+      </view>
+    </view>
+    <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
+  </view>
+  <view class="sub">
+    <button style='background-color: {{color}};border: 1px {{color}} solid;' bindtap="submitInfo" wx:if="{{ifSub}}">提交</button>
+    <button style='background-color: #cdcdcd;border: 1px #cdcdcd solid;' wx:else>提交</button>
+  </view>
+</view>

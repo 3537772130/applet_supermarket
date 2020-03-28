@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商品评论列表",
+  "usingComponents": {
+    "i-icon": "../../../../dist/icon/index"
+  }
+}

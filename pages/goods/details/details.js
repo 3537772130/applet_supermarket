@@ -178,7 +178,7 @@ Page({
       videoAtuoPlay: false
     })
   },
-  errorVideo: function(){
+  errorVideo: function() {
     this.setData({
       autoPlay: true,
       videoAtuoPlay: false
@@ -366,7 +366,12 @@ Page({
       phoneNumber: app.globalData.appletInfo.telephone,
     })
   },
-  loadGoodsDetails: function (event) {
+  loadMoreComment: function (event) {
+    wx.navigateTo({
+      url: '/pages/goods/comment/list/list?id=' + event.currentTarget.dataset.id,
+    })
+  },
+  loadGoodsDetails: function(event) {
     wx.navigateTo({
       url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
     })
@@ -415,6 +420,7 @@ var loadGoodsDetails = function(that, id) {
           fileList: res.data.data.fileList,
           specsList: res.data.data.specsList,
           couponList: res.data.data.couponList,
+          commentList: res.data.data.commentList,
           recommendGoodsList: res.data.data.recommendGoodsList,
           specs: res.data.data.specsList[0],
           countPrice: res.data.data.specsList[0].sellPrice * res.data.data.info.discount / 100,

@@ -1,0 +1,11 @@
+<!--pages/my/news/details/details.wxml-->
+<view class="notice">
+  <view class="title">{{info.noticeTitle}}</view>
+  <view class="content">
+    <view class="section" wx:for="{{list}}" wx:key="notice">{{item}}</view>
+  </view>
+  <view class="bottom">
+    <view class="read">阅读 {{readCount}}</view>
+    <view class="time">{{info.relationTime}}</view>
+  </view>
+</view>

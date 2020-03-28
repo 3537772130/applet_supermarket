@@ -81,7 +81,7 @@ Page({
 
   },
   lower(e) {
-    if (this.data.page * this.data.pageSize <= this.data.totalCount) {
+    if (this.data.page * this.data.pageSize < this.data.totalCount) {
       this.setData({
         page: this.data.page + 1
       })

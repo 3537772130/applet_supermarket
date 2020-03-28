@@ -18,7 +18,7 @@
   </view>
   <view class="info-details">
     <view class="name-details">
-      <view class="name-icon">精选</view>
+      <label class="name-icon">精选</label>
       {{info.goodsName}}
     </view>
     <view class="price-details">
@@ -36,7 +36,7 @@
         <view class="specs-view" bindtap="powerDrawer" data-statu="open">
           规格
           <view class="specs-default">
-            <view>{{specs.specsText + ' * ' + specsNumber}}</view>
+            <view>{{specs.specsText ? specs.specsText + ' * ' + specsNumber : ''}}</view>
           </view>
           <view class="specs-more">···</view>
         </view>
@@ -96,10 +96,27 @@
     </view>
   </view>
 
-  <view class="comment">
+  <view class="comment" bindtap="loadMoreComment" data-id="{{info.id}}">
     <i-cell-group>
-      <i-cell i-class="load" title="商品评论" is-link url="/pages/goods/comment/comment?goodsId={{info.id}}"></i-cell>
+      <i-cell i-class="load" title="商品评论" value="查看更多" size="18" is-link></i-cell>
     </i-cell-group>
+    <view class="list" wx:for="{{commentList}}" wx:key="comment">
+      <view class="title">
+        <image class="avatar" src="{{path + item.avatarUrl + timestamp}}"></image>
+        <view class="name">{{item.nickName}}</view>
+        <!-- <view class="time">{{filters.getTimeBeforeStr(item.commentTime)}}</view> -->
+      </view>
+      <view class="content">
+        <view class="text">{{item.commentContent}}</view>
+        <view class="pic">
+          <image src="{{path + item.commentImg1}}" wx:if="{{item.commentImg1}}"></image>
+          <view class="interval" wx:if="{{item.commentImg1}}"></view>
+          <image src="{{path + item.commentImg2}}" wx:if="{{item.commentImg2}}"></image>
+          <view class="interval" wx:if="{{item.commentImg2}}"></view>
+          <image src="{{path + item.commentImg3}}" wx:if="{{item.commentImg3}}"></image>
+        </view>
+      </view>
+    </view>
   </view>
 
   <view class="recommend" wx:if="{{recommendGoodsList.length > 0}}">

@@ -84,15 +84,17 @@ Page({
         wxCode: app.globalData.userInfo.wxCode
       },
       success: function (res) {
-        if (res.data.data.length > 0) {
-          that.setData({
-            list: res.data.data,
-            isNull: false
-          })
-        } else {
-          that.setData({
-            isNull: true
-          })
+        if (res.data.code === "1"){
+          if (res.data.data.length > 0) {
+            that.setData({
+              list: res.data.data,
+              isNull: false
+            })
+          } else {
+            that.setData({
+              isNull: true
+            })
+          }
         }
       },
       complete: function () {
@@ -104,11 +106,18 @@ Page({
   },
   chooseCoupon: function(event) {
     var index = event.currentTarget.dataset.index
-    var coupon = this.data.list[index]
-    wx.setStorage({
-      key: 'choose_coupon',
-      data: coupon,
-    })
+    var coupon = null
+    if (index > 0){
+      coupon = this.data.list[index]
+    } else {
+      coupon = {
+        denomination: 0.00
+      }
+    }
+      wx.setStorage({
+        key: 'choose_coupon',
+        data: coupon,
+      })
     wx.navigateBack({
       delta: 1
     })

@@ -2,7 +2,7 @@
 <wxs module="filters" src="../../../../filter.wxs"></wxs>
 <view class="address">
   <view class="order-no">
-    <label>订单号：</label>
+    <label>订单编号：</label>
     <label style="font-size: 14px;">{{order.orderNo}}</label>
   </view>
   <view class="item">
@@ -20,7 +20,7 @@
     <label style="color: red;" wx:if="{{order.orderStatus === 3}}">已拒绝</label>
     <label style="color: #0790f9;" wx:if="{{order.orderStatus === 4}}">配送中</label>
     <label style="color: #0e932e;" wx:if="{{order.orderStatus === 5}}">已送达</label>
-    <label style="color: #f4ea29;" wx:if="{{order.orderStatus === 6}}">已签收</label>
+    <label wx:if="{{order.orderStatus === 6}}">已签收</label>
   </view>
   <view class="remark">
     <label style="color: #000000;font-size: 12px;">备　注：</label>
@@ -36,26 +36,37 @@
   </view>
 </view>
 
-<view class="goods-list" wx:for="{{list}}" wx:key="item">
-  <view class="goods-item">
+<view class="goods-list" wx:for="{{goodsList}}" wx:key="goods" wx:for-item="goods">
+  <view class="info-name">{{goods.goodsName}}</view>
+  <view class="goods-item" wx:for="{{specsList}}" wx:key="specs" wx:for-item="specs" wx:if="{{specs.goodsId === goods.goodsId}}">
     <view class="item-img">
-      <image src="{{path + item.goodsSpecsPic + timestamp}}" bindtap="loadGoodsDetails" data-id="{{item.goodsId}}"></image>
+      <image src="{{path + specs.goodsSpecsPic + timestamp}}" bindtap="loadGoodsDetails" data-id="{{specs.goodsId}}"></image>
     </view>
     <view class="item-info">
-      <view class="info-name">{{item.goodsName}}</view>
       <view class="info-specs">
-        <text style="color: #0790f9;">{{item.goodsSpecsName}}</text>
+        <label style="font-size: 12px;color: #000000;">规格：</label>
+        <text style="color: #0790f9;">{{specs.goodsSpecsName}}</text>
       </view>
       <view class="info-data">
         <view class="data-price">
-          <label style="font-size: 12px;color: #000000;">单价：</label>{{filters.toFix(item.discountPrice)}}</view>
-        <view class="data-num">数量：{{item.saleQty}}</view>
+          <label style="font-size: 12px;color: #000000;">单价：</label>{{filters.toFix(specs.discountPrice)}}</view>
+        <view class="data-num">数量：{{specs.saleQty}}</view>
       </view>
     </view>
+  </view>
+  <view wx:if="{{order.orderStatus === 6}}">
+    <view class="publish-comment" wx:for="{{goodsIdList}}" wx:key="goodsId" wx:for-item="goodsId" wx:if="{{goodsId === goods.goodsId}}" 
+    bindtap="playComment" data-id="{{goods.goodsId}}" data-name="{{goods.goodsName}}">发表评论 >></view>
   </view>
 </view>
 
 <view class="order-data">
+  <view class="data-item">
+    <view class="item-title">商品总数</view>
+    <view class="item-name">
+      <text style="color: red;">共{{saleQtyCount}}件</text>
+    </view>
+  </view>
   <view class="data-item">
     <view class="item-title">商品总金额</view>
     <view class="item-name">

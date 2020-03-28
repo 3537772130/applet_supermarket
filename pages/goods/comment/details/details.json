@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "评论详情",
+  "usingComponents": {
+    "i-icon": "../../../dist/icon/index"
+  }
+}

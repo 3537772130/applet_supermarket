@@ -50,7 +50,9 @@ module.exports = {
                     app.globalData.userInfo = userInfo
                     that.setData({
                       userInfo: userInfo,
-                      isDealer: info.data.isDealer
+                      isDealer: info.data.isDealer,
+                      notice: info.data.notice,
+                      noticeUnreadCount: info.data.noticeUnreadCount
                     })
                     if (info.data.isDealer){
                       that.setData({
@@ -100,8 +102,8 @@ module.exports = {
           })
           wx.uploadFile({
             url: app.globalData.path + '/api/applet/user/uploadUserAvatar',
-            filePath: file.path,
             name: 'avatar',
+            filePath: file.path,
             header: {
               appletCode: app.globalData.appletCode,
               wxCode: app.globalData.userInfo.wxCode
@@ -133,10 +135,10 @@ module.exports = {
    * 加载地图距离
    */
   loadMapDistance: function(that, lonEnd, latEnd) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    //   mask: true
+    // })
     // 起点经纬度
     let latStart = that.data.appletInfo['lat']
     let lonStart = that.data.appletInfo['lon']

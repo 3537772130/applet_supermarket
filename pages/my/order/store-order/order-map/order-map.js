@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    siteList: []
   },
 
   /**
@@ -25,7 +25,10 @@ Page({
     wx.getStorage({
       key: 'map_list_data',
       success: function(res) {
-        loadMapRoute(that, res.data)
+        that.setData({
+          siteList: res.data
+        })
+        loadMapRoute(that)
       },
     })
   },
@@ -80,10 +83,20 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  startNavigation: function() {
+    var siteList = this.data.siteList
+    var site = siteList[siteList.length - 1]
+    wx.openLocation({
+      latitude: site.latitude,
+      longitude: site.longitude,
+      name: site.callout.content
+    })
   }
 })
 
-var loadMapRoute = function (that, siteList) {
+var loadMapRoute = function(that) {
+  var siteList = that.data.siteList
   // 起点经纬度
   let lonStart = siteList[0].longitude
   let latStart = siteList[0].latitude
@@ -111,7 +124,7 @@ var loadMapRoute = function (that, siteList) {
     markers: markers,
     points: points
   })
-  
+
 
   //网络请求设置
   wx.request({

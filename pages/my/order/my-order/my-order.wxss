@@ -66,6 +66,7 @@
 .order > .item > .order-no{
   display: inline-table;
   width: 65%;
+  font-size: 12px;
 }
 
 .order > .item > .status{

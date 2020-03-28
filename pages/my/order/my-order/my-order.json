@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的订单列表",
-  "usingComponents": {}
+  "usingComponents": {
+    "i-icon": "../../../../dist/icon/index"
+  }
 }

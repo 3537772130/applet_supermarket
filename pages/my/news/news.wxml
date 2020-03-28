@@ -1,0 +1,11 @@
+<!--pages/my/news/news.wxml-->
+<view class="user-menu">
+  <i-cell-group>
+    <i-cell title="系统消息" value="{{systemCount > 0 ? systemCount + '条未读' : ''}}" is-link url="/pages/my/news/list/list?type=1">
+      <i-icon type="systemprompt" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+    <i-cell title="商品评论" value="{{commentCount > 0 ? commentCount + '条未读' : ''}}" is-link url="/pages/my/news/list/list?type=2">
+      <i-icon type="message" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+  </i-cell-group>
+</view>

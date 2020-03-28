@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "消息通知",
+  "usingComponents": {
+    "i-icon": "../../../dist/icon/index",
+    "i-cell-group": "../../../dist/cell-group/index",
+    "i-cell": "../../../dist/cell/index",
+    "i-badge": "../../../dist/badge/index"
+  }
+}
