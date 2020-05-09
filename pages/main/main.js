@@ -1,7 +1,7 @@
 // pages/main/main.js
 const app = getApp();
 const utils = require('../../utils/appletUtil');
-const pageLogo = 'MAIN'
+const loadLength = 10
 
 Page({
 
@@ -9,17 +9,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mainList: []
+    pageLogo: 'MAIN',
+    scrollTop: 0,
+    mainList: [],
+    showList: [],
+    showLength: loadLength,
+    recommendGoodsList: [],
+    recommendGoodsIndex: 0,
+    recommendShow: false,
+    ifSupport: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     app.setAppletColor(this)
     wx.setNavigationBarTitle({
       title: app.globalData.appletInfo.appletName //页面标题为路由参数
     })
+    app.getClientIp()
   },
 
   /**
@@ -58,7 +71,7 @@ Page({
     this.setData({
       biColor: biColor
     })
-    this.loadPageInfo()
+    loadPageInfo(this)
   },
 
   /**
@@ -95,47 +108,39 @@ Page({
   onShareAppMessage: function() {
 
   },
-  loadPageInfo:function(){
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    //获取当前页面信息
-    wx.request({
-      url: app.globalData.path + '/api/applet/page/queryAppletPageInfo',
-      data: {
-        pageLogo: pageLogo
-      },
-      header: {
-        appletCode: app.globalData.appletCode
-      },
-      success: function (res) {
-        if (res.data.code == '1') {
-          var json = JSON.parse(res.data.data)
-          that.setData({
-            mainList: JSON.parse(res.data.data)
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data
-          })
-        }
-      },
-      complete: function () {
-        app.hideLoading();
+  scrollToLower: function() {
+    var mainList = this.data.mainList
+    var showList = this.data.showList
+    var showLength = this.data.showLength
+    if (mainList.length > showLength) {
+      // 计算页面元素能够加载的集合长度
+      var length = 0
+      var ifSupport = false
+      if ((mainList.length - showLength) > loadLength) {
+        length = showLength + loadLength
+      } else {
+        length = mainList.length + 1
+        ifSupport = true
       }
-    })
+      for (var i = showLength; i < length; i++) {
+        showList.push(mainList[i])
+      }
+      this.setData({
+        showList: showList,
+        showLength: length,
+        ifSupport: ifSupport
+      })
+    }
   },
   loadSearch: function() {
     wx.navigateTo({
       url: '/pages/main/search/search',
     })
   },
-  loadGoodsDetails: function(event) {
-    var goodsId = event.currentTarget.dataset.id;
-    console.log("获取到商品编号：", goodsId);
-  },
+  // loadGoodsDetails: function(event) {
+  //   var goodsId = event.currentTarget.dataset.id;
+  //   console.log("获取到商品编号：", goodsId);
+  // },
   loadGoodsType: function(event) {
     wx.setStorage({
       key: 'type_index',
@@ -145,9 +150,78 @@ Page({
       url: '/pages/goods/classify/classify'
     })
   },
-  loadGoodsDetails: function(event){
+  loadGoodsDetails: function(event) {
+    try{
+      var index = event.currentTarget.dataset.index
+      if (index >= 0) {
+        closeRecommend(this, index)
+      }
+    } catch(e){
+
+    }
     wx.navigateTo({
       url: '/pages/goods/details/details?id=' + event.currentTarget.dataset.id,
     })
+  },
+  closeRecommend: function(event) {
+    var index = event.currentTarget.dataset.index
+    closeRecommend(this, index)
   }
 })
+
+var loadPageInfo = function(that) {
+  //获取当前页面信息
+  wx.request({
+    url: app.globalData.path + '/api/applet/page/queryAppletPageInfo',
+    data: {
+      pageLogo: that.data.pageLogo
+    },
+    header: {
+      appletCode: app.globalData.appletCode
+    },
+    success: function(res) {
+      if (res.data.code == '1') {
+        var data = res.data.data
+        var mainList = JSON.parse(data.contentJson)
+        var showList = []
+        var showLength = loadLength
+        for (var i = 0; i < showLength; i++) {
+          showList.push(mainList[i])
+        }
+        that.setData({
+          mainList: mainList,
+          showList: showList,
+          showLength: showLength,
+          scrollTop: 0
+        })
+        if (app.globalData.recommendShow) {
+          that.setData({
+            recommendGoodsList: app.globalData.recommendGoodsList,
+            recommendShow: true
+          })
+        }
+      } else {
+        wx.navigateTo({
+          url: '/pages/error/error?code=' + res.data.code + '&msg=' + res.data.data
+        })
+      }
+    },
+    complete: function() {
+      app.hideLoading();
+    }
+  })
+}
+
+var closeRecommend = function(that, index) {
+  var recommendGoodsList = that.data.recommendGoodsList
+  if (recommendGoodsList.length > 1) {
+    that.setData({
+      recommendGoodsIndex: index + 1
+    })
+  } else {
+    app.globalData.recommendShow = false
+    that.setData({
+      recommendShow: false
+    })
+  }
+}

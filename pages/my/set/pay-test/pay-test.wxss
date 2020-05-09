@@ -1,0 +1,43 @@
+/* pages/my/set/pay-test/pay-test.wxss */
+
+.test{
+  width: 100%;
+  margin-top: 20%;
+  text-align: center;
+}
+
+.test > .amount{
+  height: 120px;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.test > .toast{
+  font-size: 14px;
+  color: #cdcdcd;
+}
+
+.test > .msg{
+  width: 70%;
+  height: 30px;
+  display: inline-table;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+}
+
+.test > .but{
+  height: 50px;
+  line-height: 50px;
+  margin-top: 50px;
+}
+
+.test > .but > button{
+  width: 60%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #FFFFFF;
+}

@@ -1,7 +1,7 @@
 /* pages/main/search/search.wxss */
 
 page {
-  background-color: #e6e6e6;
+  background-color: #fff;
 }
 
 .search {
@@ -9,6 +9,7 @@ page {
   background-color: #fff;
   position: fixed;
   top: 0px;
+  z-index: 99;
 }
 
 .search > .heard {
@@ -70,17 +71,25 @@ page {
   letter-spacing: 2px;
 }
 
+/**
+* 搜索商品列表
+**/
+
 .goods-list {
-  margin-top: 60px;
-  padding: 0px 10px;
+  margin-top: 30px;
+  padding: 20px 10px;
+  background-color: #fff;
 }
 
 .goods-list > .goods-info {
   height: 120px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   background-color: #fff;
   border-radius: 8px;
   padding: 10px 10px 10px 0px;
+  border-top: 1px #b2b2b2 solid;
+  border-left: 1px #b2b2b2 solid;
+  box-shadow: 3px 3px 6px #b2b2b2;
 }
 
 .goods-list > .goods-info > .info-icon {
@@ -131,4 +140,91 @@ page {
   margin-left: 10px;
   font-size: 14px;
   text-decoration: line-through;
+}
+
+/**
+* 推荐商品
+*/
+
+.recommend {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.recommend > .title {
+  font-size: 14px;
+  margin: 5px 0px;
+  height: 30px;
+}
+
+.recommend > .r-goods {
+  display: inline-table;
+  width: 50%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.recommend > .r-goods > .g-item {
+  display: inline-table;
+  width: 120px;
+  position: relative;
+}
+
+.recommend > .r-goods > .g-item > .icon {
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 0px 8px 0px 0px;
+  position: absolute;
+  right: 0px;
+  z-index: 0;
+}
+
+.recommend > .r-goods > .g-item > .image {
+  display: inline-table;
+  width: 100%;
+}
+
+.recommend > .r-goods > .g-item > .image > image {
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;
+  border: 1rpx #e6e6e6 solid;
+}
+
+.recommend > .r-goods > .g-item > .name {
+  width: 120px;
+  font-size: 12px;
+  height: 35px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal !important;
+}
+
+.recommend > .r-goods > .g-item > .price {
+  width: 120px;
+  font-size: 14px;
+  color: red;
+  line-height: 20px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal !important;
+}
+
+.recommend > .r-goods > .g-item > .sell {
+  width: 120px;
+  font-size: 12px;
+  color: #cdcdcd;
+  height: 20px;
+  line-height: 20px;
+  text-align: left;
+  border-bottom: 1rpx #cdcdcd solid;
 }

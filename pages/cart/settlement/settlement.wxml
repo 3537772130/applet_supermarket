@@ -42,7 +42,7 @@
         <image src="{{path + item.specsSrc + timestamp}}" bindtap="loadGoodsDetails" data-id="{{item.goodsId}}"></image>
       </view>
       <view class="item-info">
-        <view class="info-name">{{item.goodsName}}</view>
+        <view class="info-name">{{item.goodsName + (item.ifDiscount ? '':'【不参与优惠券】')}}</view>
         <view class="info-specs">
           <text style="color: #0790f9;">{{item.specsText}}</text>
         </view>
@@ -72,9 +72,9 @@
       <view class="item-title">优惠券</view>
       <view class="item-name">
         <view class="coupon-name">
-          <view>{{coupon.denomination > 0 ? coupon.couponName:'无可用'}}</view>
+          <view>{{coupon.denomination > 0 ? coupon.couponName:''}}</view>
         </view>
-        <text style="color: #d81e06;" wx:if="{{coupon.denomination > 0}}">- ￥{{filters.toFix(coupon.denomination)}}</text>
+        <text style="color: #d81e06;">- ￥{{filters.toFix(coupon.denomination)}}</text>
         <i-icon type="more" size="28" color="#00000" bindtap="chooseCoupon" />
       </view>
     </view>

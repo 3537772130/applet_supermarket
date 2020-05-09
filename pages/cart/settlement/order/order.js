@@ -11,8 +11,8 @@ Page({
     setInter: '',
     order: {
       id: '',
-      lon: '',
-      lat: '',
+      receiverLon: '',
+      receiverLat: '',
       orderNo: '',
       gmtCreated: '',
       detailAddr: '',

@@ -5,7 +5,8 @@
     "pages/main/search/search",
     "pages/cart/cart",
     "pages/cart/settlement/settlement",
-    "pages/cart/settlement/coupon/coupon",
+    "pages/cart/settlement/use-coupon/use-coupon",
+    "pages/cart/settlement/order-coupon/order-coupon",
     "pages/cart/settlement/order/order",
     "pages/cart/settlement/remark/remark",
     "pages/goods/classify/classify",
@@ -35,7 +36,9 @@
     "pages/goods/comment/details/details",
     "pages/my/news/news",
     "pages/my/news/list/list",
-    "pages/my/news/details/details"
+    "pages/my/news/details/details",
+    "pages/my/set/pay-test/pay-test",
+    "pages/advert-web/advert-web"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -15,10 +15,10 @@
   <view class="left">
     <view class="people">
       <view>{{order.receiverName}}</view>
-      <view>{{order.receiverPhone === '' ? '': filters.sub(order.receiverPhone, 0, 3) + '****' + filters.sub(order.receiverPhone, 7, 11)}}</view>
+      <view>{{order.receiverMobile === '' ? '': filters.sub(order.receiverMobile, 0, 3) + '****' + filters.sub(order.receiverMobile, 7, 11)}}</view>
     </view>
-    <view class="title">{{filters.split(order.detailAddr, 1)}}</view>
-    <view class="details">{{filters.split(order.detailAddr, 0)}}</view>
+    <view class="title">{{order.receiverProvince + order.receiverCity + order.receiverCounty}}</view>
+    <view class="details">{{filters.split(order.receiverAddress, 0)}}</view>
   </view>
   <view class="right" bindtap="loadRoute" data-id="{{order.id}}" wx:if="{{order.orderStatus != 5 && order.orderStatus != 6}}">
     <image src="/images/nav/nav_{{filters.sub(color,1,8)}}.png"></image>
@@ -26,7 +26,7 @@
   </view>
   <view class="remark">
     <label style="color: #000000;font-size: 12px;">备注：</label>
-    <label>{{order.orderRemark}}</label>
+    <label>{{order.userRemark}}</label>
   </view>
 </view>
 
@@ -42,7 +42,7 @@
   <view class="info-name">{{goods.goodsName}}</view>
   <view class="goods-item" wx:for="{{specsList}}" wx:key="specs" wx:for-item="specs" wx:if="{{specs.goodsId === goods.goodsId}}">
     <view class="item-img">
-      <image src="{{path + specs.goodsSpecsPic + timestamp}}" bindtap="loadGoodsDetails" data-id="{{specs.goodsId}}"></image>
+      <image src="{{path + specs.goodsSpecsPic}}" bindtap="loadGoodsDetails" data-id="{{specs.goodsId}}"></image>
     </view>
     <view class="item-info">
       <view class="info-specs">
@@ -51,8 +51,8 @@
       </view>
       <view class="info-data">
         <view class="data-price">
-          <label style="font-size: 12px;color: #000000;">单价：</label>{{filters.toFix(specs.discountPrice)}}</view>
-        <view class="data-num">数量：{{specs.saleQty}}</view>
+          <label style="font-size: 12px;color: #000000;">单价：</label>{{filters.toFix(specs.actualPrice)}}</view>
+        <view class="data-num">数量：{{specs.goodsNumber}}</view>
       </view>
     </view>
   </view>
@@ -72,18 +72,26 @@
     </view>
   </view>
   <view class="data-item">
-    <view class="item-title">运费</view>
-    <view class="item-name">
-      <text style="color: red;">+￥{{filters.toFix(order.carriersFee)}}</text>
-    </view>
-  </view>
-  <view class="data-item">
     <view class="item-title">优惠券</view>
     <view class="item-name">
       <view class="coupon-name">
-        <view>{{order.ticketAmount > 0 ? order.couponName:''}}</view>
+        <view>{{order.couponAmount > 0 ? order.couponName:''}}</view>
       </view>
-      <text style="color: red;">-￥{{filters.toFix(order.ticketAmount)}}</text>
+      <text style="color: red;">-￥{{filters.toFix(order.couponAmount)}}</text>
+    </view>
+  </view>
+  <view class="data-item">
+    <view class="item-title">运费</view>
+    <view class="item-name">
+      <text style="color: red;">+￥{{filters.toFix(order.freightAmount)}}</text>
+    </view>
+  </view>
+  <view class="data-item">
+    <view class="item-title">支付状态</view>
+    <view class="item-name">
+      <text style="color: red;" wx:if="{{order.payStatus == -1}}">未支付</text>
+      <text style="color: red;" wx:if="{{order.payStatus == 0}}">待支付</text>
+      <text style="color: red;" wx:if="{{order.payStatus == 1}}">已支付</text>
     </view>
   </view>
 </view>
@@ -93,7 +101,7 @@
     <view style="width: 60%;">
       <label style="color: #000;">实际金额：</label>
       <label style="color: red;">￥</label>
-      <text style="color: red;">{{filters.toFix(order.totalAmount + order.carriersFee - order.ticketAmount)}}</text>
+      <text style="color: red;">{{filters.toFix(order.actualAmount)}}</text>
     </view>
     <view class="tel-buyer" bindtap="telBusiness">联系买家</view>
   </view>

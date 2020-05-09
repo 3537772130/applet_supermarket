@@ -28,7 +28,9 @@ module.exports = {
                 loginCode: loginCode,
                 nickName: userInfo.nickName,
                 avatarUrl: userInfo.avatarUrl,
-                gender: userInfo.gender == '1' ? true : false
+                gender: userInfo.gender == '1' ? true : false,
+                lon: app.globalData.longitude,
+                lat: app.globalData.latitude
               }
               wx.request({
                 url: app.globalData.path + src,
@@ -37,7 +39,8 @@ module.exports = {
                 header: {
                   'content-type': 'application/x-www-form-urlencoded', //post
                   appletCode: app.globalData.appletCode,
-                  wxCode: wxCode
+                  wxCode: wxCode,
+                  ipAddress: app.globalData.ipAddress
                 },
                 success: function(data) {
                   notFound(data.statusCode);
@@ -52,11 +55,12 @@ module.exports = {
                       userInfo: userInfo,
                       isDealer: info.data.isDealer,
                       notice: info.data.notice,
-                      noticeUnreadCount: info.data.noticeUnreadCount
+                      noticeUnreadCount: info.data.noticeUnreadCount,
+                      userOrder: info.data.userOrder
                     })
                     if (info.data.isDealer){
                       that.setData({
-                        order: info.data.order
+                        appletOrder: info.data.appletOrder
                       })
                     }
                     if (info.code == '0') {
@@ -166,6 +170,9 @@ module.exports = {
       },
       fail: function(res) {
         console.log(res)
+        that.setData({
+          distance: 0
+        })
       },
       complete: function(res) {
         console.log(res)
@@ -181,8 +188,8 @@ module.exports = {
     let latStart = that.data.order['appletLat']
 
     // 终点的经纬度
-    let lonEnd = that.data.order['lon']
-    let latEnd = that.data.order['lat']
+    let lonEnd = that.data.order['receiverLon']
+    let latEnd = that.data.order['receiverLat']
 
     that.setData({
       longitude: lonStart,
@@ -281,32 +288,39 @@ var notFound = function(code) {
  * 获取运费
  */
 var getOrderFreight = function(that) {
-  wx.request({
-    url: app.globalData.path + '/api/applet/user/cart/getOrderFreight',
-    data: {
-      distance: that.data.distance
-    },
-    header: {
-      appletCode: app.globalData.appletCode,
-      wxCode: app.globalData.userInfo.wxCode
-    },
-    success: function(res) {
-      if (res.data.code == '1') {
-        that.setData({
-          freight: parseFloat(res.data.data),
-          totalPrice: parseFloat(that.data.goodsTotalPrice - that.data.coupon.denomination + res.data.data),
-          isSub: true
-        })
-      } else {
-        that.setData({
-          isSub: false
-        })
-        app.showModal(res.data.data)
-      }
+  if (that.data.distance === 0){
+    that.setData({
+      isSub: false
+    })
+    app.showModal('获取距离失败')
+  } else {
+    wx.request({
+      url: app.globalData.path + '/api/applet/user/cart/getOrderFreight',
+      data: {
+        distance: that.data.distance,
+        goodsAmount: that.data.goodsAmount
+      },
+      header: {
+        appletCode: app.globalData.appletCode,
+        wxCode: app.globalData.userInfo.wxCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          that.setData({
+            freight: parseFloat(res.data.data),
+            totalPrice: parseFloat(that.data.goodsTotalPrice - that.data.coupon.denomination + res.data.data),
+            isSub: true
+          })
+        } else {
+          that.setData({
+            isSub: false
+          })
+          app.showModal(res.data.data)
+        }
+      },
+      complete: function () {
         app.hideLoading();
-    },
-    complete: function() {
-      
-    }
-  })
+      }
+    })
+  }
 }

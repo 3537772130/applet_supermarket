@@ -23,24 +23,11 @@ Page({
   onLoad: function(options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
+
     var status = parseInt(options.status)
-    var title = ''
-    switch(status){
-      case 1:
-        title = '待接订单列表'
-      break;
-      case 2:
-        title = '配送订单列表'
-        break;
-      case 3:
-        title = '完成订单列表'
-        break;
-    }
-    wx.setNavigationBarTitle({
-      title: title
-    })
     this.setData({
-      status: parseInt(options.status)
+      status: parseInt(options.status),
+      height:this.data.height - 40
     })
     wx.setStorage({
       key: 'order_status',
@@ -63,7 +50,8 @@ Page({
     this.setData({
       page: 1,
       pageSize: 10,
-      list: []
+      list: [],
+      scrollTop: 0
     })
     wx.getStorage({
       key: 'order_status',
@@ -129,6 +117,21 @@ Page({
       }, 2000);
     }
   },
+  setStatus: function(event){
+    var status = event.currentTarget.dataset.status
+    this.setData({
+      status: parseInt(status),
+      page: 1,
+      pageSize: 10,
+      list: [],
+      scrollTop: 0
+    })
+    wx.setStorage({
+      key: 'order_status',
+      data: status
+    })
+    queryOrderList(this)
+  },
   loadDetails: function(event){
     var id = event.currentTarget.dataset.id
     wx.navigateTo({
@@ -142,9 +145,9 @@ var queryOrderList = function(that) {
     title: '加载中',
   })
   var status = parseInt(that.data.status)
-  var pathUrl = app.globalData.path + '/api/applet/order/querySaleOrderByStoreToPage'
+  var pathUrl = app.globalData.path + '/api/applet/order/queryOrderInfoByStoreToPage'
   if (status != 5){
-    pathUrl = app.globalData.path + '/api/applet/order/querySaleOrderByStore'
+    pathUrl = app.globalData.path + '/api/applet/order/queryOrderInfoByStore'
     that.setData({
       pageSize: 1000
     })

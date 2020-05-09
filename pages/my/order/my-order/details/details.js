@@ -9,7 +9,19 @@ Page({
   data: {
     orderId: 0,
     order: {
-      receiverPhone: ''
+      receiverName: '',
+      receiverPhone: '',
+      receiverProvince: '',
+      receiverCity: '',
+      receiverCounty: '',
+      receiverAddress: '',
+      couponAmount: 0,
+      freightAmount: 0,
+      totalAmount: 0,
+      actualAmount: 0,
+      userRemark: '',
+      orderStatus: -1,
+      payType: 1
     },
     coupon: {},
     list: {}
@@ -42,7 +54,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByUser',
+      url: app.globalData.path + '/api/applet/order/queryOrderDetailsByUser',
       data: {
         orderId: parseInt(that.data.orderId)
       },
@@ -57,7 +69,7 @@ Page({
           var specsList = data.specsList
           var saleQtyCount = 0
           for (var i = 0; i < specsList.length; i++) {
-            saleQtyCount += specsList[i].saleQty
+            saleQtyCount += specsList[i].goodsNumber
           }
           that.setData({
             order: data.order,
@@ -71,7 +83,7 @@ Page({
           if (data.order.orderStatus === 3) {
             wx.showModal({
               title: '拒绝原因',
-              content: data.order.reason,
+              content: data.order.storeRemark,
               confirmText: '确定',
               confirmColor: that.data.color,
               showCancel: false

@@ -12,5 +12,6 @@
   <i-cell-group i-class="value-style">
     <i-cell title="主题色彩" value="{{colorText}}" is-link bindtap="loadInfo" data-index="10"></i-cell>
     <i-cell title="店铺定位" value="{{appletInfo.lon ? appletInfo.addressSimple : '未定位'}}" is-link bindtap="loadInfo" data-index="11"></i-cell>
+    <i-cell title="支付测试" value="仅限商家测试支付状况" is-link bindtap="loadInfo" data-index="12"></i-cell>
   </i-cell-group>
 </view>

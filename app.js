@@ -10,15 +10,20 @@ App({
     
   },
   globalData: {
-    path: 'http://192.168.0.102:8082',
-    // path: 'http://182.92.172.103:2275',
+    latitude: '',
+    longitude: '',
+    ipAddress: '',
+    // path: 'http://192.168.0.102:8082',
+    path: 'https://www.appletsite.com', 
     appletCode: 'AC20190826164605485187',
     appletInfo: null,
     userInfo: null,
     bindStatus: false,
     isDealer: false,
     width: 0,
-    height: 0
+    height: 0,
+    recommendGoodsList: [],
+    recommendShow: true
   },
   setAppletColor: function(that) {
     if (this.globalData.appletInfo){
@@ -38,29 +43,32 @@ App({
         frontColor: '#ffffff',
         backgroundColor: systemColor
       })
-      wx.setTabBarStyle({
-        selectedColor: systemColor
-      })
-      systemColor = systemColor.substring(1, 7)
-      wx.setTabBarItem({
-        index: 0,
-        selectedIconPath: '/images/menu/home_selected_' + systemColor + '.png'
-      })
-      wx.setTabBarItem({
-        index: 1,
-        selectedIconPath: '/images/menu/cate_selected_' + systemColor + '.png'
-      })
-      wx.setTabBarItem({
-        index: 2,
-        selectedIconPath: '/images/menu/cart_selected_' + systemColor + '.png'
-      })
-      wx.setTabBarItem({
-        index: 3,
-        selectedIconPath: '/images/menu/member_selected_' + systemColor + '.png'
-      })
+      if (that.data.pageLogo && that.data.pageLogo != ''){
+        wx.setTabBarStyle({
+          selectedColor: systemColor
+        })
+        systemColor = systemColor.substring(1, 7)
+        wx.setTabBarItem({
+          index: 0,
+          selectedIconPath: '/images/menu/home_selected_' + systemColor + '.png'
+        })
+        wx.setTabBarItem({
+          index: 1,
+          selectedIconPath: '/images/menu/cate_selected_' + systemColor + '.png'
+        })
+        wx.setTabBarItem({
+          index: 2,
+          selectedIconPath: '/images/menu/cart_selected_' + systemColor + '.png'
+        })
+        wx.setTabBarItem({
+          index: 3,
+          selectedIconPath: '/images/menu/member_selected_' + systemColor + '.png'
+        })
+      }
     }
   },
   showModal: function(data) {
+    wx.hideLoading()
     wx.showModal({
       title: '温馨提示',
       content: data,
@@ -117,5 +125,29 @@ App({
     var timestamp = Date.parse(new Date())
     timestamp = timestamp / 1000
     return '?' + timestamp
+  },
+  getClientIp: function () {
+    var that = this
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        that.globalData.latitude = res.latitude
+        that.globalData.longitude = res.longitude
+      }
+    })
+    wx.request({
+      url: this.globalData.path + '/api/getClientIp',
+      success: function (res) {
+        try {
+          // console.info('获取到客户端信息：' + res.data)
+          var jsonStr = res.data
+          jsonStr = jsonStr.substring(19, jsonStr.length - 1)
+          var info = JSON.parse(jsonStr)
+          that.globalData.ipAddress = info.cip
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    })
   }
 })

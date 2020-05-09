@@ -21,7 +21,7 @@
             <image src='{{path + goods.specsSrc + timestamp}}' bindtap="loadGoodsDetails" data-id="{{goods.goodsId}}"></image>
           </view>
           <view class='goods-text' style='width:{{width-155}}px;'>
-            <view class='goods-name'>{{goods.goodsName}}</view>
+            <view class='goods-name'>{{goods.goodsName + (goods.ifDiscount ? '':'【不参与优惠券】')}}</view>
             <view class='goods-data'>
               <view class="data-text">{{goods.specsText}}</view>
             </view>
@@ -60,8 +60,10 @@
   </view>
 </view>
 <view class='stock-no' wx:else>
-  <view>购物车已经饿瘪了 T.T</view>
-  <view class='remark'>快去挑点宝贝吧</view>
+  <view>
+    <image src="/images/no-collection.png"></image>
+  </view>
+  <view class='remark'>什么也没有，快去挑点宝贝吧</view>
   <view>
     <button bindtap='loadMain'>去逛逛</button>
   </view>

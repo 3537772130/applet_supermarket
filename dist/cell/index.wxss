@@ -62,6 +62,7 @@
 .i-cell-access .i-cell-ft {
   padding-right: 13px;
   color: #cdcdcd;
+  font-size: 12px;
 }
 
 .i-cell-access .i-cell-ft::after {

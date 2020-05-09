@@ -30,7 +30,7 @@
   </view>
   <view class="order-info">
     <view class="label">收货地址</view>
-    <view class="text">{{order.detailAddr}}</view>
+    <view class="text">{{order.receiverProvince + order.receiverCity + order.receiverCounty + order.receiverAddress}}</view>
   </view>
   <view class="order-info" style="text-align: center;">
     <view class="tel">

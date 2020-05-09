@@ -1,11 +1,25 @@
 <!--pages/my/order/delivery-order/delivery-order.wxml-->
 <wxs module="filters" src="../../../filter.wxs"></wxs>
+<view class="title" style="background-color: {{color}};">
+  <view class="element" bindtap="setStatus" data-status="1">
+    <view class="lable" style="border-bottom: {{status === 1 ? '1px #fff solid' : 'none'}};">待接订单</view>
+  </view>
+  <view class="element" bindtap="setStatus" data-status="2">
+    <view class="lable" style="border-bottom: {{status === 2 ? '1px #fff solid' : 'none'}};">准备订单</view>
+  </view>
+  <view class="element" bindtap="setStatus" data-status="4">
+    <view class="lable" style="border-bottom: {{status === 4 ? '1px #fff solid' : 'none'}};">派送订单</view>
+  </view>
+  <view class="element" bindtap="setStatus" data-status="5">
+    <view class="lable" style="border-bottom: {{status === 5 ? '1px #fff solid' : 'none'}};">完成订单</view>
+  </view>
+</view>
 <view class="is-null" wx:if="{{isNull}}">
   <image src="/images/is_null.png"></image>
-  <view>空空如也</view>
+  <view>还没有订单哦</view>
 </view>
-<view wx:else>
-  <scroll-view scroll-y="true" style="height: {{height}}px;" bindscrolltolower="lower">
+<view class="list" wx:else>
+  <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height: {{height}}px;" bindscrolltolower="lower">
     <view class="order-list">
       <view class="order" wx:for="{{list}}" wx:key="item">
         <image wx:if="{{!item.storeSeeStatus}}" class="new" src="/images/new/new_{{filters.sub(color, 1, 8)}}.png"></image>
@@ -14,7 +28,7 @@
           <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 0}}">已取消</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 1}}">待接单</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 2}}">备货中</label>
-          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已取消</label>
+          <label class="status" style="color: #cdcdcd;" wx:if="{{item.orderStatus === 3}}">已放弃</label>
           <label class="status" style="color: #0790f9;" wx:if="{{item.orderStatus === 4}}">配送中</label>
           <label class="status" style="color: #0e932e;" wx:if="{{item.orderStatus === 5}}">已送达</label>
           <label class="status" wx:if="{{item.orderStatus === 6}}">已签收</label>
@@ -22,13 +36,13 @@
         <view class="left">
           <view>
             <label>{{item.receiverName}}</label>
-            <label>{{filters.sub(item.receiverPhone, 0, 3) + '****' + filters.sub(item.receiverPhone, 7, 11)}}</label>
+            <label>{{filters.sub(item.receiverMobile, 0, 3) + '****' + filters.sub(item.receiverMobile, 7, 11)}}</label>
           </view>
-          <view>{{filters.split(item.detailAddr, 1)}}</view>
-          <view class="address">{{filters.split(item.detailAddr, 0)}}</view>
+          <view>{{item.receiverProvince + item.receiverCity + item.receiverCounty}}</view>
+          <view class="address">{{item.receiverAddress}}</view>
         </view>
         <view class="right">
-          <view class="amount">￥{{filters.toFix(item.totalAmount+item.carriersFee-item.ticketAmount)}}</view>
+          <view class="amount">￥{{filters.toFix(item.actualAmount)}}</view>
           <view class="load" style="background-color: {{color}};" bindtap="loadDetails" data-id="{{item.id}}">查看详情</view>
         </view>
         <view class="time">{{item.storeSeeTime}}</view>

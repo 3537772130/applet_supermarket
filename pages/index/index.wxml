@@ -1,1 +1,5 @@
 <!--index.wxml-->
+<view wx:if="{{advert.relationImage != ''}}">
+  <image src="{{path + advert.relationImage + timestamp}}" style="width: {{width}}px;height: {{height}}px;" bindtap="loadAdvert"></image>
+  <view class="skip" bindtap="skipTime" wx:if="{{show}}">跳过{{time}}S</view>
+</view>

@@ -13,7 +13,7 @@
   z-index: 99;
 }
 
-.cart-title>.cart-del{
+.cart-title>.cart-del {
   display: inline-table;
   width: 50%;
   text-align: center;
@@ -21,7 +21,7 @@
   color: #cdcdcd;
 }
 
-.cart-title>.edit{
+.cart-title>.edit {
   display: inline-table;
   width: 50%;
   text-align: right;
@@ -176,6 +176,7 @@
   background-color: #ff6347;
 }
 
+
 /**
 * 去逛逛
 */
@@ -188,6 +189,11 @@
 .stock-no>view {
   text-align: center;
   font-size: 16px;
+}
+
+.stock-no>view > image {
+  width: 168px;
+  height: 168px;
 }
 
 .stock-no>.remark {

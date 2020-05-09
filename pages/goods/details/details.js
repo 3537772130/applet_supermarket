@@ -190,10 +190,10 @@ Page({
     })
   },
   powerDrawer: function(e) {
-    var currentStatu = e.currentTarget.dataset.statu;
-    this.util(currentStatu)
+    var currentStatus = e.currentTarget.dataset.status;
+    this.util(currentStatus)
   },
-  util: function(currentStatu) {
+  util: function(currentStatus) {
     /* 动画部分 */
     // 第1步：创建动画实例 
     var animation = wx.createAnimation({
@@ -223,7 +223,7 @@ Page({
       })
 
       //关闭抽屉
-      if (currentStatu == "close") {
+      if (currentStatus == "close") {
         this.setData({
           showModalStatus: false
         });
@@ -231,7 +231,7 @@ Page({
     }.bind(this), 200)
 
     // 显示抽屉
-    if (currentStatu == "open") {
+    if (currentStatus == "open") {
       this.setData({
         showModalStatus: true
       });
@@ -419,7 +419,7 @@ var loadGoodsDetails = function(that, id) {
           info: res.data.data.info,
           fileList: res.data.data.fileList,
           specsList: res.data.data.specsList,
-          couponList: res.data.data.couponList,
+          // couponList: res.data.data.couponList,
           commentList: res.data.data.commentList,
           recommendGoodsList: res.data.data.recommendGoodsList,
           specs: res.data.data.specsList[0],

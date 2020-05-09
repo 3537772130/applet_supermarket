@@ -21,6 +21,7 @@ Page({
    */
   onLoad: function (options) {
     app.setAppletColor(this)
+    app.getClientIp()
     wx.hideShareMenu()
     this.setData({
       mobile: app.globalData.userInfo.mobile,
@@ -163,7 +164,8 @@ Page({
         url: app.globalData.path + '/api/applet/user/sendUpdatePassVerifyCode',
         header: {
           appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode
+          wxCode: app.globalData.userInfo.wxCode,
+          ipAddress: app.globalData.ipAddress
         },
         success: function (res) {
           app.showModal(res.data.data)

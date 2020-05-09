@@ -16,6 +16,7 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
+    app.getClientIp()
     wx.hideShareMenu()
     var ifBind = false
     var userInfo = app.globalData.userInfo
@@ -159,7 +160,8 @@ Page({
         },
         header: {
           appletCode: app.globalData.appletCode,
-          wxCode: app.globalData.userInfo.wxCode
+          wxCode: app.globalData.userInfo.wxCode,
+          ipAddress: app.globalData.ipAddress
         },
         success: function(res) {
           app.showModal(res.data.data)

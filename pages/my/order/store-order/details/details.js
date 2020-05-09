@@ -11,7 +11,19 @@ Page({
     status: '1',
     denialReason: '',
     order: {
-      receiverPhone: ''
+      receiverName: '',
+      receiverPhone: '',
+      receiverProvince: '',
+      receiverCity: '',
+      receiverCounty: '',
+      receiverAddress: '',
+      couponAmount: 0,
+      freightAmount: 0,
+      totalAmount: 0,
+      actualAmount: 0,
+      userRemark: '',
+      orderStatus: -1,
+      payType: 1
     },
     list: {}
   },
@@ -31,7 +43,7 @@ Page({
       title: '加载中',
     })
     wx.request({
-      url: app.globalData.path + '/api/applet/order/querySaleOrderDetailsByStore',
+      url: app.globalData.path + '/api/applet/order/queryOrderDetailsByStore',
       data: {
         orderId: parseInt(that.data.orderId)
       },
@@ -45,7 +57,7 @@ Page({
           var specsList = data.specsList
           var saleQtyCount = 0
           for (var i = 0; i < specsList.length; i++) {
-            saleQtyCount += specsList[i].saleQty
+            saleQtyCount += specsList[i].goodsNumber
           }
           that.setData({
             order: data.order,
@@ -158,7 +170,7 @@ Page({
   },
   telBusiness: function() {
     wx.makePhoneCall({
-      phoneNumber: this.data.order.receiverPhone,
+      phoneNumber: this.data.order.receiverMobile,
     })
   },
   loadRoute: function() {
@@ -179,36 +191,15 @@ Page({
           latitude: latitude
         }, {
           id: 1,
-          longitude: order.lon,
-          latitude: order.lat,
+            longitude: order.receiverLon,
+            latitude: order.receiverLat,
           callout: {
-            content: split(order.detailAddr, 0),
+            content: order.receiverAddress,
             borderRadius: 5,
             padding: 5,
             display: 'ALWAYS'
           }
         }]
-        // if (order.orderStatus === 4) {
-          
-        // } else {
-        //   siteList = [{
-        //     id: 0,
-        //     longitude: longitude,
-        //     latitude: latitude
-        //   }, {
-        //     id: 1,
-        //     longitude: order.appletLon,
-        //     latitude: order.appletLat,
-        //     iconPath: that.data.path + order.appletLogo + that.data.timestamp,
-        //     width: 25,
-        //     height: 25,
-        //     callout: {
-        //       content: order.appletName,
-        //       borderRadius: 5,
-        //       padding: 5
-        //     }
-        //   }]
-        // }
         wx.setStorage({
           key: 'map_list_data',
           data: siteList,

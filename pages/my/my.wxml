@@ -18,11 +18,13 @@
     </view>
     <image class="heard-set" src="/images/my/set.png" bindtap="loadSet"></image>
     <view class="heard-notice" wx:if="{{notice}}">
-      <i-notice-bar icon="systemprompt" color="{{color}}" loop>{{notice.noticeContent}}</i-notice-bar>
+      <i-notice-bar icon="systemprompt" color="{{color}}" loop>
+        <text style="color: #000;">{{notice.noticeContent}}</text>
+      </i-notice-bar>
     </view>
   </view>
 
-  <view class="my-account">
+  <!-- <view class="my-account">
     <view class="account-element">
       <view class="element-img">
         <image src="/images/my/balance_{{filters.sub(color, 1, 7)}}.png"></image>
@@ -41,10 +43,110 @@
       </view>
       <view class="element-text" style="color: {{color}};">我的优惠券</view>
     </view>
+  </view> -->
+</view>
+
+<view class="merchant-order" wx:if="{{isDealer}}">
+  <i-cell-group>
+    <i-cell title="派送订单" value="累计完成 {{appletOrder.finishCount ? appletOrder.finishCount : 0}} 单" i-class="deliver-order" is-link url="/pages/my/order/store-order/store-order?status=1">
+      <i-icon type="shop_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+  </i-cell-group>
+  <view class="elements">
+    <view class="element">
+      <i-badge count="0" dot="{{appletOrder.waitCount > 0}}">
+        <view class="demo-badge" bindtap="loadMerchantOrder" data-status="1">
+          <view class="icon">
+            <i-icon type="activity" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">待接订单</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0" dot="{{appletOrder.acceptCount > 0}}">
+        <view class="demo-badge" bindtap="loadMerchantOrder" data-status="2">
+          <view class="icon">
+            <i-icon type="task" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">准备订单</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0" dot="{{appletOrder.deliverCount > 0}}">
+        <view class="demo-badge" bindtap="loadMerchantOrder" data-status="4">
+          <view class="icon">
+            <i-icon type="service" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">派送订单</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0">
+        <view class="demo-badge" bindtap="loadMerchantOrder" data-status="5">
+          <view class="icon">
+            <i-icon type="createtask" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">完成订单</view>
+        </view>
+      </i-badge>
+    </view>
   </view>
 </view>
 
-<view class="business-menu" wx:if="{{isDealer}}">
+<view class="merchant-order">
+  <i-cell-group>
+    <i-cell title="我的订单" value="查看全部订单" i-class="deliver-order" is-link url="/pages/my/order/my-order/my-order?status=1">
+      <i-icon type="publishgoods_fill" size="24" color="{{color}}" slot="icon" />
+    </i-cell>
+  </i-cell-group>
+  <view class="elements">
+    <view class="element">
+      <i-badge count="0" dot="{{userOrder.waitMeetCount > 0}}">
+        <view class="demo-badge" bindtap="loadUserOrder" data-status="1">
+          <view class="icon">
+            <i-icon type="time" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">待接单</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0" dot="{{userOrder.waitCollectCount > 0}}">
+        <view class="demo-badge" bindtap="loadUserOrder" data-status="2">
+          <view class="icon">
+            <i-icon type="clock" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">待收货</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0">
+        <view class="demo-badge" bindtap="loadUserOrder" data-status="3">
+          <view class="icon">
+            <i-icon type="tasklist" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">已签收</view>
+        </view>
+      </i-badge>
+    </view>
+    <view class="element">
+      <i-badge count="0">
+        <view class="demo-badge" bindtap="loadUserOrder" data-status="4">
+          <view class="icon">
+            <i-icon type="warning" size="34" color="{{color}}" slot="icon" />
+          </view>
+          <view class="text">未完成</view>
+        </view>
+      </i-badge>
+    </view>
+  </view>
+</view>
+
+<!-- <view class="business-menu" wx:if="{{isDealer}}">
   <i-cell-group>
     <i-cell title="待接订单" value="{{order.waitCount}}个未处理" is-link url="/pages/my/order/store-order/store-order?status=1">
       <i-icon type="time" size="24" color="{{color}}" slot="icon" />
@@ -59,7 +161,7 @@
       <i-icon type="createtask" size="24" color="{{color}}" slot="icon" />
     </i-cell>
   </i-cell-group>
-</view>
+</view> -->
 
 <view class="user-menu">
   <i-cell-group>

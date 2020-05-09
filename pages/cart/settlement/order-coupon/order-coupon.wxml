@@ -1,0 +1,2 @@
+<!--pages/cart/settlement/order-coupon/order-coupon.wxml-->
+<text wx:for="{{list}}" wx:key="item">{{item.id + '：' + item.couponName}}</text>

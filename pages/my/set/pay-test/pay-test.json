@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "支付测试",
+  "usingComponents": {
+    "i-icon": "../../dist/icon/index"
+  }
+}

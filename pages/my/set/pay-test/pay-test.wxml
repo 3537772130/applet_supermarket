@@ -1,0 +1,12 @@
+<!--pages/my/set/pay-test/pay-test.wxml-->
+<view class="test">
+  <view>
+    <i-icon type="transaction_fill" size="58" color="{{color}}" />
+  </view>
+  <view class="amount">0.01</view>
+  <view class="toast">测试交易，付款给自己</view>
+  <view class="msg" wx:if="{{msg}}">{{msg}}</view>
+  <view class="but">
+    <button style="background-color: {{color}};border: 1px {{color}} solid;" bindtap="sendPay">发起支付</button>
+  </view>
+</view>

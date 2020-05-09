@@ -5,56 +5,49 @@
     <view class="bg-image" style="background-image: url('{{path + appletInfo.appletLogo + timestamp}}')"></view>
 
     <view class="heard">
-      <view class="content">
-        <view class="simple">{{appletInfo.appletSimple}}</view>
-        <view class="name">{{appletInfo.appletName}}</view>
-        <view class="introduce">{{appletInfo.businessScope}}</view>
-      </view>
-    </view>
-
-    <view class="distance">
-      <view style="background-color: #fd8403;">精选</view>
-      <view style="background-color: #0790f9;">
-        <i-icon type="flag" size="18" color="#fff" />
-        <label>{{distanceText}}</label>
-      </view>
-    </view>
-
-    <view class="logo">
-      <image src="{{path + appletInfo.appletLogo + timestamp}}"></image>
-    </view>
-
-    <view class="coupon-list" wx:if="{{couponList.length > 0}}">
-      <view class="remark">部分折扣商品不参与优惠券活动</view>
-      <view class="coupon" wx:for="{{couponList}}" wx:key="coupon">
-        <view bindtap="gianCoupon" data-id="{{item.id}}">
-          <view class="front">
-            <label>￥</label>
-            <label class="num">{{item.denomination}}</label>
-            <label class="icon"><i-icon type="integral_fill" size="18" color="#81642e" /></label>
-            <label wx:if="{{item.couponType === 1}}">通用</label>
-            <label wx:if="{{item.couponType === 2}}">满减</label>
-          </view>
-          <view class="center"></view>
-          <view class="behind">领取</view>
+      <view class="distance">
+        <view style="background-color: #0790f9;">
+          <i-icon type="flag" size="18" color="#fff" />
+          <label>{{distanceText}}</label>
         </view>
       </view>
+
+      <view class="content">
+        <view class="name">
+          <label style="background-color: #fd8403;">精选</label>{{appletInfo.appletName}}</view>
+        <view class="introduce">{{appletInfo.businessScope}}</view>
+      </view>
+
+      <view class="coupon">
+        <view class="name">
+          <i-icon type="coupons" size="24" color="{{color}}" />
+          <label>优惠券</label>
+        </view>
+        <view class="record" bindtap="powerDrawer" data-status="open">
+          <label>{{couponList.length}}个优惠</label>
+          <i-icon type="unfold" size="16" />
+        </view>
+      </view>
+
     </view>
 
     <view class="search">
       <view bindtap="loadSearch">
         <label>搜索</label>
-        <i-icon type="search" size="16" color="#cdcdcd" />
+        <i-icon type="search" size="16" color="{{color}}" />
       </view>
     </view>
   </view>
 
   <block wx:for='{{classifyInfo}}' wx:for-item='info' wx:key='info'>
     <view>
-      <view class='type-tab' style='height: {{height-79}}px;color: {{color}};'>
-        <scroll-view scroll-y='true' scroll-into-view='type{{typePostion1}}' style='height: {{height-85}}px;'>
+      <view class='type-tab' style='color: {{color}};'>
+        <scroll-view scroll-y='true' scroll-into-view='type{{typePostion1}}' style='height: {{height-70}}px;'>
+        <block>
+            <view class='tab-text' style="color: #000;">商品分类</view>
+          </block>
           <block wx:for='{{info.typeList}}' wx:for-item='type' wx:key='type1' wx:for-index="index">
-            <view id='type{{index}}' class='tab-text {{typePostion1 == index ? "tab-this":""}}' bindtap='onClickTypePostion' data-index='{{index}}'>{{type.typeName}}</view>
+            <view id='type{{index}}' class='tab-text {{typePostion1 === index ? "tab-this":""}}' bindtap='onClickTypePostion' data-index='{{index}}'>{{type.typeName}}</view>
           </block>
         </scroll-view>
       </view>
@@ -86,4 +79,35 @@
       </view>
     </view>
   </block>
+
+  <view id="bottom-part"></view>
 </scroll-view>
+
+<view class="drawer_screen" bindtap="powerDrawer" data-status="close" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+  <view class="coupon-list">
+    <view class="remark">
+      <view class="text">部分折扣商品不参与优惠券活动</view>
+      <view class="close">
+        <i-icon type="close" size="16" bindtap="powerDrawer" data-status="close" />
+      </view>
+    </view>
+    <view class="item">
+      <view class="coupon-two" wx:for="{{couponList}}" wx:key="coupon" wx:for-index="index">
+        <view class="denomination" style="color: {{color}};">￥<label class="value">{{item.denomination}}</label></view>
+        <view class="info">
+          <view class="name">{{item.couponName}}</view>
+          <view class="date">
+            <label wx:if="{{item.couponType === 1}}" style="color: {{color}};border: 1rpx {{color}} solid;">通用</label>
+            <label wx:if="{{item.couponType === 2}}" style="color: {{color}};border: 1rpx {{color}} solid;">满减</label>
+            {{filters.split(item.activityOver, 0)}}到期
+          </view>
+        </view>
+        <view class="operation">
+          <view class="receive" wx:if="{{item.status !== 1}}">领取</view>
+          <view class="receive" style="background-color: {{color}};" bindtap="gianCoupon" data-id="{{item.id}}" data-index="{{index}}" wx:else>领取</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

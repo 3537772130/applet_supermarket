@@ -1,8 +1,8 @@
 <!--pages/goods/comment/list/list.wxml-->
 <wxs module="filters" src="../../../filter.wxs"></wxs>
 <view class="is-null" wx:if="{{isNull}}">
-  <image src="/images/is_null.png"></image>
-  <view>空空如也</view>
+  <image src="/images/no-comments.png"></image>
+  <view>还没有评论，赶紧下单抢沙发吧</view>
 </view>
 <view wx:else>
   <view class="comment">

@@ -9,7 +9,7 @@
             <video src="{{path + item.fileSrc + videoTimestamp}}" class='rotation-pic' autoplay="{{videoAtuoPlay}}" bindplay="playVideo" bindpause="pauseVideo" bindended="endVideo" binderror="errorVideo"></video>
           </swiper-item>
           <swiper-item wx:if="{{item.fileType == 1 && item.fileSrc != null}}">
-            <image src='{{path + item.fileSrc + timestamp}}' class='rotation-pic' bindtap='imagesPreview' data-index='{{index}}'></image>
+            <image src='{{path + item.fileSrc}}' class='rotation-pic' bindtap='imagesPreview' data-index='{{index}}'></image>
           </swiper-item>
         </block>
       </swiper>
@@ -31,24 +31,28 @@
       <i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />
     </view>
     <view class="describe-str" wx:if="{{info.describeStr}}">{{info.describeStr}}</view>
+    <i-cell-group>
+      <i-cell title="规格" value="{{specs.specsText ? specs.specsText + ' * ' + specsNumber : ''}}" is-link bindtap="powerDrawer" data-status="open"></i-cell>
+      <i-cell title="优惠券" value="{{info.ifDiscount ? '参与':'不参与'}}" is-link></i-cell>
+    </i-cell-group>
     <view class="specs-info">
       <view class="goods-specs">
-        <view class="specs-view" bindtap="powerDrawer" data-statu="open">
+        <!-- <view class="specs-view" bindtap="powerDrawer" data-status="open">
           规格
           <view class="specs-default">
             <view>{{specs.specsText ? specs.specsText + ' * ' + specsNumber : ''}}</view>
           </view>
           <view class="specs-more">···</view>
-        </view>
+        </view> -->
         <!--mask-->
-        <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+        <view class="drawer_screen" bindtap="powerDrawer" data-status="close" wx:if="{{showModalStatus}}"></view>
         <!--content-->
         <!--使用animation属性指定需要执行的动画-->
         <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
           <!--drawer content-->
           <view class="drawer_content">
             <view class="specs-img">
-              <image src="{{path + specs.specsSrc + timestamp}}" style="border: 2px {{color}} solid;" bindtap="imagePreview" data-src="{{specs.specsSrc}}"></image>
+              <image src="{{path + specs.specsSrc}}" style="border: 2px {{color}} solid;" bindtap="imagePreview" data-src="{{specs.specsSrc}}"></image>
               <view class="specs-price" wx:if="{{info.discount !== 100}}">￥{{filters.toFix(specs.sellPrice*info.discount/100)}}</view>
               <view class="specs-price {{info.discount !== 100 ? 'specs-price-org':''}}">￥{{filters.toFix(specs.sellPrice)}}</view>
               <view class="specs-divider"></view>
@@ -67,14 +71,14 @@
                 <view class="specs-number" style="color: #ff6347;">￥{{filters.toFix(countPrice)}}</view>
               </view>
             </view>
-            <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-statu="close">确定</view>
+            <view class="define-choose" style="{{'background-color: ' + color + ';'}}" bindtap="powerDrawer" data-status="close">确定</view>
           </view>
         </view>
       </view>
     </view>
   </view>
 
-  <view class="shop-coupon" wx:if="{{couponList.length > 0}}">
+  <!-- <view class="shop-coupon" wx:if="{{couponList.length > 0}}">
     <view class="title">畅享优惠</view>
     <view class="coupon-list">
       <view class="coupon" wx:for="{{couponList}}" wx:key="coupon">
@@ -83,7 +87,7 @@
             <label>￥</label>
             <label class="num">{{item.denomination}}</label>
             <label class="icon">
-              <i-icon type="integral_fill" size="18" color="#81642e" />
+              <i-icon type="coupons_fill" size="18" color="#81642e" />
             </label>
             <label wx:if="{{item.couponType === 1}}">通用</label>
             <label wx:if="{{item.couponType === 2}}">满减</label>
@@ -94,15 +98,15 @@
       </view>
       <view class="remark">部分折扣商品不参与优惠券活动</view>
     </view>
-  </view>
+  </view> -->
 
-  <view class="comment" bindtap="loadMoreComment" data-id="{{info.id}}">
+  <view class="comment" style="padding-bottom: {{commentList.length > 0 ? 10 : 0}}px;" bindtap="loadMoreComment" data-id="{{info.id}}">
     <i-cell-group>
       <i-cell i-class="load" title="商品评论" value="查看更多" size="18" is-link></i-cell>
     </i-cell-group>
     <view class="list" wx:for="{{commentList}}" wx:key="comment">
       <view class="title">
-        <image class="avatar" src="{{path + item.avatarUrl + timestamp}}"></image>
+        <image class="avatar" src="{{path + item.avatarUrl}}"></image>
         <view class="name">{{item.nickName}}</view>
         <!-- <view class="time">{{filters.getTimeBeforeStr(item.commentTime)}}</view> -->
       </view>
@@ -125,7 +129,7 @@
       <view class="g-item">
         <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
         <view class="image">
-          <image src="{{path + item.coverSrc + timestamp}}"></image>
+          <image src="{{path + item.coverSrc}}"></image>
         </view>
         <view class="name">{{item.goodsName}}</view>
         <view class="price">
@@ -142,18 +146,18 @@
   <view class="but-part">~ 已经到底啦 ~</view>
 
   <view style="height: 80px;"></view>
-  <view class="specs-menu">
-    <view class="menu-element" style="width: 25%;" bindtap="telBusiness">
+  <view class="specs-menu" style="box-shadow: 0px -1px 6px {{color}};">
+    <view class="menu-element" style="width: 25%;position: relative;top: -10px;" bindtap="telBusiness">
       <view class="element-img">
-        <image src="/images/tel_bus.png"></image>
+        <i-icon type="mobilephone_fill" color="{{color}}" size="26" />
       </view>
-      <view class="element-text">联系商家</view>
+      <view class="element-text" style="color: {{color}};">联系商家</view>
     </view>
-    <view class="menu-element" style="width: 25%;" bindtap="loadCart">
+    <view class="menu-element" style="width: 25%;position: relative;top: -10px;" bindtap="loadCart">
       <view class="element-img">
-        <image src="/images/put_icon_cart.png"></image>
+        <i-icon type="publishgoods_fill" color="{{color}}" size="26" />
       </view>
-      <view class="element-text">购物车</view>
+      <view class="element-text" style="color: {{color}};">购物车</view>
     </view>
     <view class="menu-element" style="width: 50%;">
       <view class="put-cart" style="{{'background-color: ' + color + ';'}}" bindtap="addCart">加入购物车</view>

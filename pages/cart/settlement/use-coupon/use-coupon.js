@@ -17,7 +17,7 @@ Page({
   onLoad: function (options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
-    this.queryCouponList(options.goodsTotalPrice)
+    queryCouponList(this, options.goodsTotalPrice)
   },
 
   /**
@@ -68,46 +68,10 @@ Page({
   onShareAppMessage: function () {
 
   },
-  queryCouponList(goodsTotalPrice) {
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    wx.request({
-      url: app.globalData.path + '/api/applet/user/coupon/queryUserCouponByUse',
-      data: {
-        mountPrice: goodsTotalPrice
-      },
-      header: {
-        appletCode: app.globalData.appletCode,
-        wxCode: app.globalData.userInfo.wxCode
-      },
-      success: function (res) {
-        if (res.data.code === "1"){
-          if (res.data.data.length > 0) {
-            that.setData({
-              list: res.data.data,
-              isNull: false
-            })
-          } else {
-            that.setData({
-              isNull: true
-            })
-          }
-        }
-      },
-      complete: function () {
-        setTimeout(function () {
-          wx.hideLoading();
-        }, 1000);
-      }
-    })
-  },
   chooseCoupon: function(event) {
     var index = event.currentTarget.dataset.index
     var coupon = null
-    if (index > 0){
+    if (index >= 0){
       coupon = this.data.list[index]
     } else {
       coupon = {
@@ -123,3 +87,39 @@ Page({
     })
   }
 })
+
+var queryCouponList = function(that, goodsTotalPrice) {
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
+  wx.request({
+    url: app.globalData.path + '/api/applet/user/coupon/queryUserCouponByUse',
+    data: {
+      mountPrice: goodsTotalPrice
+    },
+    header: {
+      appletCode: app.globalData.appletCode,
+      wxCode: app.globalData.userInfo.wxCode
+    },
+    success: function (res) {
+      if (res.data.code === "1") {
+        if (res.data.data.length > 0) {
+          that.setData({
+            list: res.data.data,
+            isNull: false
+          })
+        } else {
+          that.setData({
+            isNull: true
+          })
+        }
+      }
+    },
+    complete: function () {
+      setTimeout(function () {
+        wx.hideLoading();
+      }, 1000);
+    }
+  })
+}

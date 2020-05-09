@@ -130,6 +130,9 @@ Page({
         case '11':
           pageUrl = '/pages/my/set/location/location'
           break
+        case '12':
+          pageUrl = '/pages/my/set/pay-test/pay-test'
+          break
       }
       wx.navigateTo({
         url: pageUrl

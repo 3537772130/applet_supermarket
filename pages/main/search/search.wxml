@@ -4,7 +4,7 @@
   <view class="heard">
     <view class="search">
       <view class="search-input">
-        <input placeholder="{{placeholder}}" focus="true" value="{{goodsName}}"  bindinput="inputGoodsName"></input>
+        <input placeholder="{{placeholder}}" focus="true" value="{{goodsName}}" bindinput="inputGoodsName"></input>
       </view>
       <view class="search-icon" style="background-color: {{color}};" bindtap="searchGoodsName">
         <i-icon type="search" size="20" color="#FFFFFF" />
@@ -12,22 +12,44 @@
     </view>
     <view class="clear-name" bindtap="clearGoodaName">清除</view>
   </view>
+</view>
+<scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height: {{height}}px;">
   <!-- <view class="history" wx:if="{{historyList.length > 0}}">
     <view wx:for="{{historyList}}" wx:key="history">{{item}}</view>
   </view> -->
-</view>
 
-<view class="goods-list" wx:if="{{list.length > 0}}">
-  <view class="goods-info" wx:for="{{list}}" wx:key="goods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
-    <view class="info-icon">
-      <image src="{{path + item.coverSrc + timestamp}}"></image>
-    </view>
-    <view class="info-details">
-      <view class="name">{{item.goodsName}}</view>
-      <view class="price-details" style="{{item.discount === 100 ? 'line-height: 50px;':''}}">
-        <label class="price" wx:if="{{item.discount !== 100}}">￥{{filters.toFix(item.minPrice*item.discount/100) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice*item.discount/100):'')}}</label>
-      <label class="price {{item.discount !== 100 ? 'price-org':''}}">￥{{filters.toFix(item.minPrice) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice):'')}}</label>
+  <view class="goods-list">
+    <view class="goods-info" wx:for="{{list}}" wx:key="goods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
+      <view class="info-icon">
+        <image src="{{path + item.coverSrc + timestamp}}"></image>
+      </view>
+      <view class="info-details">
+        <view class="name">{{item.goodsName}}</view>
+        <view class="price-details" style="{{item.discount === 100 ? 'line-height: 50px;':''}}">
+          <label class="price" wx:if="{{item.discount !== 100}}">￥{{filters.toFix(item.minPrice*item.discount/100) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice*item.discount/100):'')}}</label>
+          <label class="price {{item.discount !== 100 ? 'price-org':''}}">￥{{filters.toFix(item.minPrice) + (item.maxPrice > item.minPrice ? '-' + filters.toFix(item.maxPrice):'')}}</label>
+        </view>
       </view>
     </view>
   </view>
-</view>
+
+  <view class="recommend" wx:if="{{recommendGoodsList.length > 0}}">
+    <view class="title">您可能感兴趣的商品</view>
+    <view class="r-goods" wx:for="{{recommendGoodsList}}" wx:key="recommendGoods" bindtap="loadGoodsDetails" data-id="{{item.id}}">
+      <view class="g-item">
+        <image class="icon" src="/images/discount/discount_{{filters.sub(color, 1, 8)}}.png" wx:if="{{item.discount != 100}}"></image>
+        <view class="image">
+          <image src="{{path + item.coverSrc + timestamp}}"></image>
+        </view>
+        <view class="name">{{item.goodsName}}</view>
+        <view class="price">
+          <label style="font-size: 12px;">￥</label>
+          <label>{{filters.toFix(item.minPrice*item.discount/100)}}</label>
+          <label wx:if="{{item.minPrice != item.maxPrice}}"> - {{filters.toFix(item.maxPrice*item.discount/100)}}</label>
+        </view>
+        <view class="sell" wx:if="{{item.sellCount < 100}}">已售{{item.sellCount}}件</view>
+        <view class="sell" wx:else>已畅销{{item.sellCount}}件</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

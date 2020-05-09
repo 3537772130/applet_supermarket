@@ -1,0 +1,2 @@
+<!--pages/advert-web/advert-web.wxml-->
+<web-view src="{{relationWebsite}}"></web-view>

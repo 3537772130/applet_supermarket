@@ -7,9 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    scrollTop: 0,
     goodsName: '',
     placeholder: '请输入商品名称...',
-    historyList: []
+    historyList: [],
+    recommendGoodsList: []
   },
 
   /**
@@ -17,7 +19,21 @@ Page({
    */
   onLoad: function(options) {
     app.setAppletColor(this)
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
+    var that = this
+    wx.request({
+      url: app.globalData.path + '/api/applet/goods/loadRecommendGoodsList',
+      header: {
+        appletCode: app.globalData.appletCode
+      },
+      success: function (res) {
+        if (res.data.code == '1') {
+          that.setData({
+            recommendGoodsList: res.data.data
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -111,10 +127,19 @@ Page({
         },
         success: function (res) {
           if (res.data.code == '1') {
+            var data = res.data.data
             that.setData({
-              list: res.data.data
+              scrollTop: 0,
+              list: data.list,
+              recommendGoodsList: data.recommendGoodsList
             })
             updateStorage(that, goodsName)
+          } else {
+            wx.showToast({
+              title: '未找到相关商品 >_<',
+              icon: 'none',
+              duration: 2000
+            })
           }
         },
         complete: function () {

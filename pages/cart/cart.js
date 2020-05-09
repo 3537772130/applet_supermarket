@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pageLogo: 'CART',
     totalPrice: 0.00,
     cartList: [],
     ifEdit: false,
@@ -45,9 +46,6 @@ Page({
    */
   onShow: function() {
     app.setAppletColor(this)
-    this.setData({
-      cartList: []
-    })
     if (app.globalData.userInfo) {
       var that = this
       wx.showLoading({
@@ -294,10 +292,18 @@ Page({
   },
   immediateSettlement: function() {
     if (app.globalData.bindStatus) {
-      var json = JSON.stringify(this.data.idList)
-      wx.navigateTo({
-        url: '/pages/cart/settlement/settlement?json=' + json + '&totalPrice=' + this.data.totalPrice,
-      })
+      // var json = JSON.stringify(this.data.idList)
+      // wx.navigateTo({
+      //   url: '/pages/cart/settlement/settlement?json=' + json + '&totalPrice=' + this.data.totalPrice,
+      // })
+      if (app.globalData.appletInfo.ifOpenPay) {
+        var json = JSON.stringify(this.data.idList)
+        wx.navigateTo({
+          url: '/pages/cart/settlement/settlement?json=' + json + '&totalPrice=' + this.data.totalPrice,
+        })
+      } else {
+        app.showModal('非常抱歉，暂未开通下单功能。')
+      }
     } else {
       app.bindMobileShowModal()
     }

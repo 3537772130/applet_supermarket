@@ -9,6 +9,7 @@ Page({
   data: {
     scrollTop: 0,
     list: [],
+    status: 1,
     page: 1,
     pageSize: 10,
     totalCount: 0,
@@ -22,6 +23,16 @@ Page({
   onLoad: function(options) {
     app.setAppletColor(this)
     wx.hideShareMenu()
+
+    var status = parseInt(options.status)
+    this.setData({
+      status: parseInt(options.status),
+      height: this.data.height - 40
+    })
+    wx.setStorage({
+      key: 'order_status',
+      data: options.status,
+    })
   },
 
   /**
@@ -35,9 +46,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this
     this.setData({
       page: 1,
-      list: []
+      pageSize: 10,
+      list: [],
+      scrollTop: 0
+    })
+    wx.getStorage({
+      key: 'order_status',
+      success: function (res) {
+        that.setData({
+          status: parseInt(res.data)
+        })
+      },
     })
     if (app.globalData.bindStatus) {
       queryOrderList(this)
@@ -98,6 +120,21 @@ Page({
       }, 2000);
     }
   },
+  setStatus: function (event) {
+    var status = event.currentTarget.dataset.status
+    this.setData({
+      status: parseInt(status),
+      page: 1,
+      pageSize: 10,
+      list: [],
+      scrollTop: 0
+    })
+    wx.setStorage({
+      key: 'order_status',
+      data: status
+    })
+    queryOrderList(this)
+  },
   loadDetails: function(event) {
     var id = event.currentTarget.dataset.id
     wx.navigateTo({
@@ -117,8 +154,9 @@ var queryOrderList = function(that) {
     title: '加载中',
   })
   wx.request({
-    url: app.globalData.path + '/api/applet/order/querySaleOrderByUser',
+    url: app.globalData.path + '/api/applet/order/queryOrderInfoByUser',
     data: {
+      orderStatus: that.data.status,
       page: that.data.page,
       pageSize: that.data.pageSize
     },

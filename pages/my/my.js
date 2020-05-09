@@ -5,13 +5,13 @@ const {
   $Message
 } = require('../../dist/base/index');
 
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    pageLogo: 'MY',
     userInfo: null,
     wxInfo: null,
     notice: null,
@@ -22,11 +22,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.setAppletColor(this)
-    wx.hideShareMenu()
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
+    app.setAppletColor(this)
+    wx.hideShareMenu()
   },
 
   /**
@@ -41,10 +42,7 @@ Page({
    */
   onShow: function() {
     var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
+    app.getClientIp()
     // 获取用户信息
     wx.getSetting({
       success(res) {
@@ -52,7 +50,7 @@ Page({
           wx.getUserInfo({
             success: function(res) {
               // 授权登录
-              utils.getAuthorization(that);
+              utils.getAuthorization(that)
             }
           })
         } else {
@@ -70,7 +68,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == '1') {
-          app.globalData.appletInfo = res.data.data
+          app.globalData.appletInfo = res.data.data.info
           app.setAppletColor(that);
         }
       }
@@ -111,9 +109,22 @@ Page({
   onShareAppMessage: function() {
 
   },
+  loadMerchantOrder: function (event){
+    var status = event.currentTarget.dataset.status
+    wx.navigateTo({
+      url: '/pages/my/order/store-order/store-order?status=' + status,
+    })
+  },
+  loadUserOrder: function (event) {
+    var status = event.currentTarget.dataset.status
+    wx.navigateTo({
+      url: '/pages/my/order/my-order/my-order?status=' + status,
+    })
+  },
   loadSet: function() {
     wx.navigateTo({
       url: '/pages/my/set/set',
     })
   }
 })
+
